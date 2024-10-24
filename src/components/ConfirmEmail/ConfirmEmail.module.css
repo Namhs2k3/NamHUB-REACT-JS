@@ -1,0 +1,19 @@
+.email {
+    color: #fc4c00;
+}
+
+.div-confirm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background-image: url(/src/assets/bg.jpg);
+    background-repeat: no-repeat;
+    color: #10375C;
+}
+
+.p-confirm {
+    font-weight: bold;
+    font-size: 30px;
+}
