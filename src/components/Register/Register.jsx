@@ -52,9 +52,9 @@ const Register = () => {
             }, 2000); // Đợi 2 giây trước khi chuyển trang
         } catch (error) {
             if (error.response) {
-                if (error.response.status === 401 && error.response.data.message === "Email đã tồn tại.") {
+                if (error.response.status === 400 && error.response.data === "Email đã tồn tại.") {
                     toast.error("Email đã tồn tại.");
-                } else if (error.response.status === 401 && error.response.data.message === "Tên người dùng đã tồn tại.") {
+                } else if (error.response.status === 400 && error.response.data === "Tên người dùng đã tồn tại.") {
                     toast.error("Tên người dùng đã tồn tại.");
                 } else {
                     toast.error("Đăng ký thất bại. Vui lòng kiểm tra lại thông tin!");
@@ -74,7 +74,7 @@ const Register = () => {
         <div className={clsx(styles["main-register"])}>
             <form className={clsx(styles.register)} onSubmit={handleSubmit}>
                 <div className={clsx(styles["div-logo"])}>
-                    <p className={clsx(styles["register-welcome"])}>Welcome to <span className={clsx(styles["big-logo"])}><span className={clsx(styles["child-logo-1"])}>Nam</span><span className={clsx(styles["child-logo-2"])}>HUB</span></span></p>
+                    <p className={clsx(styles["register-welcome"])}>Register to <span className={clsx(styles["big-logo"])}><span className={clsx(styles["child-logo-1"])}>Nam</span><span className={clsx(styles["child-logo-2"])}>HUB</span></span></p>
                 </div>
 
                 <input type="text"

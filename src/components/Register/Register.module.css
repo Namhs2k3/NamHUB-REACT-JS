@@ -101,6 +101,7 @@
     justify-content: center;
     transform: translate(-7.5rem, 9.3rem);
     width: 0;
+    cursor: pointer;
 }
 
 .icon-eye {
@@ -114,4 +115,5 @@
     align-items: center;
     justify-content: center;
     color: #fc4c00;
+    cursor: pointer;
 }

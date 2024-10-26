@@ -1,0 +1,34 @@
+.dmain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    background-image: url("/src/assets/bg.jpg");
+}
+
+.fmain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.div-header {
+    font-weight: bold;
+    text-align: center;
+    font-size: 70px;
+    margin-bottom: 30px;
+}
+
+.email-input {
+    border: 1px solid #fc4c00 !important;
+    border-radius: 5px;
+    width: 500% !important;
+}
+
+.btn-submit {
+    background-color: #fc4c00 !important;
+    color: aliceblue !important;
+    font-weight: bold !important;
+}

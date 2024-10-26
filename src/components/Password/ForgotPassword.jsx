@@ -1,56 +1,45 @@
 // src/components/Register.jsx
 import { useState } from "react";
-import { register } from "../../api";
+import { forgotPassword } from "../../api";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import clsx from 'clsx'
+import styles from "./FGPwd.module.css"
 
 const Register = () => {
-    const [userData, setUserData] = useState({
-        username: "",
-        email: "",
-        password: "",
-        fullName: ""
-    });
-    const [message, setMessage] = useState("");
-
+    const [userEmail, setUserEmail] = useState("");
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const data = await register(userData);
-            setMessage(data);
+            const data = await forgotPassword(userEmail);
+            toast.success(data)
+            setTimeout(() => {
+                navigate("/input-token-reset-pwd");
+            }, 4000)
         } catch (error) {
-            setMessage("Đăng ký thất bại. Vui lòng thử lại.");
-            console.log(error)
+            toast.error(error.response.data)
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder="Username"
-                value={userData.username}
-                onChange={(e) => setUserData({ ...userData, username: e.target.value })}
-            />
-            <input
-                type="email"
-                placeholder="Email"
-                value={userData.email}
-                onChange={(e) => setUserData({ ...userData, email: e.target.value })}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={userData.password}
-                onChange={(e) => setUserData({ ...userData, password: e.target.value })}
-            />
-            <input
-                type="text"
-                placeholder="Full Name"
-                value={userData.fullName}
-                onChange={(e) => setUserData({ ...userData, fullName: e.target.value })}
-            />
-            <button type="submit">Register</button>
-            {message && <p>{message}</p>}
-        </form>
+        <div className={clsx(styles["dmain"])}>
+            <div className={clsx(styles["div-header"])}>Nhập Email Của Bạn</div>
+            <form onSubmit={handleSubmit} className={clsx(styles["fmain"])}>
+                <input
+                    className={clsx("form-control", styles["email-input"])}
+                    type="email"
+                    placeholder="Email"
+                    value={userEmail}
+                    onChange={(e) => {
+                        setUserEmail(e.target.value)
+                    }}
+                />
+                <button type="submit" className={clsx("form-control", styles["btn-submit"])}>Send</button>
+                <ToastContainer />
+            </form>
+        </div>
+
     );
 };
 

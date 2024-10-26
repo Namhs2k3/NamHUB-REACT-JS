@@ -49,6 +49,10 @@ const Login = () => {
         } catch (apiError) {
             // Xử lý lỗi từ API (ví dụ như lỗi 401 Unauthorized)
             if (apiError.response && apiError.response.status === 401) {
+                if (apiError.response.data === "Email not verified. Please check your email.") {
+                    toast.error("Tài khoản chưa xác minh Email. Vui lòng kiểm tra Email của bạn!")
+                    return
+                }
                 toast.error("Đăng nhập thất bại! Sai tên đăng nhập hoặc mật khẩu.")
             } else {
                 toast.error("Có lỗi xảy ra trong quá trình đăng nhập.")
