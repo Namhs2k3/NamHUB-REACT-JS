@@ -3,8 +3,18 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-image: url("/src/assets/empty-orange-color-shopping-bag-260nw-1520795969_LE_auto_x2_LE_auto_x2.jpg");
+}
+
+.dsubMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    padding: 20px;
+    border-radius: 20px;
     flex-direction: column;
-    background-image: url("/src/assets/bg.jpg");
+    background-color: aliceblue;
 }
 
 .fmain {
@@ -18,20 +28,24 @@
 .div-header {
     font-weight: bold;
     text-align: center;
-    font-size: 70px;
+    font-size: 35px;
     margin-bottom: 30px;
+    color: #fc4c00;
 }
 
 .input {
     border: 1px solid #fc4c00 !important;
     border-radius: 5px;
-    width: 270% !important;
-    height: 65px;
+    width: 150% !important;
 }
 
 .btn-submit {
     background-color: #fc4c00 !important;
     color: aliceblue !important;
     font-weight: bold !important;
-    width: 270% !important;
+    width: 150% !important;
+}
+
+.go-login {
+    color: #fc4c00;
 }

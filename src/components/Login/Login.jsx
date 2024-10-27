@@ -88,15 +88,15 @@ const Login = () => {
                     onChange={handleInputChange} />
 
                 <div className={clsx(styles["div-forgot"])}>
-                    <Link to="/forgot-password" className={clsx(styles["forgot"])}>Forgot password?</Link>
+                    <Link to="/forgot-password" className={clsx(styles["forgot"])}>Quên Mật Khẩu?</Link>
                 </div>
                 <div className={clsx(styles["div-btn-login"])}>
                     <button type="submit" className={clsx(styles["btn-login"])}>
-                        Login
+                        Đăng Nhập
                     </button>
                 </div>
                 <div>
-                    <p>Don&apos;t have an account? <span><Link to="/register" className={clsx(styles["btn-create"])}>CREATE</Link></span></p>
+                    <p>Chưa có tài khoản? <span><Link to="/register" className={clsx(styles["btn-create"])}>Đăng Ký</Link></span></p>
                 </div>
             </form>
             {/* Hiển thị icon và toggle mật khẩu */}

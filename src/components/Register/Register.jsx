@@ -119,11 +119,11 @@ const Register = () => {
 
                 <div className={clsx(styles["div-btn-register"])}>
                     <button type="submit" className={clsx(styles["btn-register"])}>
-                        Register
+                        Đăng Ký
                     </button>
                 </div>
                 <div className={clsx(styles["div-go-login"])}>
-                    <p>Already have an account? <span><Link to="/login" className={clsx(styles["btn-go-login"])}>Login</Link></span></p>
+                    <p>Đã có tài khoản? <span><Link to="/login" className={clsx(styles["btn-go-login"])}>Đăng Nhập</Link></span></p>
                 </div>
             </form>
             {/* Hiển thị icon và toggle mật khẩu */}

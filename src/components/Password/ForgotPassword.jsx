@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { forgotPassword } from "../../api";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import clsx from 'clsx'
 import styles from "./FGPwd.module.css"
 
@@ -24,8 +24,8 @@ const Register = () => {
 
     return (
         <div className={clsx(styles["dmain"])}>
-            <div className={clsx(styles["div-header"])}>Nhập Email Của Bạn</div>
             <form onSubmit={handleSubmit} className={clsx(styles["fmain"])}>
+                <div className={clsx(styles["div-header"])}>Nhập Email Của Bạn</div>
                 <input
                     className={clsx("form-control", styles["email-input"])}
                     type="email"
@@ -36,6 +36,8 @@ const Register = () => {
                     }}
                 />
                 <button type="submit" className={clsx("form-control", styles["btn-submit"])}>Send</button>
+                <Link to="/login" className={clsx(styles["go-login"])}>Quay lại trang đăng nhập</Link>
+
                 <ToastContainer />
             </form>
         </div>
