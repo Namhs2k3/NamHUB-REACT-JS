@@ -1,0 +1,33 @@
+.div-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20%;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.big-logo-dark {
+    background-color: #232121;
+    padding: 10px;
+    border-radius: 5px;
+    letter-spacing: 3px;
+    color: #ffffff;
+}
+
+.big-logo-light {
+    background-color: #f3f4f7;
+    padding: 10px;
+    border-radius: 5px;
+    letter-spacing: 3px;
+    color: #232121;
+}
+
+
+
+.child-logo-2 {
+    background-color: #fc4c00;
+    padding: 2px 2px 2px 4px;
+    border-radius: 5px;
+}
