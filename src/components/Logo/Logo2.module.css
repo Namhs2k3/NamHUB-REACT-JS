@@ -1,0 +1,26 @@
+.big-div-light {
+    background-color: #f3f4f7;
+    padding: 10px;
+    border-radius: 5px;
+    letter-spacing: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #fc4c00;
+    margin-bottom: 20%;
+}
+
+.big-div-dark {
+    background-color: #232121;
+    padding: 10px;
+    border-radius: 5px;
+    letter-spacing: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #fc4c00;
+    border: 1px solid #fc4c00;
+    margin-bottom: 20%;
+}

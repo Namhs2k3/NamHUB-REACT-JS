@@ -5,16 +5,23 @@
     flex-direction: column;
     height: 100vh;
     width: 20%;
-    border-radius: 0 10px 10px 0;
     background-color: #202531;
     padding: 10px;
+    transition: all 0.3s ease-in-out;
 }
 
 .active {
-    background-color: #2a303d;
+    background-color: #fc4c00;
 }
 
-.statistic {
+.statistic,
+.products,
+.banners,
+.categories,
+.customers,
+.discounts,
+.orders,
+.users {
     border-radius: 10px;
     margin-bottom: 2px;
     padding: 15px;
@@ -23,15 +30,97 @@
     align-items: center;
     justify-content: space-between;
     text-decoration: none;
+    transition: all 0.3s ease-in-out;
 }
 
-.products {
+.statistic-collap,
+.products-collap,
+.banners-collap,
+.categories-collap,
+.customers-collap,
+.discounts-collap,
+.orders-collap,
+.users-collap {
     border-radius: 10px;
     margin-bottom: 2px;
     padding: 15px;
     color: aliceblue;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     text-decoration: none;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.statistic:hover,
+.products:hover,
+.banners:hover,
+.categories:hover,
+.customers:hover,
+.discounts:hover,
+.orders:hover,
+.users:hover,
+.home:hover {
+    background: #fc4c00;
+    color: aliceblue;
+}
+
+.statistic-collap:hover,
+.products-collap:hover,
+.banners-collap:hover,
+.categories-collap:hover,
+.customers-collap:hover,
+.discounts-collap:hover,
+.orders-collap:hover,
+.users-collap:hover,
+.home-collap:hover {
+    background: #fc4c00;
+    color: aliceblue;
+}
+
+.home-collap {
+    border: 2px solid #fc4c00;
+    color: #fc4c00;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    margin-top: 45px;
+    border-radius: 10px;
+}
+
+.home {
+    border: 2px solid #fc4c00;
+    color: #fc4c00;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-top: 45px;
+    border-radius: 10px;
+}
+
+.collapsed {
+    width: 5%;
+}
+
+.tag-pop-up {
+    transition: opacity 0.3s ease-in-out;
+    visibility: hidden;
+}
+
+.statistic-collap:hover .tag-pop-up,
+.products-collap:hover .tag-pop-up,
+.banners-collap:hover .tag-pop-up,
+.categories-collap:hover .tag-pop-up,
+.customers-collap:hover .tag-pop-up,
+.discounts-collap:hover .tag-pop-up,
+.orders-collap:hover .tag-pop-up,
+.users-collap:hover .tag-pop-up,
+.home-collap:hover .tag-pop-up {
+    opacity: 1;
+    visibility: visible;
 }
