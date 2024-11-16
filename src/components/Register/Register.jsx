@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { register } from "../../api";
+import Loading from "../Loading/Loading"
 import styles from "./Register.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS của react-toastify
@@ -18,6 +19,7 @@ const Register = () => {
     });
 
     const [confirmPassword, setConfirmPwd] = useState("");
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
 
     // Cập nhật thông tin đăng ký vào state
@@ -37,6 +39,7 @@ const Register = () => {
     // Xử lý đăng ký
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true)
         try {
             if (userData.password !== confirmPassword) {
                 toast.error("Mật khẩu xác nhận không khớp.");
@@ -62,6 +65,8 @@ const Register = () => {
             } else {
                 toast.error("Có lỗi xảy ra. Vui lòng thử lại sau.");
             }
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -132,6 +137,7 @@ const Register = () => {
             </div>
 
             <ToastContainer />
+            {isLoading && <Loading className={clsx(styles["regis-loading"])}></Loading>}
         </div>
     );
 };

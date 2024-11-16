@@ -7,10 +7,12 @@ import styles from "./Login.module.css";
 import { login } from "../../api";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS của react-toastify
+import Loading from "../Loading/Loading";
 
 const Login = () => {
     // State lưu thông tin đăng nhập và lỗi
     const [credentials, setCredentials] = useState({ userName: "", password: "" });
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
 
     // Cập nhật thông tin đăng nhập vào state
@@ -25,6 +27,7 @@ const Login = () => {
     // Xử lý sự kiện đăng nhập
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true)
         try {
             // Kiểm tra cả userName và password không được để trống
             if (credentials.userName !== "" && credentials.password !== "") {
@@ -57,6 +60,8 @@ const Login = () => {
             } else {
                 toast.error("Có lỗi xảy ra trong quá trình đăng nhập.")
             }
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -105,6 +110,7 @@ const Login = () => {
             </div>
 
             <ToastContainer />
+            {isLoading && <Loading className={clsx(styles["login-loading"])}></Loading>}
         </div>
 
     );

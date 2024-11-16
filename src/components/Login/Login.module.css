@@ -111,3 +111,13 @@
 .icon-eye {
     transition: color 0.3s ease-in-out;
 }
+
+.login-loading {
+    position: absolute;
+    background-color: aliceblue;
+    opacity: 0.8;
+    width: 400px !important;
+    height: 550px !important;
+    border-radius: 15px;
+    z-index: 1001;
+}

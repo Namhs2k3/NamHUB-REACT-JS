@@ -118,3 +118,13 @@
     color: #fc4c00;
     cursor: pointer;
 }
+
+.regis-loading {
+    position: absolute;
+    background-color: aliceblue;
+    opacity: 0.8;
+    width: 400px !important;
+    height: 650px !important;
+    border-radius: 15px;
+    z-index: 1001;
+}

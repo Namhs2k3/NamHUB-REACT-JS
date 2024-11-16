@@ -3,22 +3,34 @@ import { useState } from "react";
 import { forgotPassword } from "../../api";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import Loading from "../Loading/Loading"
 import clsx from 'clsx'
 import styles from "./FGPwd.module.css"
 
 const Register = () => {
     const [userEmail, setUserEmail] = useState("");
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true)
         try {
+            if (userEmail === "") {
+                toast.error("Email không được để trống!")
+                return
+            }
             const data = await forgotPassword(userEmail);
             toast.success(data)
             setTimeout(() => {
                 navigate("/input-token-reset-pwd");
             }, 4000)
         } catch (error) {
-            toast.error(error.response.data)
+            if (error.response) {
+                toast.error(error.response.data)
+            } else
+                toast.error("Có lỗi xảy ra, vui lòng thử lại sau ít phút!")
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -39,6 +51,7 @@ const Register = () => {
                 <Link to="/login" className={clsx(styles["go-login"])}>Quay lại trang đăng nhập</Link>
 
                 <ToastContainer />
+                {isLoading && <Loading className={clsx(styles["fg-loading"])}></Loading>}
             </form>
         </div>
 

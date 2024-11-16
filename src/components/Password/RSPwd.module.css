@@ -49,3 +49,14 @@
 .go-login {
     color: #fc4c00;
 }
+
+.rs-loading {
+    position: absolute;
+    background-color: aliceblue;
+    opacity: 0.8;
+    width: 355px !important;
+    height: 467px !important;
+    border-radius: 20px;
+    z-index: 1001;
+    translate: 0 -40px;
+}

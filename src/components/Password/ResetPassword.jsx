@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import clsx from 'clsx'
 import styles from "./RSPwd.module.css"
+import Loading from "../Loading/Loading"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
@@ -14,21 +15,26 @@ const RSPwd = () => {
         newPassword: ""
     });
     const [confirmNewPwd, setConfirm] = useState("");
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true)
         try {
             if (userData.newPassword === confirmNewPwd) {
                 const data = await resetPassword(userData);
                 toast.success(data)
                 setTimeout(() => {
-                    navigate("/input-token-reset-pwd");
+                    navigate("/login");
                 }, 4000)
             } else {
                 toast.error("Mật Khẩu Không Trùng Khớp")
             }
         } catch (error) {
-            toast.error(error.response.data)
+            const err = error.response?.data || "Có lỗi xảy ra!"
+            toast.error(err)
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -84,6 +90,7 @@ const RSPwd = () => {
                     <button type="submit" className={clsx("form-control", styles["btn-submit"])}>Save</button>
                     <Link to="/login" className={clsx(styles["go-login"])}>Quay lại trang đăng nhập</Link>
                     <ToastContainer />
+                    {isLoading && <Loading className={clsx(styles["rs-loading"])}></Loading>}
                 </form>
             </div>
         </div>

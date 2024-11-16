@@ -41,3 +41,13 @@
     color: aliceblue !important;
     font-weight: bold !important;
 }
+
+.fg-loading {
+    position: absolute;
+    background-color: aliceblue;
+    opacity: 0.8;
+    width: 765px !important;
+    height: 375px !important;
+    border-radius: 30px;
+    z-index: 1001;
+}
