@@ -1,62 +1,62 @@
 .dmain {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: url("/src/assets/empty-orange-color-shopping-bag-260nw-1520795969_LE_auto_x2_LE_auto_x2.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("/src/assets/empty-orange-color-shopping-bag-260nw-1520795969_LE_auto_x2_LE_auto_x2.jpg");
 }
 
 .dsubMain {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60vh;
-    padding: 20px;
-    border-radius: 20px;
-    flex-direction: column;
-    background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  padding: 20px;
+  border-radius: 20px;
+  flex-direction: column;
+  background-color: aliceblue;
 }
 
 .fmain {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-direction: column;
 }
 
 .div-header {
-    font-weight: bold;
-    text-align: center;
-    font-size: 35px;
-    margin-bottom: 30px;
-    color: #fc4c00;
+  font-weight: bold;
+  text-align: center;
+  font-size: 35px;
+  margin-bottom: 30px;
+  color: #fc4c00;
 }
 
 .input {
-    border: 1px solid #fc4c00 !important;
-    border-radius: 5px;
-    width: 150% !important;
+  border: 1px solid #fc4c00 !important;
+  border-radius: 5px;
+  width: 150% !important;
 }
 
 .btn-submit {
-    background-color: #fc4c00 !important;
-    color: aliceblue !important;
-    font-weight: bold !important;
-    width: 150% !important;
+  background-color: #fc4c00 !important;
+  color: aliceblue !important;
+  font-weight: bold !important;
+  width: 150% !important;
 }
 
 .go-login {
-    color: #fc4c00;
+  color: #fc4c00;
 }
 
 .rs-loading {
-    position: absolute;
-    background-color: aliceblue;
-    opacity: 0.8;
-    width: 355px !important;
-    height: 467px !important;
-    border-radius: 20px;
-    z-index: 1001;
-    translate: 0 -40px;
+  position: absolute;
+  background-color: aliceblue;
+  opacity: 0.8;
+  width: 355px !important;
+  height: 467px !important;
+  border-radius: 20px;
+  z-index: 1001;
+  translate: 0 -40px;
 }

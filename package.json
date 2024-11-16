@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prettier-check": "prettier --check ./src",
+    "prettier-fix": "prettier --write ./src"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^43.1.0",
@@ -19,6 +21,7 @@
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "clsx": "^2.1.1",
+    "prettier": "^3.3.3",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

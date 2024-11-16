@@ -1,14 +1,14 @@
 .tag-pop-up {
-    opacity: 0;
-    position: absolute;
-    border-radius: 5px;
-    background-color: #202531;
-    color: #fc4c00;
-    width: 200px;
-    height: 40px;
-    translate: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
+  opacity: 0;
+  position: absolute;
+  border-radius: 5px;
+  background-color: #202531;
+  color: #fc4c00;
+  width: 200px;
+  height: 40px;
+  translate: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }

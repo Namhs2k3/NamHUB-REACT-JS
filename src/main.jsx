@@ -28,5 +28,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/admin/products" element={<AdminProducts />} />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

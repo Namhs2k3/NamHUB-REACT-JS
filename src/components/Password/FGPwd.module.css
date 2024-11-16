@@ -1,53 +1,53 @@
 .dmain {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    background-image: url("/src/assets/empty-orange-color-shopping-bag-260nw-1520795969_LE_auto_x2_LE_auto_x2.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  background-image: url("/src/assets/empty-orange-color-shopping-bag-260nw-1520795969_LE_auto_x2_LE_auto_x2.jpg");
 }
 
 .fmain {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    background-color: aliceblue;
-    padding: 50px;
-    border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  background-color: aliceblue;
+  padding: 50px;
+  border-radius: 30px;
 }
 
 .div-header {
-    font-weight: bold;
-    text-align: center;
-    font-size: 70px;
-    margin-bottom: 30px;
-    color: #fc4c00;
+  font-weight: bold;
+  text-align: center;
+  font-size: 70px;
+  margin-bottom: 30px;
+  color: #fc4c00;
 }
 
 .go-login {
-    color: #fc4c00;
+  color: #fc4c00;
 }
 
 .email-input {
-    border: 1px solid #fc4c00 !important;
-    border-radius: 5px;
-    width: 100% !important;
+  border: 1px solid #fc4c00 !important;
+  border-radius: 5px;
+  width: 100% !important;
 }
 
 .btn-submit {
-    background-color: #fc4c00 !important;
-    color: aliceblue !important;
-    font-weight: bold !important;
+  background-color: #fc4c00 !important;
+  color: aliceblue !important;
+  font-weight: bold !important;
 }
 
 .fg-loading {
-    position: absolute;
-    background-color: aliceblue;
-    opacity: 0.8;
-    width: 765px !important;
-    height: 375px !important;
-    border-radius: 30px;
-    z-index: 1001;
+  position: absolute;
+  background-color: aliceblue;
+  opacity: 0.8;
+  width: 765px !important;
+  height: 375px !important;
+  border-radius: 30px;
+  z-index: 1001;
 }

@@ -1,17 +1,17 @@
 .main-side-bar {
-    position: sticky;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 20%;
-    background-color: #202531;
-    padding: 10px;
-    transition: all 0.3s ease-in-out;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 20%;
+  background-color: #202531;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
 }
 
 .active {
-    background-color: #fc4c00;
+  background-color: #fc4c00;
 }
 
 .statistic,
@@ -22,15 +22,15 @@
 .discounts,
 .orders,
 .users {
-    border-radius: 10px;
-    margin-bottom: 2px;
-    padding: 15px;
-    color: aliceblue;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  margin-bottom: 2px;
+  padding: 15px;
+  color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
 }
 
 .statistic-collap,
@@ -41,16 +41,16 @@
 .discounts-collap,
 .orders-collap,
 .users-collap {
-    border-radius: 10px;
-    margin-bottom: 2px;
-    padding: 15px;
-    color: aliceblue;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    position: relative;
-    transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  margin-bottom: 2px;
+  padding: 15px;
+  color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease-in-out;
 }
 
 .statistic:hover,
@@ -62,8 +62,8 @@
 .orders:hover,
 .users:hover,
 .home:hover {
-    background: #fc4c00;
-    color: aliceblue;
+  background: #fc4c00;
+  color: aliceblue;
 }
 
 .statistic-collap:hover,
@@ -75,41 +75,41 @@
 .orders-collap:hover,
 .users-collap:hover,
 .home-collap:hover {
-    background: #fc4c00;
-    color: aliceblue;
+  background: #fc4c00;
+  color: aliceblue;
 }
 
 .home-collap {
-    border: 2px solid #fc4c00;
-    color: #fc4c00;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    margin-top: 45px;
-    border-radius: 10px;
+  border: 2px solid #fc4c00;
+  color: #fc4c00;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  margin-top: 45px;
+  border-radius: 10px;
 }
 
 .home {
-    border: 2px solid #fc4c00;
-    color: #fc4c00;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    margin-top: 45px;
-    border-radius: 10px;
+  border: 2px solid #fc4c00;
+  color: #fc4c00;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  margin-top: 45px;
+  border-radius: 10px;
 }
 
 .collapsed {
-    width: 5%;
+  width: 5%;
 }
 
 .tag-pop-up {
-    transition: opacity 0.3s ease-in-out;
-    visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+  visibility: hidden;
 }
 
 .statistic-collap:hover .tag-pop-up,
@@ -121,6 +121,6 @@
 .orders-collap:hover .tag-pop-up,
 .users-collap:hover .tag-pop-up,
 .home-collap:hover .tag-pop-up {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }

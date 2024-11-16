@@ -1,30 +1,30 @@
 .email {
-    color: #fc4c00;
+  color: #fc4c00;
 }
 
 .main-div {
-    background-image: url(/src/assets/empty-orange-color-shopping-bag-260nw-1520795969_LE_auto_x2_LE_auto_x2.jpg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  background-image: url(/src/assets/empty-orange-color-shopping-bag-260nw-1520795969_LE_auto_x2_LE_auto_x2.jpg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .div-confirm {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 50vh;
-    background-color: aliceblue;
-    background-repeat: no-repeat;
-    color: #10375C;
-    padding: 50px;
-    border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 50vh;
+  background-color: aliceblue;
+  background-repeat: no-repeat;
+  color: #10375c;
+  padding: 50px;
+  border-radius: 30px;
 }
 
 .p-confirm {
-    font-weight: bold;
-    font-size: 30px;
-    color: #fc4c00;
+  font-weight: bold;
+  font-size: 30px;
+  color: #fc4c00;
 }

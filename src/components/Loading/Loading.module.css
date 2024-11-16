@@ -1,27 +1,27 @@
 .big-div {
-    width: 100%;
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fc4c00;
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fc4c00;
 }
 
 .loading {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    border-left: 3px solid #fc4c00;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border-left: 3px solid #fc4c00;
 
-    animation: loading 0.5s linear infinite;
+  animation: loading 0.5s linear infinite;
 }
 
 @keyframes loading {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
