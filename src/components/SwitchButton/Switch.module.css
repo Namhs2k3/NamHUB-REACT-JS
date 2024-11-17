@@ -1,0 +1,102 @@
+.big-div-light {
+    margin-right: 55px;
+    transition: all 0.3s linear;
+    background-color: #06B6D4;
+    padding: 1px;
+    border-radius: 30px;
+    position: relative;
+}
+
+.big-div-dark {
+    margin-right: 55px;
+    transition: all 0.3s linear;
+    background-color: #334155;
+    padding: 1px;
+    border-radius: 30px;
+}
+
+.big-div:hover,
+.icon:hover,
+.switch:hover {
+    cursor: pointer;
+}
+
+.icon {
+    background-color: #06B6D4;
+    padding: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+    width: 10px !important;
+    height: 10px !important;
+    color: #fff;
+    opacity: 0.5;
+}
+
+.icon-checked {
+    background-color: #334155;
+    padding: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+    width: 10px !important;
+    height: 10px !important;
+    color: #fff;
+    opacity: 0.5;
+}
+
+.div-switch {
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    position: absolute;
+    padding: 5px;
+    transform: translateX(-14px);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.switch-default {
+    padding: 5px;
+    animation: pop1 0.4s linear;
+}
+
+.switch-changed {
+    padding: 5px;
+    animation: pop2 0.4s linear;
+}
+
+.div-switch-clicked {
+    position: absolute;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    transform: translateX(14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+}
+
+@keyframes pop1 {
+    0% {
+        scale: 0.3;
+    }
+
+    100% {
+        scale: 1;
+    }
+}
+
+@keyframes pop2 {
+    0% {
+        scale: 0.3;
+    }
+
+    100% {
+        scale: 1;
+    }
+}

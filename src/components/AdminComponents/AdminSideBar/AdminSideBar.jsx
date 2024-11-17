@@ -17,20 +17,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Popup from "./Popup.jsx";
+import { useContext } from "react";
+import { ThemeContext } from "../../../contexts/ThemeContext.jsx";
 
 const AdminSideBar = ({ site, isSidebarCollapsed }) => {
-  const theme = "dark";
+  const { isChecked } = useContext(ThemeContext);
   return (
     <div
       className={clsx(
-        styles["main-side-bar"],
-        isSidebarCollapsed && styles["collapsed"],
+        styles[isChecked ? "main-side-bar-light" : "main-side-bar-dark"],
+        isSidebarCollapsed && styles["collapsed"]
       )}
     >
       {!isSidebarCollapsed ? (
-        <Logo theme={theme}></Logo>
+        <Logo theme={!isChecked ? "dark" : "light"}></Logo>
       ) : (
-        <Logo2 theme={theme}></Logo2>
+        <Logo2 theme={!isChecked ? "dark" : "light"}></Logo2>
       )}
 
       <div className="text-secondary fw-bold mb-3">
@@ -40,8 +42,16 @@ const AdminSideBar = ({ site, isSidebarCollapsed }) => {
       <Link
         to="/admin/statistic"
         className={clsx(
-          styles[!isSidebarCollapsed ? "statistic" : "statistic-collap"],
-          styles[site === "statistic" ? "active" : ""],
+          styles[
+            !isSidebarCollapsed
+              ? !isChecked
+                ? "statistic"
+                : "statistic-l"
+              : !isChecked
+                ? "statistic-collap"
+                : "statistic-l-collap"
+          ],
+          styles[site === "statistic" ? "active" : ""]
         )}
       >
         {!isSidebarCollapsed ? "Statistic" : ""}
@@ -58,8 +68,16 @@ const AdminSideBar = ({ site, isSidebarCollapsed }) => {
       <Link
         to="/admin/products"
         className={clsx(
-          styles[!isSidebarCollapsed ? "products" : "products-collap"],
-          styles[site === "products" ? "active" : ""],
+          styles[
+            !isSidebarCollapsed
+              ? !isChecked
+                ? "statistic"
+                : "statistic-l"
+              : !isChecked
+                ? "statistic-collap"
+                : "statistic-l-collap"
+          ],
+          styles[site === "products" ? "active" : ""]
         )}
       >
         {!isSidebarCollapsed ? "Products" : ""}
@@ -72,8 +90,16 @@ const AdminSideBar = ({ site, isSidebarCollapsed }) => {
       <Link
         to="/admin/banners"
         className={clsx(
-          styles[!isSidebarCollapsed ? "banners" : "banners-collap"],
-          styles[site === "banners" ? "active" : ""],
+          styles[
+            !isSidebarCollapsed
+              ? !isChecked
+                ? "statistic"
+                : "statistic-l"
+              : !isChecked
+                ? "statistic-collap"
+                : "statistic-l-collap"
+          ],
+          styles[site === "banners" ? "active" : ""]
         )}
       >
         {!isSidebarCollapsed ? "Banners" : ""}
@@ -86,8 +112,16 @@ const AdminSideBar = ({ site, isSidebarCollapsed }) => {
       <Link
         to="/admin/categories"
         className={clsx(
-          styles[!isSidebarCollapsed ? "categories" : "categories-collap"],
-          styles[site === "categories" ? "active" : ""],
+          styles[
+            !isSidebarCollapsed
+              ? !isChecked
+                ? "statistic"
+                : "statistic-l"
+              : !isChecked
+                ? "statistic-collap"
+                : "statistic-l-collap"
+          ],
+          styles[site === "categories" ? "active" : ""]
         )}
       >
         {!isSidebarCollapsed ? "Categories" : ""}
@@ -103,8 +137,16 @@ const AdminSideBar = ({ site, isSidebarCollapsed }) => {
       <Link
         to="/admin/customers"
         className={clsx(
-          styles[!isSidebarCollapsed ? "customers" : "customers-collap"],
-          styles[site === "customers" ? "active" : ""],
+          styles[
+            !isSidebarCollapsed
+              ? !isChecked
+                ? "statistic"
+                : "statistic-l"
+              : !isChecked
+                ? "statistic-collap"
+                : "statistic-l-collap"
+          ],
+          styles[site === "customers" ? "active" : ""]
         )}
       >
         {!isSidebarCollapsed ? "Customers" : ""}
@@ -117,8 +159,16 @@ const AdminSideBar = ({ site, isSidebarCollapsed }) => {
       <Link
         to="/admin/discounts"
         className={clsx(
-          styles[!isSidebarCollapsed ? "discounts" : "discounts-collap"],
-          styles[site === "discounts" ? "active" : ""],
+          styles[
+            !isSidebarCollapsed
+              ? !isChecked
+                ? "statistic"
+                : "statistic-l"
+              : !isChecked
+                ? "statistic-collap"
+                : "statistic-l-collap"
+          ],
+          styles[site === "discounts" ? "active" : ""]
         )}
       >
         {!isSidebarCollapsed ? "Discounts" : ""}
@@ -131,8 +181,16 @@ const AdminSideBar = ({ site, isSidebarCollapsed }) => {
       <Link
         to="/admin/orders"
         className={clsx(
-          styles[!isSidebarCollapsed ? "orders" : "orders-collap"],
-          styles[site === "orders" ? "active" : ""],
+          styles[
+            !isSidebarCollapsed
+              ? !isChecked
+                ? "statistic"
+                : "statistic-l"
+              : !isChecked
+                ? "statistic-collap"
+                : "statistic-l-collap"
+          ],
+          styles[site === "orders" ? "active" : ""]
         )}
       >
         {!isSidebarCollapsed ? "Orders" : ""}
@@ -145,8 +203,16 @@ const AdminSideBar = ({ site, isSidebarCollapsed }) => {
       <Link
         to="/admin/users"
         className={clsx(
-          styles[!isSidebarCollapsed ? "users" : "users-collap"],
-          styles[site === "users" ? "active" : ""],
+          styles[
+            !isSidebarCollapsed
+              ? !isChecked
+                ? "statistic"
+                : "statistic-l"
+              : !isChecked
+                ? "statistic-collap"
+                : "statistic-l-collap"
+          ],
+          styles[site === "users" ? "active" : ""]
         )}
       >
         {!isSidebarCollapsed ? "Users" : ""}

@@ -1,4 +1,4 @@
-.main-side-bar {
+.main-side-bar-dark {
   position: sticky;
   top: 0;
   display: flex;
@@ -6,12 +6,27 @@
   height: 100vh;
   width: 20%;
   background-color: #202531;
+  border-right: 1px solid #202531;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.main-side-bar-light {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 20%;
+  background-color: #fff;
+  border-right: 1px solid #c6c6c6;
   padding: 10px;
   transition: all 0.3s ease-in-out;
 }
 
 .active {
   background-color: #fc4c00;
+  color: aliceblue !important;
 }
 
 .statistic,
@@ -26,6 +41,25 @@
   margin-bottom: 2px;
   padding: 15px;
   color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.statistic-l,
+.products-l,
+.banners-l,
+.categories-l,
+.customers-l,
+.discounts-l,
+.orders-l,
+.users-l {
+  border-radius: 10px;
+  margin-bottom: 2px;
+  padding: 15px;
+  color: #202531;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,6 +87,26 @@
   transition: all 0.3s ease-in-out;
 }
 
+.statistic-l-collap,
+.products-l-collap,
+.banners-l-collap,
+.categories-l-collap,
+.customers-l-collap,
+.discounts-l-collap,
+.orders-l-collap,
+.users-l-collap {
+  border-radius: 10px;
+  margin-bottom: 2px;
+  padding: 15px;
+  color: #202531;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
 .statistic:hover,
 .products:hover,
 .banners:hover,
@@ -62,6 +116,19 @@
 .orders:hover,
 .users:hover,
 .home:hover {
+  background: #fc4c00;
+  color: aliceblue;
+}
+
+.statistic-l:hover,
+.products-l:hover,
+.banners-l:hover,
+.categories-l:hover,
+.customers-l:hover,
+.discounts-l:hover,
+.orders-l:hover,
+.users-l:hover,
+.home-l:hover {
   background: #fc4c00;
   color: aliceblue;
 }
@@ -110,6 +177,7 @@
 .tag-pop-up {
   transition: opacity 0.3s ease-in-out;
   visibility: hidden;
+  border: #fc4c00 2px solid;
 }
 
 .statistic-collap:hover .tag-pop-up,
@@ -123,4 +191,18 @@
 .home-collap:hover .tag-pop-up {
   opacity: 1;
   visibility: visible;
+}
+
+.statistic-l-collap:hover .tag-pop-up,
+.products-l-collap:hover .tag-pop-up,
+.banners-l-collap:hover .tag-pop-up,
+.categories-l-collap:hover .tag-pop-up,
+.customers-l-collap:hover .tag-pop-up,
+.discounts-l-collap:hover .tag-pop-up,
+.orders-l-collap:hover .tag-pop-up,
+.users-l-collap:hover .tag-pop-up,
+.home-l-collap:hover .tag-pop-up {
+  opacity: 1;
+  visibility: visible;
+  background-color: #fff;
 }

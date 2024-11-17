@@ -7,14 +7,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
+import Switch from "../../SwitchButton/Switch";
+import { ThemeContext } from "../../../contexts/ThemeContext";
 
 const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
   const navigate = useNavigate("");
 
   const [isHide, setIsHide] = useState(true);
-  const [isChecked, setIsChecked] = useState(true);
+  const { isChecked, handleChecked } = useContext(ThemeContext);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -32,9 +34,6 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
     setIsHide(!isHide);
   };
 
-  const handleChecked = () => {
-    setIsChecked((prev) => !prev);
-  };
   return (
     <div
       className={clsx(
@@ -48,24 +47,7 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
         className={clsx(styles["menuButton"])}
       />
       <div className="d-flex justify-content-between align-items-center">
-        {
-          <div className="form-check form-switch">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              role="switch"
-              id="flexSwitchCheckChecked"
-              checked={isChecked}
-              onClick={handleChecked}
-            />
-            <label
-              className="form-check-label"
-              htmlFor="flexSwitchCheckChecked"
-            >
-              {isChecked ? "Dark" : "Light"}
-            </label>
-          </div>
-        }
+        <Switch isChecked={isChecked} handleCheck={handleChecked} />
         <img
           src="/src/assets/8-CQnrj2m9.jpg"
           alt=""
