@@ -3,12 +3,12 @@ import AdminSideBar from "../AdminSideBar/AdminSideBar";
 import styles from "./AdminStatistic.module.css";
 import AdminNavbar from "../AdminNavbar/AdminNavbar";
 import Loading from "../../Loading/Loading";
-import { useState } from "react";
+import { useContext } from "react";
+import { ToggleSidebarContext } from "../../../contexts/ToggleSidebarContext";
+
 const AdminStatistic = () => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const toggleSidebar = () => {
-    setIsSidebarCollapsed((prev) => !prev);
-  };
+  const { isSidebarCollapsed, toggleSidebar } =
+    useContext(ToggleSidebarContext);
 
   return (
     <div className={clsx(styles["main-statistic"])}>

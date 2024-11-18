@@ -4,7 +4,6 @@ import { createContext, useState } from "react";
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  localStorage.setItem("isCheked", false);
   const [isChecked, setIsChecked] = useState(() => {
     const storedValue = localStorage.getItem("isChecked");
     return storedValue === "true"; // Convert từ chuỗi về boolean

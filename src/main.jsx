@@ -12,6 +12,7 @@ import "bootstrap"; // Import Bootstrap JS
 import AdminStatistic from "./components/AdminComponents/AdminStatistic/AdminStatistic";
 import AdminProducts from "./components/AdminComponents/AdminProducts/AdminProducts";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { ToggleSidebarProvider } from "./contexts/ToggleSidebarContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -25,9 +26,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/input-token-reset-pwd" element={<ResetPassword />} />
-          <Route path="/admin" element={<AdminStatistic />} />
-          <Route path="/admin/statistic" element={<AdminStatistic />} />
-          <Route path="/admin/products" element={<AdminProducts />} />
+          <Route
+            path="/admin/*"
+            element={
+              <ToggleSidebarProvider>
+                <Routes>
+                  <Route index element={<AdminStatistic />} />
+                  <Route path="statistic" element={<AdminStatistic />} />
+                  <Route path="products" element={<AdminProducts />} />
+                </Routes>
+              </ToggleSidebarProvider>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
