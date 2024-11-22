@@ -53,11 +53,13 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
           alt=""
           className={clsx(styles["avatar"])}
           onMouseEnter={handleHiddenOnclick}
+          onMouseLeave={handleHiddenOnclick}
         />
       </div>
       <div
         className={clsx(styles["popup"], styles[isHide ? "popup-hidden" : ""])}
         onMouseLeave={handleHiddenOnclick}
+        onMouseEnter={handleHiddenOnclick}
       >
         <div className={clsx(styles["setting"])}>Settings</div>
         <Link to="/profile/edit" className={clsx(styles["profile"])}>

@@ -12,7 +12,7 @@
   align-items: center;
   height: 60vh;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 7px;
   flex-direction: column;
   background-color: aliceblue;
 }
@@ -56,7 +56,7 @@
   opacity: 0.8;
   width: 355px !important;
   height: 467px !important;
-  border-radius: 20px;
+  border-radius: 7px;
   z-index: 1001;
   translate: 0 -40px;
 }

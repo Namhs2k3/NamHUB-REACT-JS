@@ -12,7 +12,7 @@
   height: 550px;
   width: 400px;
   background-color: #fff;
-  border-radius: 15px;
+  border-radius: 7px;
   padding: 2%;
   box-shadow: 0px 0px 300px 40px #fc4c00;
 }
@@ -117,6 +117,6 @@
   opacity: 0.8;
   width: 400px !important;
   height: 550px !important;
-  border-radius: 15px;
+  border-radius: 7px;
   z-index: 1001;
 }

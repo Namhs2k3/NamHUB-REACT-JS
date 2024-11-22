@@ -9,6 +9,7 @@
   border-right: 1px solid #202531;
   padding: 10px;
   transition: all 0.3s ease-in-out;
+  z-index: 1001;
 }
 
 .main-side-bar-light {
@@ -22,6 +23,7 @@
   border-right: 1px solid #c6c6c6;
   padding: 10px;
   transition: all 0.3s ease-in-out;
+  z-index: 1001;
 }
 
 .active {
@@ -142,6 +144,19 @@
 .orders-collap:hover,
 .users-collap:hover,
 .home-collap:hover {
+  background: #fc4c00;
+  color: aliceblue;
+}
+
+.statistic-l-collap:hover,
+.products-l-collap:hover,
+.banners-l-collap:hover,
+.categories-l-collap:hover,
+.customers-l-collap:hover,
+.discounts-l-collap:hover,
+.orders-l-collap:hover,
+.users-l-collap:hover,
+.home-l-collap:hover {
   background: #fc4c00;
   color: aliceblue;
 }

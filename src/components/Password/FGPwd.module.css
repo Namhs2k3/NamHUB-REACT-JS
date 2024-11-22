@@ -15,7 +15,7 @@
   gap: 10px;
   background-color: aliceblue;
   padding: 50px;
-  border-radius: 30px;
+  border-radius: 7px;
 }
 
 .div-header {
@@ -34,6 +34,7 @@
   border: 1px solid #fc4c00 !important;
   border-radius: 5px;
   width: 100% !important;
+  text-align: center;
 }
 
 .btn-submit {
@@ -48,6 +49,6 @@
   opacity: 0.8;
   width: 765px !important;
   height: 375px !important;
-  border-radius: 30px;
+  border-radius: 7px;
   z-index: 1001;
 }

@@ -58,3 +58,148 @@ export const resetPassword = async (resetData) => {
     throw error;
   }
 };
+
+// New User 
+
+
+export const getAllUser = async () => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/all-users`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+export const getNewUserByMonth = async (year,month) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/new-users?year=${year?? new Date().getFullYear()}&month=${month ?? new Date().getMonth()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+export const getNewUserByQuater = async (year) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/new-users-by-year-group-by-quarter?year=${year??new Date().getFullYear()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+//Món Bán Chạy
+export const getBestSellerByQuater = async () => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/best-sellers-by-quarter`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+// Doanh Thu
+export const getTotalRevenue = async () => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/revenue`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+export const getRevenueByMonth = async (year,month) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/revenue-by-time?year=${year??new Date().getFullYear()}&month=${month??new Date().getMonth()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+export const getRevenueByQuarter= async (year,quarter) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/revenue-by-time?year=${year??new Date().getFullYear()}&quarter=${quarter??1}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+export const getRevenueByPeriodDate= async (start,end) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/revenue-by-date?startDate=${start}&endDate=${end}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+// Doanh thu theo payment method 
+export const getRevenueByPaymentMethod= async (start,end) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/revenue-by-payment-method-in-period-time?startDate=${start}&endDate=${end}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+// Doanh thu theo Danh Mục 
+export const getRevenueByCategory= async (start,end) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/revenue-by-category-in-period-time?startDate=${start}&endDate=${end}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+// Doanh thu theo Sản Phẩm
+
+export const getRevenueByProduct= async (start,end) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/revenue-by-product-in-period-time?startDate=${start}&endDate=${end}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+// Đơn Hàng 
+export const getTotalOrders= async () => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/orders-count`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+export const getOrderCountByTime= async (start,end) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/orders-count-by-time?startDate=${start}&endDate=${end}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+// Best Seller 
+export const getBestSeller= async () => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/best-seller-products`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+export const getBestSellerByQuarter= async (year) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/AdminStatistics/best-sellers-by-quarter?year=${year}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};

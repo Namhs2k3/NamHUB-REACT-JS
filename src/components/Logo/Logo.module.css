@@ -15,6 +15,7 @@
   letter-spacing: 3px;
   color: #ffffff;
   border: 1px solid #fc4c00;
+  transition: all 0.3s ease-in-out;
 }
 
 .big-logo-light {
@@ -24,6 +25,7 @@
   letter-spacing: 3px;
   color: #232121;
   border: 1px solid #fc4c00;
+  transition: all 0.3s ease-in-out;
 }
 
 .child-logo-2 {

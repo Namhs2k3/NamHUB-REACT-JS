@@ -13,6 +13,12 @@ import AdminStatistic from "./components/AdminComponents/AdminStatistic/AdminSta
 import AdminProducts from "./components/AdminComponents/AdminProducts/AdminProducts";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ToggleSidebarProvider } from "./contexts/ToggleSidebarContext";
+import NotFound from "./components/NotFound/NotFound";
+import {
+  Unauthenticated,
+  Unauthorized,
+} from "./components/Unauthorized/Unauth";
+import "./main.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -38,6 +44,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </ToggleSidebarProvider>
             }
           />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/unauthenticated" element={<Unauthenticated />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -40,7 +40,7 @@ const Login = () => {
         // Tránh lỗi của API
         if (!data || !data.token) {
           toast.error(
-            "Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin đăng nhập.",
+            "Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin đăng nhập."
           );
         } else {
           // Lưu token vào localStorage và điều hướng đến trang Home
@@ -62,7 +62,7 @@ const Login = () => {
           "Email not verified. Please check your email."
         ) {
           toast.error(
-            "Tài khoản chưa xác minh Email. Vui lòng kiểm tra Email của bạn!",
+            "Tài khoản chưa xác minh Email. Vui lòng kiểm tra Email của bạn!"
           );
           return;
         }

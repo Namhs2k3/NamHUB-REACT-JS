@@ -5,19 +5,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: sticky;
+  top: 0px;
+  z-index: 1000;
   transition: all 0.3s ease-in-out;
   background-color: #fc4c00;
+  box-shadow: 0 0 10px;
 }
 
 .main-nav-collapsed {
   padding: 10px;
-  width: 95vw !important;
+  width: 94vw !important;
   border-bottom: 1px solid #fc4c00;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: sticky;
+  top: 0px;
 }
 
 .avatar {
@@ -46,6 +50,7 @@
     visibility 0.3s ease-in-out;
   opacity: 1;
   visibility: visible;
+  border: #3A4155 1px solid;
 }
 
 .popup-hidden {

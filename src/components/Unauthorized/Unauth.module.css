@@ -1,0 +1,31 @@
+.not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fc4c00;
+    height: 100vh;
+    font-weight: bold;
+    font-size: 65px;
+    flex-direction: column;
+}
+
+.big-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.go-home {
+    border-radius: 30px;
+    margin-top: 50px;
+    border: #fc4c00 2px solid;
+    background-color: #fff;
+    color: #fc4c00;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px;
+}
+
+.sad {
+    font-size: 250px;
+}
