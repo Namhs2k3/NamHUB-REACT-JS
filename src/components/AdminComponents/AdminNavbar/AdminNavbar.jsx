@@ -37,14 +37,15 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
   return (
     <div
       className={clsx(
-        styles["main-nav"],
-        isSidebarCollapsed && styles["main-nav-collapsed"]
+        styles[!isChecked ? "main-nav" : "main-nav-light"],
+        isSidebarCollapsed &&
+          styles[!isChecked ? "main-nav-collapsed" : "main-nav-collapsed-light"]
       )}
     >
       <FontAwesomeIcon
         icon={faBars}
         onClick={toggleSidebar}
-        className={clsx(styles["menuButton"])}
+        className={clsx(styles[!isChecked ? "menuButton" : "menuButton-light"])}
       />
       <div className="d-flex justify-content-between align-items-center">
         <Switch isChecked={isChecked} handleCheck={handleChecked} />

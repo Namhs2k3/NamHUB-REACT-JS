@@ -820,7 +820,7 @@ const AdminStatistic = () => {
     },
     plugins: {
       legend: {
-        position: "top",
+        position: "right",
       },
       tooltip: {
         enabled: true, // Cái này sẽ tự định dạng số luôn
@@ -837,6 +837,7 @@ const AdminStatistic = () => {
       title: {
         display: true,
         text: `Doanh Thu Theo Sản Phẩm Trong Năm ${newUsersByQuarter.year}`,
+        position: "bottom",
       },
     },
   };
@@ -878,7 +879,7 @@ const AdminStatistic = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        position: "right",
       },
       tooltip: {
         enabled: true, // Cái này sẽ tự định dạng số luôn
@@ -895,6 +896,7 @@ const AdminStatistic = () => {
       title: {
         display: true,
         text: `Doanh Thu Theo Phương Thức Thanh Toán Trong Năm ${newUsersByQuarter.year}`,
+        position: "bottom",
       },
     },
   };
@@ -936,7 +938,7 @@ const AdminStatistic = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        position: "right",
       },
       tooltip: {
         enabled: true, // Cái này sẽ tự định dạng số luôn
@@ -953,6 +955,7 @@ const AdminStatistic = () => {
       title: {
         display: true,
         text: `Doanh Thu Theo Danh Mục Sản Phẩm Trong Năm ${newUsersByQuarter.year}`,
+        position: "bottom",
       },
     },
     cutout: "40%", // Điều chỉnh độ dày của Doughnut chart (phần trống giữa vòng tròn)
@@ -971,37 +974,77 @@ const AdminStatistic = () => {
           isSidebarCollapsed={isSidebarCollapsed}
         />
         <div className={clsx(styles[isChecked ? "main-light" : "main-dark"])}>
-          <div
-            className={clsx(styles[isChecked ? "filter-light" : "filter-dark"])}
-          >
-            Đang Xem Thống Kê Về
-            <select
-              name="filter-type"
-              id="filter-type"
-              value={selectedType}
-              onChange={handleChangeType}
-              className={clsx(styles["filter-type"])}
+          <div className="d-flex justify-content-between align-items-center">
+            <div
+              className={clsx(
+                styles[isChecked ? "filter-light" : "filter-dark"],
+                styles["statistic-filter"]
+              )}
             >
-              <option value="revenue">Doanh Thu</option>
-              <option value="orders">Đơn Hàng</option>
-              <option value="users">Người Dùng</option>
-              <option value="best-seller">Bán Chạy</option>
-            </select>
+              Đang Xem Thống Kê Về
+              <select
+                name="filter-type"
+                id="filter-type"
+                value={selectedType}
+                onChange={handleChangeType}
+                className={clsx(styles["filter-type"])}
+              >
+                <option value="revenue">Doanh Thu</option>
+                <option value="orders">Đơn Hàng</option>
+                <option value="users">Người Dùng</option>
+                <option value="best-seller">Bán Chạy</option>
+              </select>
+            </div>
+            <div
+              className={clsx(
+                styles[isChecked ? "filter-light" : "filter-dark"],
+                styles["statistic-filter"]
+              )}
+            >
+              Thống Kê Trong Năm
+              <select
+                name="filter-type"
+                id="filter-type"
+                value={selectedYear}
+                onChange={handleChangeYear}
+                className={clsx(styles["filter-type"])}
+              >
+                <option value={new Date().getFullYear()}>
+                  {new Date().getFullYear()}
+                </option>
+                <option value={new Date().getFullYear() - 1}>
+                  {new Date().getFullYear() - 1}
+                </option>
+                <option value={new Date().getFullYear() - 2}>
+                  {new Date().getFullYear() - 2}
+                </option>
+              </select>
+            </div>
           </div>
           {selectedType === "revenue" && (
             <>
-              <div
-                className={clsx(
-                  "d-flex justify-content-center align-items-center",
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <p>
-                  Tổng Doanh Thu :{" "}
-                  <span className={clsx(styles["revenue"])}>
-                    {totalRevenue}đ
-                  </span>
-                </p>
+              <div className={clsx(styles["div-bar-line"])}>
+                <div
+                  className={clsx(
+                    styles[isChecked ? "new-user-light" : "new-user-dark"],
+                    styles[
+                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
+                    ]
+                  )}
+                >
+                  <Bar data={revenueMonth} options={optionRevenueMonth} />
+                </div>
+
+                <div
+                  className={clsx(
+                    styles[isChecked ? "new-user-light" : "new-user-dark"],
+                    styles[
+                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
+                    ]
+                  )}
+                >
+                  <Line data={quarterRevenue} options={optionsQuarterRevenue} />
+                </div>
               </div>
 
               <div
@@ -1059,12 +1102,12 @@ const AdminStatistic = () => {
                     đ
                   </span>
                 </p>
-                <div className="d-flex justify-content-center align-items-center w-75 flex-column mt-5 gap-5">
+                <div className="d-flex justify-content-center align-items-center w-100 gap-3">
                   <div
                     style={{
-                      width: "133%",
-                      height: "700px",
-                      padding: "50px",
+                      width: "30%",
+                      height: "350px",
+                      padding: "0",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
@@ -1074,9 +1117,9 @@ const AdminStatistic = () => {
                   </div>
                   <div
                     style={{
-                      width: "133%",
-                      height: "700px",
-                      padding: "50px",
+                      width: "30%",
+                      height: "350px",
+                      padding: "0",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
@@ -1086,9 +1129,9 @@ const AdminStatistic = () => {
                   </div>
                   <div
                     style={{
-                      width: "133%",
-                      height: "700px",
-                      padding: "50px",
+                      width: "30%",
+                      height: "350px",
+                      padding: "0px",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
@@ -1098,51 +1141,47 @@ const AdminStatistic = () => {
                   </div>
                 </div>
               </div>
-
               <div
                 className={clsx(
-                  styles[isChecked ? "filter-light" : "filter-dark"]
-                )}
-              >
-                Thống Kê Trong Năm
-                <select
-                  name="filter-type"
-                  id="filter-type"
-                  value={selectedYear}
-                  onChange={handleChangeYear}
-                  className={clsx(styles["filter-type"])}
-                >
-                  <option value={new Date().getFullYear()}>
-                    {new Date().getFullYear()}
-                  </option>
-                  <option value={new Date().getFullYear() - 1}>
-                    {new Date().getFullYear() - 1}
-                  </option>
-                  <option value={new Date().getFullYear() - 2}>
-                    {new Date().getFullYear() - 2}
-                  </option>
-                </select>
-              </div>
-
-              <div
-                className={clsx(
+                  "d-flex justify-content-center align-items-center",
                   styles[isChecked ? "new-user-light" : "new-user-dark"]
                 )}
               >
-                <Bar data={revenueMonth} options={optionRevenueMonth} />
-              </div>
-
-              <div
-                className={clsx(
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <Line data={quarterRevenue} options={optionsQuarterRevenue} />
+                <p>
+                  Tổng Doanh Thu :{" "}
+                  <span className={clsx(styles["revenue"])}>
+                    {totalRevenue}đ
+                  </span>
+                </p>
               </div>
             </>
           )}
           {selectedType === "users" && (
             <>
+              <div className={clsx(styles["div-bar-line"])}>
+                <div
+                  className={clsx(
+                    styles[isChecked ? "new-user-light" : "new-user-dark"],
+                    styles[
+                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
+                    ]
+                  )}
+                >
+                  <Bar data={dataBar} options={optionsBar} />
+                </div>
+
+                <div
+                  className={clsx(
+                    styles[isChecked ? "new-user-light" : "new-user-dark"],
+                    styles[
+                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
+                    ]
+                  )}
+                >
+                  <Line data={data} options={options} />
+                </div>
+              </div>
+
               <div
                 className={clsx(
                   "d-flex justify-content-center align-items-center",
@@ -1154,173 +1193,113 @@ const AdminStatistic = () => {
                   <span className={clsx(styles["revenue"])}>{allUsers}</span>
                 </p>
               </div>
-
-              <div
-                className={clsx(
-                  styles[isChecked ? "filter-light" : "filter-dark"]
-                )}
-              >
-                Thống Kê Trong Năm
-                <select
-                  name="filter-type"
-                  id="filter-type"
-                  value={selectedYear}
-                  onChange={handleChangeYear}
-                  className={clsx(styles["filter-type"])}
-                >
-                  <option value={new Date().getFullYear()}>
-                    {new Date().getFullYear()}
-                  </option>
-                  <option value={new Date().getFullYear() - 1}>
-                    {new Date().getFullYear() - 1}
-                  </option>
-                  <option value={new Date().getFullYear() - 2}>
-                    {new Date().getFullYear() - 2}
-                  </option>
-                </select>
-              </div>
-
-              <div
-                className={clsx(
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <Bar data={dataBar} options={optionsBar} />
-              </div>
-
-              <div
-                className={clsx(
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <Line data={data} options={options} />
-              </div>
             </>
           )}
           {selectedType === "orders" && (
             <>
-              <div
-                className={clsx(
-                  "d-flex justify-content-center align-items-center",
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <p>
-                  Tổng Số Đơn Hàng :{" "}
-                  <span className={clsx(styles["revenue"])}>
-                    {getTotalOrder}
-                  </span>
-                </p>
-              </div>
-              <div
-                className={clsx(
-                  "d-flex justify-content-center align-items-center",
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <p>
-                  Số Đơn Hàng Trong Ngày :{" "}
-                  <span className={clsx(styles["revenue"])}>
-                    {getTodayOrders}
-                  </span>
-                </p>
-              </div>
-
-              <div
-                className={clsx(
-                  "d-flex justify-content-center align-items-center flex-column",
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <div className={clsx(styles["filter-tiltle"])}>
-                  LỌC THEO KHOẢNG THỜI GIAN
-                </div>
-                <DatePicker
-                  selected={selectedDate.start}
-                  onChange={(date) =>
-                    setSelectedDate((prev) => ({
-                      ...prev, // Sao chép các giá trị hiện tại
-                      start: date, // Thay đổi thuộc tính `start`
-                    }))
-                  }
-                  dateFormat="MM/dd/yyyy"
-                  showDateSelect
-                  placeholderText="Start"
-                  className={clsx(styles["date"])}
-                />
-                Đến
-                <DatePicker
-                  selected={selectedDate.end}
-                  onChange={(date) =>
-                    date >= selectedDate.start
-                      ? setSelectedDate((prev) => ({
-                          ...prev, // Sao chép các giá trị hiện tại
-                          end: date, // Thay đổi thuộc tính `start`
-                        }))
-                      : toast.error(
-                          "Ngày kết thúc (End) phải lớn hơn hoặc bằng ngày bắt đầu (Start)"
-                        )
-                  }
-                  dateFormat="MM/dd/yyyy"
-                  showDateSelect
-                  placeholderText="End"
-                  className={clsx(styles["date"])}
-                />
-                <p>
-                  Số Đơn Hàng Từ Ngày{" "}
-                  <span className={clsx(styles["revenue"])}>
-                    {format(selectedDate.start, "MM/dd/yyyy")}
-                  </span>{" "}
-                  Đến Ngày{" "}
-                  <span className={clsx(styles["revenue"])}>
-                    {format(selectedDate.end, "MM/dd/yyyy")}
-                  </span>{" "}
-                  Là{" "}
-                  <span className={clsx(styles["revenue"])}>
-                    {getOrdersByPeriodTime}
-                  </span>
-                </p>
-              </div>
-
-              <div
-                className={clsx(
-                  styles[isChecked ? "filter-light" : "filter-dark"]
-                )}
-              >
-                Thống Kê Trong Năm
-                <select
-                  name="filter-type"
-                  id="filter-type"
-                  value={selectedYear}
-                  onChange={handleChangeYear}
-                  className={clsx(styles["filter-type"])}
+              <div className={clsx(styles["div-bar-line"])}>
+                <div
+                  className={clsx(
+                    styles[isChecked ? "new-user-light" : "new-user-dark"],
+                    styles[
+                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
+                    ]
+                  )}
                 >
-                  <option value={new Date().getFullYear()}>
-                    {new Date().getFullYear()}
-                  </option>
-                  <option value={new Date().getFullYear() - 1}>
-                    {new Date().getFullYear() - 1}
-                  </option>
-                  <option value={new Date().getFullYear() - 2}>
-                    {new Date().getFullYear() - 2}
-                  </option>
-                </select>
+                  <Bar data={dataBarOrders} options={optionsBarOrders} />
+                </div>
+
+                <div
+                  className={clsx(
+                    styles[isChecked ? "new-user-light" : "new-user-dark"],
+                    styles[
+                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
+                    ]
+                  )}
+                >
+                  <Line data={dataOrders} options={optionsOrders} />
+                </div>
               </div>
 
-              <div
-                className={clsx(
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <Bar data={dataBarOrders} options={optionsBarOrders} />
-              </div>
+              <div className="d-flex justify-content-between align-items-center">
+                <div
+                  className={clsx(
+                    "d-flex justify-content-center align-items-center flex-column m-0",
+                    styles[isChecked ? "new-user-light" : "new-user-dark"],
+                    styles["all-order"]
+                  )}
+                >
+                  <p>
+                    Tổng Số Đơn Hàng :{" "}
+                    <span className={clsx(styles["revenue"])}>
+                      {getTotalOrder}
+                    </span>
+                  </p>
 
-              <div
-                className={clsx(
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <Line data={dataOrders} options={optionsOrders} />
+                  <p>
+                    Số Đơn Hàng Trong Ngày :{" "}
+                    <span className={clsx(styles["revenue"])}>
+                      {getTodayOrders}
+                    </span>
+                  </p>
+                </div>
+
+                <div
+                  className={clsx(
+                    "d-flex justify-content-center align-items-center flex-column m-0",
+                    styles[isChecked ? "new-user-light" : "new-user-dark"],
+                    styles["all-order-by-time"]
+                  )}
+                >
+                  <div className={clsx(styles["filter-tiltle"])}>
+                    LỌC THEO KHOẢNG THỜI GIAN
+                  </div>
+                  <DatePicker
+                    selected={selectedDate.start}
+                    onChange={(date) =>
+                      setSelectedDate((prev) => ({
+                        ...prev, // Sao chép các giá trị hiện tại
+                        start: date, // Thay đổi thuộc tính `start`
+                      }))
+                    }
+                    dateFormat="MM/dd/yyyy"
+                    showDateSelect
+                    placeholderText="Start"
+                    className={clsx(styles["date"])}
+                  />
+                  Đến
+                  <DatePicker
+                    selected={selectedDate.end}
+                    onChange={(date) =>
+                      date >= selectedDate.start
+                        ? setSelectedDate((prev) => ({
+                            ...prev, // Sao chép các giá trị hiện tại
+                            end: date, // Thay đổi thuộc tính `start`
+                          }))
+                        : toast.error(
+                            "Ngày kết thúc (End) phải lớn hơn hoặc bằng ngày bắt đầu (Start)"
+                          )
+                    }
+                    dateFormat="MM/dd/yyyy"
+                    showDateSelect
+                    placeholderText="End"
+                    className={clsx(styles["date"])}
+                  />
+                  <p>
+                    Số Đơn Hàng Từ Ngày{" "}
+                    <span className={clsx(styles["revenue"])}>
+                      {format(selectedDate.start, "MM/dd/yyyy")}
+                    </span>{" "}
+                    Đến Ngày{" "}
+                    <span className={clsx(styles["revenue"])}>
+                      {format(selectedDate.end, "MM/dd/yyyy")}
+                    </span>{" "}
+                    Là{" "}
+                    <span className={clsx(styles["revenue"])}>
+                      {getOrdersByPeriodTime}
+                    </span>
+                  </p>
+                </div>
               </div>
             </>
           )}
@@ -1333,7 +1312,7 @@ const AdminStatistic = () => {
                 )}
               >
                 <div>
-                  Top 5 Sản Phẩm Bán Chạy Nhất{" "}
+                  Top 5 Sản Phẩm Bán Chạy Nhất Mọi Thời Điểm{" "}
                   <FontAwesomeIcon icon={faMedal} />
                 </div>
                 <div className={clsx(styles["best-seller-table"])}>
@@ -1358,26 +1337,6 @@ const AdminStatistic = () => {
                   styles[isChecked ? "new-user-light" : "new-user-dark"]
                 )}
               >
-                <div>
-                  SẢN PHẨM BÁN CHẠY THEO QUÝ TRONG NĂM
-                  <select
-                    name="filter-type"
-                    id="filter-type"
-                    value={selectedYear}
-                    onChange={handleChangeYear}
-                    className={clsx(styles["filter-type"])}
-                  >
-                    <option value={new Date().getFullYear()}>
-                      {new Date().getFullYear()}
-                    </option>
-                    <option value={new Date().getFullYear() - 1}>
-                      {new Date().getFullYear() - 1}
-                    </option>
-                    <option value={new Date().getFullYear() - 2}>
-                      {new Date().getFullYear() - 2}
-                    </option>
-                  </select>
-                </div>
                 <div className={clsx(styles["best-seller-by-quarter-table"])}>
                   {Array.from({ length: 4 }).map((_, quarterIndex) => {
                     const quarter = quarterIndex + 1; // Quý 1 -> Quý 4

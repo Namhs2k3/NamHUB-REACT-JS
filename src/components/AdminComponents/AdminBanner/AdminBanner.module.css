@@ -1,0 +1,47 @@
+.main-banners {
+    display: flex;
+}
+
+.banner {
+    position: relative;
+}
+
+.main-light {
+    padding: 20px;
+    background-color: #F3F4F7;
+    min-height: 92vh;
+    transition: all 0.3s ease-in-out;
+}
+
+.main-dark {
+    padding: 20px;
+    background-color: #292E37;
+    min-height: 92vh;
+    color: aliceblue;
+    transition: all 0.3s ease-in-out;
+}
+
+.new-user-light {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    border: #c6c6c6 1px solid;
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.new-user-dark {
+    background-color: #313944;
+    padding: 10px;
+    border-radius: 5px;
+    border: #4e4e4e 1px solid;
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.loading {
+    position: absolute;
+    background-color: #fff;
+    opacity: 0.7;
+    height: 100vh;
+}

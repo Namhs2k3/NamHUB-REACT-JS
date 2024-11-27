@@ -9,14 +9,14 @@
 .main-light {
   padding: 20px;
   background-color: #F3F4F7;
-  min-height: 92vh;
+  min-height: 91.5vh;
   transition: all 0.3s ease-in-out;
 }
 
 .main-dark {
   padding: 20px;
-  background-color: #1D222B;
-  min-height: 92vh;
+  background-color: #292E37;
+  min-height: 91.5vh;
   color: aliceblue;
   transition: all 0.3s ease-in-out;
 }
@@ -26,16 +26,16 @@
   padding: 10px;
   border-radius: 5px;
   border: #c6c6c6 1px solid;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   transition: all 0.3s ease-in-out;
 }
 
 .new-user-dark {
-  background-color: #202531;
+  background-color: #313944;
   padding: 10px;
   border-radius: 5px;
   border: #4e4e4e 1px solid;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   transition: all 0.3s ease-in-out;
 }
 
@@ -61,7 +61,7 @@
   padding: 10px;
   border-radius: 5px;
   border: #c6c6c6 1px solid;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   transition: all 0.3s ease-in-out;
   display: flex;
   justify-content: center;
@@ -69,11 +69,11 @@
 }
 
 .filter-dark {
-  background-color: #202531;
+  background-color: #313944;
   padding: 10px;
   border-radius: 5px;
   border: #4e4e4e 1px solid;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   transition: all 0.3s ease-in-out;
   display: flex;
   justify-content: center;
@@ -92,13 +92,11 @@
 }
 
 .revenue {
-  color: #fc4c00;
   font-weight: bold;
 }
 
 .filter-tiltle {
   font-size: 40px;
-  color: #fc4c00;
   font-weight: 700;
 }
 
@@ -163,7 +161,7 @@
 .my-floating-label {
   position: absolute;
   top: -13px;
-  background-color: #202531;
+  background-color: #313944;
   padding: 0 10px 0 10px;
   color: #fc4c00;
   transition: all 0.3s ease-in-out;
@@ -176,4 +174,38 @@
   padding: 0 10px 0 10px;
   color: #fc4c00;
   transition: all 0.3s ease-in-out;
+}
+
+.bar-line {
+  width: 49.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bar-line-collapsed {
+  width: 49.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div-bar-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.all-order {
+  width: 30%;
+  height: 293.2px;
+}
+
+.all-order-by-time {
+  width: 69%;
+  height: 293.2px;
+}
+
+.statistic-filter {
+  width: 49.5%;
 }

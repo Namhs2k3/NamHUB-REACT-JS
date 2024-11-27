@@ -1,7 +1,7 @@
 .main-nav {
   padding: 10px;
   width: 80vw !important;
-  border-bottom: 1px solid #fc4c00;
+  border-bottom: 1px solid #292E37;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9,14 +9,40 @@
   top: 0px;
   z-index: 1000;
   transition: all 0.3s ease-in-out;
-  background-color: #fc4c00;
+  background-color: #292E37;
+  box-shadow: 0 0 10px;
+}
+
+.main-nav-light {
+  padding: 10px;
+  width: 80vw !important;
+  border-bottom: 1px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0px;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+  background-color: #fff;
   box-shadow: 0 0 10px;
 }
 
 .main-nav-collapsed {
   padding: 10px;
   width: 94vw !important;
-  border-bottom: 1px solid #fc4c00;
+  border-bottom: 1px solid #292E37;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0px;
+}
+
+.main-nav-collapsed-light {
+  padding: 10px;
+  width: 94vw !important;
+  border-bottom: 1px solid #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,7 +67,7 @@
   width: 150px;
   position: absolute;
   border-radius: 5px;
-  background-color: #202531;
+  background-color: #292E37;
   border: none;
   top: 60px;
   right: 30px;
@@ -70,6 +96,7 @@
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom: 1px solid #fc4c00;
+  background: #323A49;
 }
 
 .profile,
@@ -92,7 +119,8 @@
   rotate: 180deg;
 }
 
-.menuButton:hover {
+.menuButton:hover,
+.menuButton-light:hover {
   cursor: pointer;
   background-color: #202531;
   color: #e7eaee;
@@ -102,4 +130,10 @@
   padding: 10px;
   border-radius: 2px;
   color: #e7eaee;
+}
+
+.menuButton-light {
+  padding: 10px;
+  border-radius: 2px;
+  color: #000;
 }

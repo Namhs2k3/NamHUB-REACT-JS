@@ -5,8 +5,8 @@
   flex-direction: column;
   height: 100vh;
   width: 20%;
-  background-color: #202531;
-  border-right: 1px solid #202531;
+  background-color: #292E37;
+  border-right: 1px solid #313944;
   padding: 10px;
   transition: all 0.3s ease-in-out;
   z-index: 1001;
@@ -61,7 +61,7 @@
   border-radius: 10px;
   margin-bottom: 2px;
   padding: 15px;
-  color: #202531;
+  color: #313944;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -100,7 +100,7 @@
   border-radius: 10px;
   margin-bottom: 2px;
   padding: 15px;
-  color: #202531;
+  color: #313944;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -220,4 +220,5 @@
   opacity: 1;
   visibility: visible;
   background-color: #fff;
+  color: #313944;
 }

@@ -203,3 +203,42 @@ export const getBestSellerByQuarter= async (year) => {
     }});
   return response.data;
 };
+
+// Product List
+
+export const getProdList= async (name) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/product-manage-for-admin/get-products-list?name=${name}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+export const getProdListById= async (id) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/product-manage-for-admin/get-products-list?id=${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+export const updateProd= async (productId,formData) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.put(`${backendUrl}/api/product-manage-for-admin/update-product/${productId}`,formData,{
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};
+
+// Category 
+export const getCategoryList= async () => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${backendUrl}/api/categories-manage-for-admin/get-categories-list`, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Thêm Authorization header vào yêu cầu
+    }});
+  return response.data;
+};

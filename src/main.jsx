@@ -10,7 +10,16 @@ import ConfirmEmail from "./components/ConfirmEmail/ConfirmEmail";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import "bootstrap"; // Import Bootstrap JS
 import AdminStatistic from "./components/AdminComponents/AdminStatistic/AdminStatistic";
-import AdminProducts from "./components/AdminComponents/AdminProducts/AdminProducts";
+import AdminProducts, {
+  AddProduct,
+  EditProduct,
+} from "./components/AdminComponents/AdminProducts/AdminProducts";
+import AdminBanner from "./components/AdminComponents/AdminBanner/AdminBanner";
+import AdminCategory from "./components/AdminComponents/AdminCategory/AdminCategory";
+import AdminCustomer from "./components/AdminComponents/AdminCustomer/AdminCustomer";
+import AdminUser from "./components/AdminComponents/AdminUser/AdminUser";
+import AdminDiscount from "./components/AdminComponents/AdminDiscount/AdminDiscount";
+import AdminOrder from "./components/AdminComponents/AdminOrder/AdminOrder";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ToggleSidebarProvider } from "./contexts/ToggleSidebarContext";
 import NotFound from "./components/NotFound/NotFound";
@@ -40,6 +49,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                   <Route index element={<AdminStatistic />} />
                   <Route path="statistic" element={<AdminStatistic />} />
                   <Route path="products" element={<AdminProducts />} />
+                  <Route path="products/add-product" element={<AddProduct />} />
+                  <Route
+                    path="products/edit-product/:slug/:id"
+                    element={<EditProduct />}
+                  />
+                  <Route path="banners" element={<AdminBanner />} />
+                  <Route path="categories" element={<AdminCategory />} />
+                  <Route path="customers" element={<AdminCustomer />} />
+                  <Route path="discounts" element={<AdminDiscount />} />
+                  <Route path="orders" element={<AdminOrder />} />
+                  <Route path="users" element={<AdminUser />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </ToggleSidebarProvider>
             }
