@@ -45,3 +45,288 @@
     opacity: 0.7;
     height: 100vh;
 }
+
+.title {
+    text-align: center;
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.div-table {
+    max-height: 510px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.badge {
+    padding: 0.4em 0.6em;
+    border-radius: 0.5em;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 59.25px;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.custom-thead {
+    background-color: #7d89e5;
+    /* Màu header */
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.custom-thead tr th {
+    background-color: #fff;
+    /* Màu header */
+    color: #D53044;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+    /* Màu nền dòng lẻ */
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: #fff;
+    /* Màu nền dòng chẵn */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #ff6778;
+    /* Màu hover */
+}
+
+tbody tr:hover td,
+tbody tr:hover th {
+    background-color: #ff6778;
+    color: #fff;
+    /* Màu hover */
+}
+
+td,
+th {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: bold;
+}
+
+tr {
+    transition: background-color 0.3s ease;
+}
+
+/* Tùy chỉnh toàn bộ thanh cuộn */
+.div-table::-webkit-scrollbar {
+    width: 8px;
+    /* Độ rộng của thanh cuộn */
+    height: 8px;
+    /* Chiều cao của thanh cuộn ngang (nếu có) */
+}
+
+/* Tùy chỉnh phần track (nền phía sau thanh cuộn) */
+.div-table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Màu nền */
+    border-radius: 10px;
+    /* Bo góc */
+}
+
+/* Tùy chỉnh thanh cuộn (scrollbar thumb) */
+.div-table::-webkit-scrollbar-thumb {
+    background: #D53044;
+    /* Màu thanh cuộn */
+    border-radius: 17px 17px 10px 10px;
+    /* Bo góc */
+}
+
+/* Thêm hiệu ứng hover cho thanh cuộn */
+.div-table::-webkit-scrollbar-thumb:hover {
+    background: #D53044;
+    /* Màu khi hover */
+}
+
+/* Tùy chỉnh thanh cuộn khi nhấn (active) */
+.div-table::-webkit-scrollbar-thumb:active {
+    background: #D53044;
+    /* Màu khi nhấn */
+}
+
+.my-big-modal {
+    position: fixed;
+    /* Đổi sang fixed để modal hoạt động tốt hơn khi cuộn */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Sử dụng rgba để tạo hiệu ứng overlay mờ */
+    width: 100%;
+    height: 100vh;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    /* Đảm bảo phủ toàn bộ màn hình */
+    left: 0;
+}
+
+.my-main-modal {
+    width: 30%;
+    max-width: 500px;
+    /* Giới hạn chiều rộng cho màn hình lớn */
+    height: auto;
+    /* Cho phép chiều cao tự động */
+    background-color: #fff;
+    position: fixed;
+    z-index: 2002;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    /* Bo góc mềm mại hơn */
+    padding: 20px;
+    /* Tăng padding để các phần tử không bị dính sát */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Thêm bóng mờ cho modal */
+    animation: fadeIn 0.3s ease;
+    /* Hiệu ứng mượt khi modal xuất hiện */
+}
+
+.update-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    /* Tăng khoảng cách giữa tiêu đề và nội dung */
+}
+
+.btn-x {
+    padding: 5px;
+    margin-bottom: 15px;
+    /* Xóa khoảng cách thừa */
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+.btn-x:hover {
+    cursor: pointer;
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+label {
+    font-size: 16px;
+    color: #292E37;
+    /* Màu chữ tối để dễ đọc hơn */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Khoảng cách giữa checkbox và label */
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2);
+    /* Tăng kích thước checkbox */
+    accent-color: #007bff;
+    /* Đổi màu checkbox theo thương hiệu */
+}
+
+button.btn-info {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.input-field:focus {
+    border-color: #007bff;
+    outline: none;
+    background-color: #fff;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-info:hover {
+    background-color: #0056b3;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}

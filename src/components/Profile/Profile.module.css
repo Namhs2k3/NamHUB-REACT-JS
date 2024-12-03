@@ -1,0 +1,368 @@
+/* styles/EditProfile.module.css */
+
+.big-container {
+    position: relative;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.alert {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.loading {
+    position: absolute;
+    top: 0;
+    background-color: #fff;
+    opacity: 0.8;
+    height: 100vh;
+}
+
+.my-big-modal {
+    position: fixed;
+    /* Đổi sang fixed để modal hoạt động tốt hơn khi cuộn */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Sử dụng rgba để tạo hiệu ứng overlay mờ */
+    width: 100%;
+    height: 100vh;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    /* Đảm bảo phủ toàn bộ màn hình */
+    left: 0;
+}
+
+.my-main-modal {
+    width: 50%;
+    /* Giới hạn chiều rộng cho màn hình lớn */
+    height: auto;
+    /* Cho phép chiều cao tự động */
+    background-color: #fff;
+    position: fixed;
+    z-index: 2002;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    /* Bo góc mềm mại hơn */
+    padding: 20px;
+    /* Tăng padding để các phần tử không bị dính sát */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Thêm bóng mờ cho modal */
+    animation: fadeIn 0.3s ease;
+    /* Hiệu ứng mượt khi modal xuất hiện */
+}
+
+.update-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    /* Tăng khoảng cách giữa tiêu đề và nội dung */
+}
+
+.btn-x {
+    padding: 5px;
+    margin-bottom: 15px;
+    /* Xóa khoảng cách thừa */
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+.btn-x:hover {
+    cursor: pointer;
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+label {
+    font-size: 16px;
+    color: #292E37;
+    /* Màu chữ tối để dễ đọc hơn */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Khoảng cách giữa checkbox và label */
+}
+
+.custom-label {
+    width: max-content;
+    margin-left: 10px;
+}
+
+input[type="checkbox"] {
+    transform: scale(2);
+    /* Tăng kích thước checkbox */
+    accent-color: #007bff;
+    /* Đổi màu checkbox theo thương hiệu */
+}
+
+button.btn-info {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.custom-input-field {
+    width: 5%;
+    padding: 125px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.input-field:focus {
+    border-color: #007bff;
+    outline: none;
+    background-color: #fff;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-info:hover {
+    background-color: #0056b3;
+}
+
+.my-big-edit-modal {
+    position: fixed;
+    /* Đổi sang fixed để modal hoạt động tốt hơn khi cuộn */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Sử dụng rgba để tạo hiệu ứng overlay mờ */
+    width: 100%;
+    height: 100vh;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    /* Đảm bảo phủ toàn bộ màn hình */
+    left: 0;
+}
+
+.my-main-edit-modal {
+    width: 50%;
+    /* Giới hạn chiều rộng cho màn hình lớn */
+    height: auto;
+    /* Cho phép chiều cao tự động */
+    background-color: #fff;
+    position: fixed;
+    z-index: 2002;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    /* Bo góc mềm mại hơn */
+    padding: 20px;
+    /* Tăng padding để các phần tử không bị dính sát */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Thêm bóng mờ cho modal */
+    animation: fadeIn 0.3s ease;
+    /* Hiệu ứng mượt khi modal xuất hiện */
+}
+
+.div-addresses {
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #e5e5e5;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+/* Tùy chỉnh toàn bộ thanh cuộn */
+.div-addresses::-webkit-scrollbar {
+    width: 8px;
+    /* Độ rộng của thanh cuộn */
+    height: 8px;
+    /* Chiều cao của thanh cuộn ngang (nếu có) */
+}
+
+/* Tùy chỉnh phần track (nền phía sau thanh cuộn) */
+.div-addresses::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Màu nền */
+    border-radius: 10px;
+    /* Bo góc */
+}
+
+/* Tùy chỉnh thanh cuộn (scrollbar thumb) */
+.div-addresses::-webkit-scrollbar-thumb {
+    background: #0071ea;
+    /* Màu thanh cuộn */
+    border-radius: 10px 10px 10px 10px;
+    /* Bo góc */
+}
+
+/* Thêm hiệu ứng hover cho thanh cuộn */
+.div-addresses::-webkit-scrollbar-thumb:hover {
+    background: #0071ea;
+    /* Màu khi hover */
+}
+
+/* Tùy chỉnh thanh cuộn khi nhấn (active) */
+.div-addresses::-webkit-scrollbar-thumb:active {
+    background: #0071ea;
+    /* Màu khi nhấn */
+}
+
+.input-editing {
+    border: 2px solid #007bff !important;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.my-confirm-delete-modal {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    z-index: 2100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+}
+
+.my-main-confirm-modal {
+    width: 400px;
+    height: auto;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    animation: fadeIn1 0.3s ease;
+}
+
+.header {
+    background-color: #0071ea;
+    border-radius: 10px 10px 0 0;
+    color: #fff;
+    position: sticky;
+    z-index: 3000;
+    font-weight: bold;
+    box-shadow: 0 10px 10px -10px #495057;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes fadeIn1 {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

@@ -7,16 +7,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Switch from "../../SwitchButton/Switch";
 import { ThemeContext } from "../../../contexts/ThemeContext";
+import { getUserInfo } from "../../../api";
 
 const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
   const navigate = useNavigate("");
 
   const [isHide, setIsHide] = useState(true);
   const { isChecked, handleChecked } = useContext(ThemeContext);
+  const [avatar, setAvatar] = useState("");
+  const beURL = import.meta.env.VITE_BACKEND_URL;
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
       const isTokenExist = localStorage.getItem("token");
       if (isTokenExist) {
         localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
       }
       navigate("/login");
     }
@@ -34,6 +38,19 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
     setIsHide(!isHide);
   };
 
+  useEffect(() => {
+    const AvatarData = async () => {
+      const data = await getUserInfo();
+      console.log("data: ", data);
+      setAvatar(data.userImage);
+    };
+
+    AvatarData();
+  }, []);
+
+  useEffect(() => {
+    console.log("img:", beURL, avatar);
+  }, [beURL, avatar]);
   return (
     <div
       className={clsx(
@@ -50,7 +67,7 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
       <div className="d-flex justify-content-between align-items-center">
         <Switch isChecked={isChecked} handleCheck={handleChecked} />
         <img
-          src="/src/assets/8-CQnrj2m9.jpg"
+          src={`${beURL}${avatar}`}
           alt=""
           className={clsx(styles["avatar"])}
           onMouseEnter={handleHiddenOnclick}
@@ -58,17 +75,28 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
         />
       </div>
       <div
-        className={clsx(styles["popup"], styles[isHide ? "popup-hidden" : ""])}
+        className={clsx(
+          styles[isChecked ? "popup-light" : "popup"],
+          styles[isHide ? "popup-hidden" : ""]
+        )}
         onMouseLeave={handleHiddenOnclick}
         onMouseEnter={handleHiddenOnclick}
       >
-        <div className={clsx(styles["setting"])}>Settings</div>
-        <Link to="/profile/edit" className={clsx(styles["profile"])}>
+        <div className={clsx(styles[isChecked ? "setting-light" : "setting"])}>
+          Settings
+        </div>
+        <Link
+          to="/admin/profile/edit"
+          className={clsx(styles[isChecked ? "profile-light" : "profile"])}
+        >
           Profile
           <FontAwesomeIcon icon={faUser} />
         </Link>
 
-        <Link className={clsx(styles["logout"])} onClick={handleLogout}>
+        <Link
+          className={clsx(styles[isChecked ? "logout-light" : "logout"])}
+          onClick={handleLogout}
+        >
           Logout
           <FontAwesomeIcon
             icon={faRightFromBracket}

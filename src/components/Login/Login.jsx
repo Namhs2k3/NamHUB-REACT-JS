@@ -38,13 +38,14 @@ const Login = () => {
 
         // Kiểm tra nếu API trả về phản hồi lỗi hoặc không có token
         // Tránh lỗi của API
-        if (!data || !data.token) {
+        if (!data || !data.token || !data.refreshToken) {
           toast.error(
             "Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin đăng nhập."
           );
         } else {
           // Lưu token vào localStorage và điều hướng đến trang Home
           localStorage.setItem("token", data.token);
+          localStorage.setItem("refreshToken", data.refreshToken);
           toast.success("Đăng nhập thành công!");
           setTimeout(() => {
             toast.dismiss();

@@ -56,6 +56,7 @@
   border-radius: 50%;
   margin-right: 20px;
   border: none;
+  object-fit: cover;
 }
 
 .avatar:hover {
@@ -79,6 +80,24 @@
   border: #3A4155 1px solid;
 }
 
+.popup-light {
+  height: 150px;
+  width: 150px;
+  position: absolute;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  top: 60px;
+  right: 30px;
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
+  opacity: 1;
+  visibility: visible;
+  border: #fc4c00 1px solid;
+}
+
 .popup-hidden {
   opacity: 0;
   visibility: hidden;
@@ -86,8 +105,23 @@
 
 .setting {
   padding: 10px;
-  background-color: #202531;
+  background-color: #fc4c00 !important;
   color: #ffffff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: 1px solid #fc4c00;
+  background: #323A49;
+}
+
+.setting-light {
+  padding: 10px;
+  background-color: #fc4c00 !important;
+  color: #fff;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -109,10 +143,27 @@
   color: #ffffff;
 }
 
+.profile-light,
+.logout-light {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: #000;
+}
+
 .profile:hover,
 .logout:hover {
   background-color: #fc4c00;
   border-radius: 5px;
+}
+
+.profile-light:hover,
+.logout-light:hover {
+  background-color: #fc4c00;
+  border-radius: 5px;
+  color: #fff;
 }
 
 .turn-left {

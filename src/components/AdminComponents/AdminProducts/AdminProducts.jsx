@@ -16,6 +16,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { toast, ToastContainer } from "react-toastify";
 import { Helmet } from "react-helmet";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 const generateSlug = (productName) => {
   // Loại bỏ dấu tiếng Việt
@@ -116,7 +118,7 @@ const AdminProduct = () => {
                 to="/admin/products/add-product"
                 className="btn btn-success text-white mb-3"
               >
-                THÊM SẢN PHẨM
+                <FontAwesomeIcon icon={faCirclePlus} /> Thêm Món
               </Link>
               <div className={clsx(styles["search-container"])}>
                 <input
@@ -231,7 +233,7 @@ const AdminProduct = () => {
                           to={`/admin/products/edit-product/${generateSlug(item.productName)}/${item.productId}`}
                           className="btn btn-warning btn-sm"
                         >
-                          Chỉnh Sửa
+                          <FontAwesomeIcon icon={faPenToSquare} /> Sửa
                         </Link>
                       </td>
                     </tr>
@@ -553,6 +555,7 @@ export const EditProduct = () => {
                     type="file"
                     id="imgURL"
                     name="imgURL"
+                    className={clsx(styles["form-control"], "form-control")}
                     onChange={handleChange}
                   />
                 </div>
@@ -591,7 +594,7 @@ export const EditProduct = () => {
                 </div>
 
                 <button type="submit" className={clsx(styles.submitButton)}>
-                  Save Changes
+                  Lưu Thay Đổi
                 </button>
               </form>
             </div>

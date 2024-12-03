@@ -28,6 +28,7 @@ import {
   Unauthorized,
 } from "./components/Unauthorized/Unauth";
 import "./main.css";
+import Profile, { AdminProfile } from "./components/Profile/Profile";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -65,6 +66,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </ToggleSidebarProvider>
             }
           />
+          <Route path="/customer/profile/edit" element={<Profile />} />
+          <Route path="/admin/profile/edit" element={<AdminProfile />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/unauthenticated" element={<Unauthenticated />} />
           <Route path="*" element={<NotFound />} />
