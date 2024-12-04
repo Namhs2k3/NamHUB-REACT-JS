@@ -5,11 +5,13 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   addUserAddress,
+  createProfile,
   editProfile,
   editUserAddress,
   getUserAddresses,
-  getUserInfo,
+  getCustomerInfo,
   removeUserAddress,
+  getUserInfo,
 } from "../../api";
 import Loading from "../Loading/Loading";
 import { toast, ToastContainer } from "react-toastify";
@@ -18,6 +20,264 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash, faX } from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
 
+export const CreateProfile = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
+  const [userAddress, setUserAddress] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      setIsLoading(false);
+      try {
+        const data = await getUserInfo();
+        console.log("User Info: ", data);
+        setUserInfo(data);
+
+        const cusData = await getCustomerInfo();
+        if (cusData) {
+          navigate("/customer/profile/edit");
+          return;
+        }
+      } catch (err) {
+        console.error("Lỗi khi lấy dữ liệu: ", err);
+        if (err.status === 401) {
+          navigate("/unauthenticated");
+        } else if (err.status === 403) {
+          navigate("/unauthorized");
+        } else if (err.response?.data === "Không tìm thấy khách hàng.")
+          navigate("/customer/profile/create");
+        else navigate("/not-found");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchUserInfo();
+  }, [navigate]);
+
+  useEffect(() => {
+    console.log("userInfo: ", userInfo);
+  }, [userInfo]);
+  const handleChange = (e) => {
+    const { name, value, type, checked, files } = e.target;
+    setUserInfo({
+      ...userInfo,
+      [name]:
+        type === "checkbox" ? checked : type === "file" ? files[0] : value,
+    });
+  };
+
+  const handleAddressChange = (e) => {
+    const { name, value } = e.target;
+    setUserAddress({
+      ...userAddress,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Kiểm tra số điện thoại hợp lệ
+    const isValidPhone = /^\d{10,15}$/.test(userInfo.phone);
+    if (!isValidPhone) {
+      toast.error("SĐT không hợp lệ!");
+      return;
+    }
+
+    // Tạo formData cho thông tin user
+    const formData = new FormData();
+    formData.append("FullName", userInfo.fullName);
+    formData.append("Phone", userInfo.phone);
+    formData.append("Email", userInfo.email);
+    if (userInfo.userImage) {
+      formData.append("UserImageURL", userInfo.userImage);
+    }
+
+    // Tạo formData cho địa chỉ user
+    const userAddressToSend = new FormData();
+    userAddressToSend.append("AddressLine1", userAddress.addressLine1);
+    userAddressToSend.append("City", userAddress.city);
+    userAddressToSend.append("Country", userAddress.country);
+    userAddressToSend.append("IsDefault", true);
+
+    try {
+      setIsLoading(true);
+
+      await createProfile(formData);
+      await addUserAddress(userAddressToSend);
+
+      toast.success("Tạo Mới Thành Công");
+
+      // Chuyển hướng sau khi hiển thị thông báo
+      setTimeout(() => {
+        toast.dismiss();
+        navigate("/home");
+      }, 1000);
+    } catch (err) {
+      const errorMessage = err.response?.data || "Có lỗi xảy ra!";
+      toast.error(errorMessage);
+      console.error(err); // Để dễ dàng debug hơn
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  return (
+    <div className={clsx("pt-5", styles["big-container"])}>
+      <Helmet>
+        <title>Tạo Mới Thông Tin Cá Nhân</title>
+        <meta name="description" content="Tạo Mới Thông Tin Cá Nhân" />
+        <meta
+          name="keywords"
+          content="thông tin cá nhân, profile, thêm mới thông tin"
+        />
+        <meta property="og:title" content="Thông Tin Cá Nhân" />
+        <meta property="og:description" content="Thêm Mới Thông Tin Cá Nhân" />
+        <meta property="og:image" content="/src/assets/Logo.png" />
+      </Helmet>
+      <form className={styles.container} onSubmit={handleSubmit}>
+        <h1 className="text-center">Tạo Mới Thông Tin Cá Nhân</h1>
+        <div className="mb-3">
+          <label
+            htmlFor="userName"
+            className={clsx(styles["form-label"], "form-label")}
+          >
+            Tên Tài Khoản
+          </label>
+          <input
+            type="text"
+            id="userName"
+            name="userName"
+            value={userInfo.userName}
+            className={clsx(styles["form-control"], "form-control")}
+            onChange={handleChange}
+            readOnly
+            disabled
+          />
+        </div>
+        <div className="d-flex gap-3">
+          <div className="mb-3 w-50">
+            <label
+              htmlFor="fullName"
+              className={clsx(styles["form-label"], "form-label")}
+            >
+              Họ và Tên
+            </label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              value={userInfo.fullName}
+              className={clsx(styles["form-control"], "form-control")}
+              onChange={handleChange}
+              disabled
+            />
+          </div>
+          <div className="mb-3 w-50">
+            <label
+              htmlFor="email"
+              className={clsx(styles["form-label"], "form-label")}
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={userInfo.email}
+              className={clsx(styles["form-control"], "form-control")}
+              onChange={handleChange}
+              disabled
+            />
+          </div>
+        </div>
+        <div className="mb-3">
+          <label
+            htmlFor="phone"
+            className={clsx(styles["form-label"], "form-label")}
+          >
+            SĐT
+          </label>
+          <input
+            type="number"
+            id="phone"
+            name="phone"
+            value={userInfo.phone}
+            className={clsx(styles["form-control"], "form-control")}
+            onChange={handleChange}
+            placeholder="0xxxxxxxxx"
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label
+            htmlFor="userImage"
+            className={clsx(styles["form-label"], "form-label")}
+          >
+            Ảnh
+          </label>
+          <input
+            type="file"
+            id="userImage"
+            name="userImage"
+            className={clsx(styles["form-control"], "form-control")}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="mb-3">
+          <label
+            htmlFor="address"
+            className={clsx(styles["form-label"], "form-label")}
+          >
+            Địa Chỉ
+          </label>
+          <div className="d-flex gap-3">
+            <input
+              type="text"
+              id="addressLine1"
+              name="addressLine1"
+              value={userAddress.addressLine1}
+              className={clsx(styles["form-control"], "form-control")}
+              onChange={handleAddressChange}
+              placeholder="Số Nhà + Tên Đường"
+              required
+            />
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={userAddress.city}
+              className={clsx(styles["form-control"], "form-control")}
+              onChange={handleAddressChange}
+              placeholder="Thành Phố"
+              required
+            />
+            <input
+              type="text"
+              id="country"
+              name="country"
+              value={userAddress.country}
+              className={clsx(styles["form-control"], "form-control")}
+              onChange={handleAddressChange}
+              placeholder="Quốc Gia"
+              required
+            />
+          </div>
+        </div>
+        <button
+          type="submit"
+          className={clsx(styles["btn-success"], "btn text-light")}
+        >
+          Tạo Mới
+        </button>
+      </form>
+      {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}
+      <ToastContainer></ToastContainer>
+    </div>
+  );
+};
 const Profile = () => {
   const [userInfo, setUserInfo] = useState({});
   const [userAddresses, setUserAddresses] = useState({
@@ -78,7 +338,7 @@ const Profile = () => {
     const fetchUserInfo = async () => {
       setIsLoading(false);
       try {
-        const data = await getUserInfo();
+        const data = await getCustomerInfo();
         console.log("User Info: ", data);
         setUserInfo(data);
       } catch (err) {
@@ -87,14 +347,17 @@ const Profile = () => {
           navigate("/unauthenticated");
         } else if (err.status === 403) {
           navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
-        }
+        } else if (err.response?.data === "Không tìm thấy khách hàng.")
+          navigate("/customer/profile/create");
+        else navigate("/not-found");
       } finally {
         setIsLoading(false);
       }
     };
+    fetchUserInfo();
+  }, [navigate]);
 
+  useEffect(() => {
     const fetchUserAddresses = async () => {
       setIsLoading(false);
       try {
@@ -116,7 +379,6 @@ const Profile = () => {
     };
 
     fetchUserAddresses();
-    fetchUserInfo();
   }, [navigate, isOpenAddModal, isOpenEditModal]);
 
   console.log("selectedAddress: ", selectedAddress);
@@ -297,7 +559,7 @@ const Profile = () => {
             htmlFor="address"
             className={clsx(styles["form-label"], "form-label")}
           >
-            Địa Chỉ Giao Hàng
+            Địa Chỉ
           </label>
           <div className="d-flex gap-3">
             <select
@@ -356,7 +618,57 @@ const Profile = () => {
 
 export const AdminProfile = () => {
   const [userInfo, setUserInfo] = useState({});
+  const [userAddresses, setUserAddresses] = useState({
+    $id: "1",
+    $values: [
+      {
+        $id: "",
+        addressId: 1,
+        addressLine1: "",
+        addressLine2: null,
+        city: "",
+        state: null,
+        isDefault: true,
+        postalCode: null,
+        country: "",
+      },
+    ],
+  });
+
+  const [selectedAddress, setSelectedAddress] = useState({
+    addressId: "",
+    addressLine1: "",
+    city: "",
+    country: "",
+  });
+
+  // Cập nhật giá trị mặc định khi userAddresses thay đổi
+  useEffect(() => {
+    if (userAddresses.$values.length > 0) {
+      const defaultAddress =
+        userAddresses.$values.find((item) => item.isDefault) ||
+        userAddresses.$values[0];
+      setSelectedAddress({
+        addressId: defaultAddress.addressId,
+        addressLine1: defaultAddress.addressLine1,
+        city: defaultAddress.city,
+        country: defaultAddress.country,
+      });
+    }
+  }, [userAddresses]);
+
+  const handleSelectChange = (e) => {
+    const selectedOption = e.target.selectedOptions[0]; // Lấy <option> được chọn
+    setSelectedAddress({
+      addressId: selectedOption.value,
+      addressLine1: selectedOption.dataset.addressLine1,
+      city: selectedOption.dataset.city,
+      country: selectedOption.dataset.country,
+    });
+  };
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpenAddModal, setIsOpenAddModal] = useState(false);
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -364,9 +676,32 @@ export const AdminProfile = () => {
     const fetchUserInfo = async () => {
       setIsLoading(false);
       try {
-        const data = await getUserInfo();
+        const data = await getCustomerInfo();
         console.log("User Info: ", data);
         setUserInfo(data);
+      } catch (err) {
+        console.error("Lỗi khi lấy dữ liệu: ", err);
+        if (err.status === 401) {
+          navigate("/unauthenticated");
+        } else if (err.status === 403) {
+          navigate("/unauthorized");
+        } else if (err.response?.data === "Không tìm thấy khách hàng.")
+          navigate("/customer/profile/create");
+        else navigate("/not-found");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchUserInfo();
+  }, [navigate]);
+
+  useEffect(() => {
+    const fetchUserAddresses = async () => {
+      setIsLoading(false);
+      try {
+        const data = await getUserAddresses();
+        console.log("User addresses: ", data);
+        setUserAddresses(data);
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
@@ -381,9 +716,10 @@ export const AdminProfile = () => {
       }
     };
 
-    fetchUserInfo();
-  }, [navigate]);
+    fetchUserAddresses();
+  }, [navigate, isOpenAddModal, isOpenEditModal]);
 
+  console.log("selectedAddress: ", selectedAddress);
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     setUserInfo({
@@ -395,11 +731,15 @@ export const AdminProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (userInfo.phone < 0) {
+
+    // Kiểm tra số điện thoại hợp lệ
+    const isValidPhone = /^\d{10,15}$/.test(userInfo.phone);
+    if (!isValidPhone) {
       toast.error("SĐT không hợp lệ!");
       return;
     }
 
+    // Tạo formData cho thông tin user
     const formData = new FormData();
     formData.append("FullName", userInfo.fullName);
     formData.append("Phone", userInfo.phone);
@@ -408,24 +748,61 @@ export const AdminProfile = () => {
       formData.append("UserImageURL", userInfo.userImage);
     }
 
+    // Tạo formData cho địa chỉ user
+    const userAddress = new FormData();
+    userAddress.append("AddressLine1", selectedAddress.addressLine1);
+    userAddress.append("City", selectedAddress.city);
+    userAddress.append("Country", selectedAddress.country);
+    userAddress.append("IsDefault", true);
+
     try {
       setIsLoading(true);
-      await editProfile(formData);
+
+      // Gọi đồng thời 2 API
+      await Promise.all([
+        editProfile(formData),
+        editUserAddress(selectedAddress.addressId, userAddress),
+      ]);
+
       toast.success("Cập Nhật Thành Công");
+
+      // Chuyển hướng sau khi hiển thị thông báo
       setTimeout(() => {
         toast.dismiss();
         navigate("/admin");
-      }, 1000); // Đợi 1 giây trước khi chuyển trang
+      }, 1000);
     } catch (err) {
-      toast.error(err.response.data);
-      throw err;
+      const errorMessage = err.response?.data || "Có lỗi xảy ra!";
+      toast.error(errorMessage);
+      console.error(err); // Để dễ dàng debug hơn
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleUserAddress = (e) => {
+    e.preventDefault();
+    setIsOpenAddModal(true);
+  };
+
+  const handleEditUserAddress = (e) => {
+    e.preventDefault();
+    setIsOpenEditModal(true);
+  };
+
   return (
     <div className={clsx("pt-5", styles["big-container"])}>
+      <Helmet>
+        <title>Thông Tin Cá Nhân</title>
+        <meta name="description" content="Chỉnh Sửa Thông Tin Cá Nhân" />
+        <meta
+          name="keywords"
+          content="thông tin cá nhân, profile, chỉnh sửa thông tin"
+        />
+        <meta property="og:title" content="Thông Tin Cá Nhân" />
+        <meta property="og:description" content="Chỉnh Sửa Thông Tin Cá Nhân" />
+        <meta property="og:image" content="/src/assets/Logo.png" />
+      </Helmet>
       <form className={styles.container} onSubmit={handleSubmit}>
         <h1 className="text-center">Chỉnh Sửa Thông Tin Cá Nhân</h1>
         <div className="mb-3">
@@ -446,39 +823,41 @@ export const AdminProfile = () => {
             disabled
           />
         </div>
-        <div className="mb-3">
-          <label
-            htmlFor="fullName"
-            className={clsx(styles["form-label"], "form-label")}
-          >
-            Họ và Tên
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            value={userInfo.fullName}
-            className={clsx(styles["form-control"], "form-control")}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label
-            htmlFor="phone"
-            className={clsx(styles["form-label"], "form-label")}
-          >
-            SĐT
-          </label>
-          <input
-            type="number"
-            id="phone"
-            name="phone"
-            value={userInfo.phone}
-            className={clsx(styles["form-control"], "form-control")}
-            onChange={handleChange}
-            required
-          />
+        <div className="d-flex gap-3">
+          <div className="mb-3 w-50">
+            <label
+              htmlFor="fullName"
+              className={clsx(styles["form-label"], "form-label")}
+            >
+              Họ và Tên
+            </label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              value={userInfo.fullName}
+              className={clsx(styles["form-control"], "form-control")}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-3 w-50">
+            <label
+              htmlFor="phone"
+              className={clsx(styles["form-label"], "form-label")}
+            >
+              SĐT
+            </label>
+            <input
+              type="number"
+              id="phone"
+              name="phone"
+              value={userInfo.phone}
+              className={clsx(styles["form-control"], "form-control")}
+              onChange={handleChange}
+              required
+            />
+          </div>
         </div>
         <div className="mb-3">
           <label
@@ -512,6 +891,43 @@ export const AdminProfile = () => {
             onChange={handleChange}
           />
         </div>
+
+        <div className="mb-3">
+          <label
+            htmlFor="address"
+            className={clsx(styles["form-label"], "form-label")}
+          >
+            Địa Chỉ
+          </label>
+          <div className="d-flex gap-3">
+            <select
+              name="defaultAddress"
+              id="defaultAddress"
+              className="form-select"
+              value={selectedAddress.addressId}
+              onChange={handleSelectChange}
+            >
+              {userAddresses.$values.map((item, index) => (
+                <option
+                  key={index}
+                  value={item.addressId}
+                  data-address-line1={item.addressLine1}
+                  data-city={item.city}
+                  data-country={item.country}
+                >
+                  {`${item.addressLine1}, ${item.city}, ${item.country}`}
+                </option>
+              ))}
+            </select>
+
+            <button className="btn btn-success" onClick={handleUserAddress}>
+              Thêm
+            </button>
+            <button className="btn btn-warning" onClick={handleEditUserAddress}>
+              Sửa
+            </button>
+          </div>
+        </div>
         <button
           type="submit"
           className={clsx(styles["btn-primary"], "btn text-light")}
@@ -519,6 +935,19 @@ export const AdminProfile = () => {
           Lưu Thay Đổi
         </button>
       </form>
+      {isOpenAddModal && (
+        <AddUserAddress
+          isOpenModal={isOpenAddModal}
+          setIsOpenModal={setIsOpenAddModal}
+        />
+      )}
+      {isOpenEditModal && (
+        <EditUserAddresses
+          isOpenModal={isOpenEditModal}
+          setIsOpenModal={setIsOpenEditModal}
+          userName={userInfo.userName}
+        />
+      )}
       {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}
       <ToastContainer></ToastContainer>
     </div>

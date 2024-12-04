@@ -11,7 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Switch from "../../SwitchButton/Switch";
 import { ThemeContext } from "../../../contexts/ThemeContext";
-import { getUserInfo } from "../../../api";
+import { getCustomerInfo } from "../../../api";
 
 const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
   const navigate = useNavigate("");
@@ -40,7 +40,7 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
 
   useEffect(() => {
     const AvatarData = async () => {
-      const data = await getUserInfo();
+      const data = await getCustomerInfo();
       console.log("data: ", data);
       setAvatar(data.userImage);
     };

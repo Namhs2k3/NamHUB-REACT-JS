@@ -50,6 +50,20 @@ h1 {
     transform: translateY(-2px);
 }
 
+.btn-success {
+    background-color: #009229;
+    border-color: #007c23;
+    padding: 10px 20px;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #007c23;
+    transform: translateY(-2px);
+}
+
 .alert {
     font-size: 0.9rem;
     margin-bottom: 20px;

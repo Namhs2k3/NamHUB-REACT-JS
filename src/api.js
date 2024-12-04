@@ -235,16 +235,27 @@ export const addEmployee = async (empInfo) => {
   const response = await apiClient.post(`/api/users-account-manage-for-admin/add-employee`, empInfo);
   return response.data;
 };
-
-export const getUserInfo = async () => {
+//Thông Tin Cá Nhân
+export const getCustomerInfo = async () => {
   
-  const response = await apiClient.get(`/api/user-info/get-info`);
+  const response = await apiClient.get(`/api/user-info/get-customer-info`);
   return response.data;
 };
 
+export const getUserInfo = async () => {
+  
+  const response = await apiClient.get(`/api/user-info/get-user-info`);
+  return response.data;
+};
 export const editProfile = async (formData) => {
   
   const response = await apiClient.put(`/api/user-info/update-info`, formData);
+  return response.data;
+};
+
+export const createProfile = async (formData) => {
+  
+  const response = await apiClient.post(`/api/user-info/add-info`, formData);
   return response.data;
 };
 
