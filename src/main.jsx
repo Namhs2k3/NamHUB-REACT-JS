@@ -14,8 +14,14 @@ import AdminProducts, {
   AddProduct,
   EditProduct,
 } from "./components/AdminComponents/AdminProducts/AdminProducts";
-import AdminBanner from "./components/AdminComponents/AdminBanner/AdminBanner";
-import AdminCategory from "./components/AdminComponents/AdminCategory/AdminCategory";
+import AdminBanner, {
+  AddBanner,
+  EditBanner,
+} from "./components/AdminComponents/AdminBanner/AdminBanner";
+import AdminCategory, {
+  AddCategory,
+  EditCategory,
+} from "./components/AdminComponents/AdminCategory/AdminCategory";
 import AdminCustomer from "./components/AdminComponents/AdminCustomer/AdminCustomer";
 import AdminUser from "./components/AdminComponents/AdminUser/AdminUser";
 import AdminDiscount from "./components/AdminComponents/AdminDiscount/AdminDiscount";
@@ -28,6 +34,7 @@ import {
   Unauthorized,
 } from "./components/Unauthorized/Unauth";
 import "./main.css";
+import "./global.css";
 import Profile, {
   AdminProfile,
   CreateProfile,
@@ -59,7 +66,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     element={<EditProduct />}
                   />
                   <Route path="banners" element={<AdminBanner />} />
+                  <Route
+                    path="banners/edit-banner/:slug/:id"
+                    element={<EditBanner />}
+                  />
+                  <Route path="banners/add-banner" element={<AddBanner />} />
                   <Route path="categories" element={<AdminCategory />} />
+                  <Route
+                    path="categories/add-category"
+                    element={<AddCategory />}
+                  />
+                  <Route
+                    path="categories/edit-category/:slug/:id"
+                    element={<EditCategory />}
+                  />
                   <Route path="customers" element={<AdminCustomer />} />
                   <Route path="discounts" element={<AdminDiscount />} />
                   <Route path="orders" element={<AdminOrder />} />

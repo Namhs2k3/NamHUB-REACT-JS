@@ -1019,30 +1019,47 @@ const AddUserAddress = ({ isOpenModal, setIsOpenModal }) => {
 
             <form className={clsx(styles["form-container"])}>
               <div className="d-flex flex-column gap-3">
-                <input
-                  type="text"
-                  name="addressLine1"
-                  value={userAddressInfo.addressLine1}
-                  placeholder="Số nhà + tên đường, Phường, Quận"
-                  onChange={handleInputChange}
-                  className={clsx(styles["input-field"])}
-                />
-                <input
-                  type="text"
-                  name="city"
-                  value={userAddressInfo.city}
-                  placeholder="Tên Thành Phố"
-                  onChange={handleInputChange}
-                  className={clsx(styles["input-field"])}
-                />
-                <input
-                  type="text"
-                  name="country"
-                  value={userAddressInfo.country}
-                  placeholder="Quốc Gia"
-                  onChange={handleInputChange}
-                  className={clsx(styles["input-field"])}
-                />
+                <div className="form-floating mb-3">
+                  <input
+                    type="text"
+                    id="addressLine1"
+                    name="addressLine1"
+                    value={userAddressInfo.addressLine1}
+                    placeholder="Số nhà + tên đường, Phường, Quận"
+                    onChange={handleInputChange}
+                    className={clsx(styles["input-field"], "form-control")}
+                  />
+                  <label htmlFor="addressLine1">
+                    Số nhà + tên đường, Phường, Quận
+                  </label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    value={userAddressInfo.city}
+                    placeholder="Tên Thành Phố"
+                    onChange={handleInputChange}
+                    className={clsx(styles["input-field"], "form-control")}
+                  />
+                  <label htmlFor="city">Tên Thành Phố</label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input
+                    type="text"
+                    id="country"
+                    name="country"
+                    value={userAddressInfo.country}
+                    placeholder="Quốc Gia"
+                    onChange={handleInputChange}
+                    className={clsx(styles["input-field"], "form-control")}
+                  />
+                  <label htmlFor="country">Quốc Gia</label>
+                </div>
+
                 <div>
                   <label
                     htmlFor="isDefault"

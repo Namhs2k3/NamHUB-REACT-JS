@@ -204,13 +204,36 @@ export const updateProd= async (productId,formData) => {
   return response.data;
 };
 
-// Category 
-export const getCategoryList= async () => {
+export const createProd= async (formData) => {
   
-  const response = await apiClient.get(`/api/categories-manage-for-admin/get-categories-list`, );
+  const response = await apiClient.post(`/api/product-manage-for-admin/add-product`,formData,);
   return response.data;
 };
 
+// Category 
+export const getCategoryList= async (name) => {
+  
+  const response = await apiClient.get(`/api/categories-manage-for-admin/get-categories-list${name ?`?name=${name}`:""}`, );
+  return response.data;
+};
+
+export const getCategoryListById= async (id) => {
+  
+  const response = await apiClient.get(`/api/categories-manage-for-admin/get-categories-list?id=${id}`, );
+  return response.data;
+};
+
+export const createCate= async (formData) => {
+  
+  const response = await apiClient.post(`/api/categories-manage-for-admin/add-category`, formData);
+  return response.data;
+};
+
+export const updateCate= async (id,formData) => {
+  
+  const response = await apiClient.put(`/api/categories-manage-for-admin/edit-category/${id}`, formData);
+  return response.data;
+};
 // User Account Manage 
 export const getUserList= async () => {
   
@@ -282,5 +305,30 @@ export const editUserAddress = async (id, formData) => {
 export const removeUserAddress = async (id) => {
   
   const response = await apiClient.delete(`/api/user-info/delete-user-address/${id}`);
+  return response.data;
+};
+
+//Banner
+export const getBannerList = async () => {
+  
+  const response = await apiClient.get(`/api/BannersManage/get-banner-list-for-admin`);
+  return response.data;
+};
+
+export const getBannerById = async (id) => {
+  
+  const response = await apiClient.get(`/api/BannersManage/get-banner-list-for-admin?id=${id}`);
+  return response.data;
+};
+
+export const updateBanner = async (id, formData) => {
+  
+  const response = await apiClient.put(`/api/BannersManage/update-banner/${id}`, formData);
+  return response.data;
+};
+
+export const addBanner = async ( formData) => {
+  
+  const response = await apiClient.post(`/api/BannersManage/add-banner`, formData);
   return response.data;
 };

@@ -21,19 +21,6 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
   const [avatar, setAvatar] = useState("");
   const beURL = import.meta.env.VITE_BACKEND_URL;
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    const confirmLogout = window.confirm("Bạn có chắc muốn đăng xuất?");
-    if (confirmLogout) {
-      const isTokenExist = localStorage.getItem("token");
-      if (isTokenExist) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("refreshToken");
-      }
-      navigate("/login");
-    }
-  };
-
   const handleHiddenOnclick = () => {
     setIsHide(!isHide);
   };
@@ -51,6 +38,27 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
   useEffect(() => {
     console.log("img:", beURL, avatar);
   }, [beURL, avatar]);
+
+  const [confirmDelete, setConfirmDelete] = useState({
+    isOpen: false,
+  });
+  const handleLogout = () => setConfirmDelete({ isOpen: true });
+
+  const confirmRemove = async () => {
+    try {
+      const isTokenExist = localStorage.getItem("token");
+      if (isTokenExist) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+      }
+      setConfirmDelete({ isOpen: false });
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const cancelRemove = () => setConfirmDelete({ isOpen: false });
   return (
     <div
       className={clsx(
@@ -104,6 +112,28 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
           />
         </Link>
       </div>
+      {confirmDelete.isOpen && (
+        <div
+          className={clsx(styles["my-confirm-delete-modal"])}
+          onClick={cancelRemove}
+        >
+          <div
+            className={clsx(styles["my-main-confirm-modal"])}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-danger">Xác nhận đăng xuất</h3>
+            <p>Bạn có chắc chắn muốn đăng xuất không?</p>
+            <div className="d-flex justify-content-between">
+              <button className="btn btn-danger" onClick={confirmRemove}>
+                Đăng Xuất
+              </button>
+              <button className="btn btn-secondary" onClick={cancelRemove}>
+                Hủy
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

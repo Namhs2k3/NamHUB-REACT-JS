@@ -173,7 +173,7 @@ label {
 }
 
 input[type="checkbox"] {
-    transform: scale(2);
+    transform: scale(1.5);
     /* Tăng kích thước checkbox */
     accent-color: #007bff;
     /* Đổi màu checkbox theo thương hiệu */
@@ -212,6 +212,7 @@ button.btn-info {
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 8px;
+    transform: scale(2) !important;
     transition: border-color 0.3s ease;
     background-color: #f9f9f9;
 }

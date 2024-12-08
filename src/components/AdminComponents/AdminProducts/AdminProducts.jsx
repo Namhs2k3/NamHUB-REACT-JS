@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { ToggleSidebarContext } from "../../../contexts/ToggleSidebarContext";
 import "react-datepicker/dist/react-datepicker.css";
 import {
+  createProd,
   getCategoryList,
   getProdList,
   getProdListById,
@@ -134,30 +135,172 @@ const AdminProduct = () => {
               <table
                 className={clsx(
                   styles["custom-table"],
-                  "table table-striped table-hover"
+                  "table table-striped table-hover table-responsive"
                 )}
               >
                 <thead className={clsx(styles["custom-thead"])}>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Ảnh</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col">Mô Tả</th>
-                    <th scope="col">Giá</th>
-                    <th scope="col">Danh Mục</th>
-                    <th scope="col">Phổ Biến</th>
-                    <th scope="col">Bị Ẩn</th>
-                    <th scope="col">Giá Sau Giảm</th>
-                    <th scope="col">% Giảm</th>
-                    <th scope="col">Keywords</th>
-                    <th scope="col">Thao Tác</th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      #
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Ảnh
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Tên
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Mô Tả
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Giá
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Danh Mục
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Phổ Biến
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Bị Ẩn
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Giá Sau Giảm
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      % Giảm
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Keywords
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Thao Tác
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {prodList?.$values?.map((item, index) => (
                     <tr key={item.productId}>
-                      <th scope="row">{index + 1}</th>
-                      <td>
+                      <th style={{ verticalAlign: "middle" }} scope="row">
+                        {index + 1}
+                      </th>
+                      <td
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
                         <img
                           src={item.imgURL || "../../../assets/Logo.png"}
                           alt={item.productName || "Default Image"}
@@ -170,22 +313,59 @@ const AdminProduct = () => {
                           }}
                         />
                       </td>
-                      <td>{item.productName}</td>
                       <td
                         style={{
-                          maxWidth: "150px",
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           whiteSpace: "nowrap",
                         }}
                       >
+                        {item.productName}
+                      </td>
+                      <td
+                        style={{
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          verticalAlign: "middle",
+                        }}
+                      >
                         {item.description || "Không có mô tả"}
                       </td>
-                      <td>
+                      <td
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
                         {new Intl.NumberFormat("vi-VN").format(item.price)}đ
                       </td>
-                      <td>{item.categoryName || "Không có danh mục"}</td>
-                      <td>
+                      <td
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {item.categoryName || "Không có danh mục"}
+                      </td>
+                      <td
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
                         <span
                           className={clsx(
                             styles["badge"],
@@ -199,7 +379,15 @@ const AdminProduct = () => {
                           {item.isPopular ? "Có" : "Không"}
                         </span>
                       </td>
-                      <td>
+                      <td
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
                         <span
                           className={clsx(
                             styles["badge"],
@@ -211,24 +399,51 @@ const AdminProduct = () => {
                           {item.isHidden ? "Có" : "Không"}
                         </span>
                       </td>
-                      <td>
-                        {new Intl.NumberFormat("vi-VN").format(
-                          item.discountedPrice
-                        )}
-                        đ
-                      </td>
-                      <td>{item.discountPercentage || 0}%</td>
                       <td
                         style={{
-                          maxWidth: "150px",
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           whiteSpace: "nowrap",
                         }}
                       >
+                        {new Intl.NumberFormat("vi-VN").format(
+                          item.discountedPrice
+                        )}
+                        đ
+                      </td>
+                      <td
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {item.discountPercentage || 0}%
+                      </td>
+                      <td
+                        style={{
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          verticalAlign: "middle",
+                        }}
+                      >
                         {item.keywords || "Không có từ khóa"}
                       </td>
-                      <td>
+                      <td
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
                         <Link
                           to={`/admin/products/edit-product/${generateSlug(item.productName)}/${item.productId}`}
                           className="btn btn-warning btn-sm"
@@ -395,7 +610,7 @@ export const EditProduct = () => {
       return;
     }
 
-    if (formData.price < formData.discountedPrice) {
+    if (Number(formData.price) < Number(formData.discountedPrice)) {
       toast.error("Giá đã giảm phải nhỏ hơn giá gốc");
       return;
     }
@@ -472,7 +687,7 @@ export const EditProduct = () => {
             )}
           >
             <div className={clsx(styles.container)}>
-              <h1>Edit Product</h1>
+              <h1>Chỉnh Sửa Sản Phẩm</h1>
               <form
                 onSubmit={handleSubmit}
                 className="d-flex flex-wrap justify-content-between"
@@ -608,6 +823,294 @@ export const EditProduct = () => {
 };
 
 export const AddProduct = () => {
-  return <div>Hello</div>;
+  const { isSidebarCollapsed, toggleSidebar } =
+    useContext(ToggleSidebarContext);
+
+  const { isChecked } = useContext(ThemeContext);
+
+  const [productDetails, setProductDetails] = useState({
+    productName: "",
+    keywords: "",
+    description: "",
+    price: 0,
+    discountedPrice: 0,
+    categoryId: 1,
+    imgURL: "",
+    stockQuantity: 0,
+    isHidden: false,
+    isPopular: false,
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const [categoryList, setCategoryList] = useState({
+    $id: "",
+    $values: [
+      {
+        $id: "",
+        categoryID: 0,
+        categoryName: "",
+        imgURL: "",
+        description: null,
+        keywords: null,
+      },
+    ],
+  });
+
+  useEffect(() => {
+    const fetchCateList = async () => {
+      try {
+        const data = await getCategoryList();
+        console.log("Cate lisst: ", data);
+        setCategoryList(data);
+      } catch (err) {
+        console.error("Lỗi khi lấy dữ liệu: ", err);
+        if (err.status === 401) {
+          navigate("/unauthenticated");
+        } else if (err.status === 403) {
+          navigate("/unauthorized");
+        } else {
+          navigate("/not-found");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchCateList();
+  }, [navigate]);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked, files } = e.target;
+    setProductDetails({
+      ...productDetails,
+      [name]:
+        type === "checkbox" ? checked : type === "file" ? files[0] : value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("productDetails: ", productDetails);
+    if (!productDetails.productName.trim()) {
+      toast.error("Tên sản phẩm không được để trống!");
+      return;
+    }
+    if (productDetails.price < 0) {
+      toast.error("Giá phải lớn hơn hoặc bằng 0!");
+      return;
+    }
+
+    if (productDetails.discountedPrice < 0) {
+      toast.error("Giá đã giảm phải lớn hơn hoặc bằng 0!");
+      return;
+    }
+
+    if (Number(productDetails.price) < Number(productDetails.discountedPrice)) {
+      toast.error("Giá đã giảm phải nhỏ hơn giá gốc");
+      return;
+    }
+    console.log("Updated product details:", productDetails);
+
+    // Tạo đối tượng FormData
+    const formDataToSend = new FormData();
+    formDataToSend.append("ProductName", productDetails.productName);
+    formDataToSend.append("Description", productDetails.description);
+    formDataToSend.append("Price", productDetails.price);
+    formDataToSend.append("IsHidden", productDetails.isHidden);
+    formDataToSend.append("IsPopular", productDetails.isPopular);
+    formDataToSend.append("CategoryId", productDetails.categoryId);
+    formDataToSend.append("DiscountedPrice", productDetails.discountedPrice);
+    formDataToSend.append("keywords", productDetails.keywords);
+    formDataToSend.append("StockQuantity", productDetails.stockQuantity);
+
+    // Nếu có ảnh, append thêm ảnh vào FormData (ví dụ: nếu bạn upload file hình ảnh)
+    if (productDetails.imgURL) {
+      formDataToSend.append("imgFile", productDetails.imgURL);
+    }
+
+    try {
+      await createProd(formDataToSend);
+      toast.success("Thêm Mới Thành Công");
+      setTimeout(() => {
+        toast.dismiss();
+        navigate("/admin/products");
+      }, 1000); // Đợi 1 giây trước khi chuyển trang
+    } catch (err) {
+      toast.error(err.response.data);
+      throw err;
+    }
+  };
+
+  return (
+    <div className={clsx(styles["main-products"])}>
+      <div>
+        <Helmet>
+          <title>Thêm Mới Sản Phẩm</title>
+          <meta name="description" content="Thêm Mới Sản Phẩm Dành Cho Admin" />
+          <meta
+            name="keywords"
+            content="sản phẩm, chỉnh sửa sản phẩm, thêm mới sản phẩm"
+          />
+          <meta property="og:title" content="Thêm Mới Sản Phẩm" />
+          <meta property="og:description" content="Thêm Mới Sản Phẩm" />
+          <meta property="og:image" content="/src/assets/Logo.png" />
+        </Helmet>
+      </div>
+      <AdminSideBar
+        site="products"
+        className={clsx(styles["side-bar"])}
+        isSidebarCollapsed={isSidebarCollapsed}
+      ></AdminSideBar>
+      <div className={clsx(styles["product"])}>
+        <AdminNavbar
+          toggleSidebar={toggleSidebar}
+          isSidebarCollapsed={isSidebarCollapsed}
+        />
+        <div className={clsx(styles[isChecked ? "main-light" : "main-dark"])}>
+          <div
+            className={clsx(
+              styles[isChecked ? "list-product-light" : "list-product-dark"]
+            )}
+          >
+            <div className={clsx(styles.container)}>
+              <h1>Thêm Mới Sản Phẩm</h1>
+              <form
+                onSubmit={handleSubmit}
+                className="d-flex flex-wrap justify-content-between"
+              >
+                <div className={clsx(styles.formGroup)}>
+                  <label htmlFor="productName">Tên Sản Phẩm</label>
+                  <input
+                    type="text"
+                    id="productName"
+                    name="productName"
+                    value={productDetails.productName}
+                    onChange={handleChange}
+                    placeholder="Tên Sản Phẩm"
+                    required
+                  />
+                </div>
+                <div className={clsx(styles.formGroup)}>
+                  <label htmlFor="keywords">Từ Khóa Tìm Kiếm</label>
+                  <input
+                    type="text"
+                    id="keywords"
+                    name="keywords"
+                    value={productDetails.keywords}
+                    placeholder="Từ Khóa"
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className={clsx(styles.formGroup, styles.formGroupCustom)}>
+                  <label htmlFor="description">Mô Tả</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    value={productDetails.description}
+                    onChange={handleChange}
+                    placeholder="Mô Tả Sản Phẩm"
+                  ></textarea>
+                </div>
+
+                <div className={clsx(styles.formGroup)}>
+                  <label htmlFor="price">Giá</label>
+                  <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    value={productDetails.price}
+                    onChange={handleChange}
+                    placeholder="Giá Sản Phẩm"
+                    required
+                  />
+                </div>
+
+                <div className={clsx(styles.formGroup)}>
+                  <label htmlFor="discountedPrice">Giá Đã Giảm</label>
+                  <input
+                    type="number"
+                    id="discountedPrice"
+                    name="discountedPrice"
+                    value={productDetails.discountedPrice}
+                    onChange={handleChange}
+                    placeholder="Giá Sản Phẩm Sau Giảm"
+                    required
+                  />
+                </div>
+
+                <div className={clsx(styles.formGroup)}>
+                  <label htmlFor="categoryId">Danh mục</label>
+                  <select
+                    name="categoryId"
+                    id="categoryId"
+                    onChange={handleChange}
+                    value={productDetails.categoryId}
+                  >
+                    {categoryList.$values.map((item, index) => (
+                      <option key={index} value={item.categoryID}>
+                        {item.categoryName}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className={clsx(styles.formGroup)}>
+                  <label htmlFor="imgURL">Ảnh</label>
+                  <input
+                    type="file"
+                    id="imgURL"
+                    name="imgURL"
+                    className={clsx(styles["form-control"], "form-control")}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className={clsx(styles.formGroup)}>
+                  <label htmlFor="stockQuantity">Số Lượng</label>
+                  <input
+                    type="number"
+                    id="stockQuantity"
+                    name="stockQuantity"
+                    value={productDetails.stockQuantity}
+                    onChange={handleChange}
+                    placeholder="Số Lượng Sản Phẩm"
+                    required
+                  />
+                </div>
+
+                <div className={clsx(styles.checkboxGroup)}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="isHidden"
+                      checked={productDetails.isHidden}
+                      onChange={handleChange}
+                    />
+                    Bị Ẩn
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="isPopular"
+                      checked={productDetails.isPopular}
+                      onChange={handleChange}
+                    />
+                    Phổ Biến
+                  </label>
+                </div>
+
+                <button type="submit" className={clsx(styles.submitButton)}>
+                  Lưu Thay Đổi
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}
+      <ToastContainer></ToastContainer>
+    </div>
+  );
 };
 export default AdminProduct;

@@ -7,12 +7,7 @@ import { format } from "date-fns";
 import { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import { ToggleSidebarContext } from "../../../contexts/ToggleSidebarContext";
 import "react-datepicker/dist/react-datepicker.css";
-import {
-  addEmployee,
-  getUserList,
-  removeUser,
-  updateUserRoles,
-} from "../../../api";
+import { addEmployee, getUserList, updateUserRoles } from "../../../api";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { toast, ToastContainer } from "react-toastify";
@@ -20,7 +15,6 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
-  faTrashCan,
   faUserPlus,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
@@ -73,20 +67,6 @@ const AdminUser = () => {
     setIsOpenModal(true); // Mở modal
   };
 
-  const handleUserRemove = async (userId) => {
-    const isOk = confirm("Bạn Có Chắc Muốn Xóa Nhân Viên Này?");
-    if (isOk) {
-      try {
-        await removeUser(userId); // Gọi API để xóa người dùng
-        toast.success("Xóa nhân viên thành công!");
-        fetchUserListByName();
-      } catch (error) {
-        console.error("Xóa nhân viên thất bại:", error);
-        toast.error("Có lỗi xảy ra khi xóa nhân viên!");
-      }
-    }
-  };
-
   const handleAddEmployee = () => {
     setIsOpenAddModal(true);
   };
@@ -129,33 +109,56 @@ const AdminUser = () => {
               >
                 <thead className={clsx(styles["custom-thead"])}>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Verified</th>
-                    <th scope="col">Full Name</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Update At</th>
-                    <th scope="col">Create At</th>
-                    <th scope="col">Thao Tác</th>
+                    <th scope="col" style={{ verticalAlign: "middle" }}>
+                      #
+                    </th>
+                    <th scope="col" style={{ verticalAlign: "middle" }}>
+                      Username
+                    </th>
+                    <th scope="col" style={{ verticalAlign: "middle" }}>
+                      Email
+                    </th>
+                    <th scope="col" style={{ verticalAlign: "middle" }}>
+                      Verified
+                    </th>
+                    <th scope="col" style={{ verticalAlign: "middle" }}>
+                      Full Name
+                    </th>
+                    <th scope="col" style={{ verticalAlign: "middle" }}>
+                      Role
+                    </th>
+                    <th scope="col" style={{ verticalAlign: "middle" }}>
+                      Update At
+                    </th>
+                    <th scope="col" style={{ verticalAlign: "middle" }}>
+                      Create At
+                    </th>
+                    <th scope="col" style={{ verticalAlign: "middle" }}>
+                      Thao Tác
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {userList?.$values?.map((item, index) => (
                     <tr key={item.userId}>
-                      <th scope="row">{index + 1}</th>
-                      <td>{item.username}</td>
+                      <th style={{ verticalAlign: "middle" }} scope="row">
+                        {index + 1}
+                      </th>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {item.username}
+                      </td>
                       <td
                         style={{
                           maxWidth: "150px",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           whiteSpace: "nowrap",
+                          verticalAlign: "middle",
                         }}
                       >
                         {item.email || "Không có email"}
                       </td>
-                      <td>
+                      <td style={{ verticalAlign: "middle" }}>
                         <span
                           className={clsx(
                             styles["badge"],
@@ -169,15 +172,23 @@ const AdminUser = () => {
                           {item.emailVerified ? "Rồi" : "Chưa"}
                         </span>
                       </td>
-                      <td>{item.fullName}</td>
-                      <td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {item.fullName}
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
                         {item.roles?.$values
                           ?.map((role) => role.roleName)
                           .join(", ")}
                       </td>
-                      <td>{format(new Date(item.updatedAt), "MM/dd/yyyy")}</td>
-                      <td>{format(new Date(item.createdAt), "MM/dd/yyyy")}</td>
-                      <td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {format(new Date(item.updatedAt), "MM/dd/yyyy")}
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {format(new Date(item.createdAt), "MM/dd/yyyy")}
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
                         <button
                           onClick={() =>
                             handleRoleChange(item.userId, item.username)
@@ -186,19 +197,6 @@ const AdminUser = () => {
                         >
                           <FontAwesomeIcon icon={faPenToSquare} />
                         </button>
-
-                        {item.roles?.$values?.some(
-                          (role) =>
-                            role.roleName === "USER" ||
-                            role.roleName === "ADMIN"
-                        ) ? null : (
-                          <button
-                            onClick={() => handleUserRemove(item.userId)}
-                            className="btn btn-danger btn-sm me-1"
-                          >
-                            <FontAwesomeIcon icon={faTrashCan} />
-                          </button>
-                        )}
                       </td>
                     </tr>
                   ))}
@@ -396,38 +394,57 @@ const AddEmployee = ({ isOpenModal, setIsOpenModal }) => {
 
             <form className={clsx(styles["form-container"])}>
               <div className="d-flex flex-column gap-3">
-                <input
-                  type="text"
-                  name="username"
-                  value={userInfo.username}
-                  placeholder="Tên Đăng Nhập"
-                  onChange={handleInputChange}
-                  className={clsx(styles["input-field"])}
-                />
-                <input
-                  type="password"
-                  name="password"
-                  value={userInfo.password}
-                  placeholder="Mật Khẩu"
-                  onChange={handleInputChange}
-                  className={clsx(styles["input-field"])}
-                />
-                <input
-                  type="email"
-                  name="email"
-                  value={userInfo.email}
-                  placeholder="Email"
-                  onChange={handleInputChange}
-                  className={clsx(styles["input-field"])}
-                />
-                <input
-                  type="text"
-                  name="fullName"
-                  value={userInfo.fullName}
-                  placeholder="Họ Tên"
-                  onChange={handleInputChange}
-                  className={clsx(styles["input-field"])}
-                />
+                <div className="form-floating mb-3">
+                  <input
+                    type="text"
+                    name="username"
+                    value={userInfo.username}
+                    id="username"
+                    placeholder="Tên Đăng Nhập"
+                    onChange={handleInputChange}
+                    className="form-control"
+                  />
+                  <label htmlFor="username">Tên Đăng Nhập</label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input
+                    type="password"
+                    name="password"
+                    value={userInfo.password}
+                    id="password"
+                    placeholder="Mật Khẩu"
+                    onChange={handleInputChange}
+                    className="form-control"
+                  />
+                  <label htmlFor="password">Mật Khẩu</label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input
+                    type="email"
+                    name="email"
+                    value={userInfo.email}
+                    id="email"
+                    placeholder="Email"
+                    onChange={handleInputChange}
+                    className="form-control"
+                  />
+                  <label htmlFor="email">Email</label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={userInfo.fullName}
+                    id="fullName"
+                    placeholder="Họ Tên"
+                    onChange={handleInputChange}
+                    className="form-control"
+                  />
+                  <label htmlFor="fullName">Họ Tên</label>
+                </div>
               </div>
 
               <div className="d-flex justify-content-center align-items-center mt-4">
