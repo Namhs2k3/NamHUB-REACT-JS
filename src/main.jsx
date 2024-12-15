@@ -22,9 +22,15 @@ import AdminCategory, {
   AddCategory,
   EditCategory,
 } from "./components/AdminComponents/AdminCategory/AdminCategory";
-import AdminCustomer from "./components/AdminComponents/AdminCustomer/AdminCustomer";
+import AdminCustomer, {
+  AdminCustomerOrderItems,
+  AdminCustomerOrders,
+} from "./components/AdminComponents/AdminCustomer/AdminCustomer";
 import AdminUser from "./components/AdminComponents/AdminUser/AdminUser";
-import AdminDiscount from "./components/AdminComponents/AdminDiscount/AdminDiscount";
+import AdminDiscount, {
+  AddDiscount,
+  EditDiscount,
+} from "./components/AdminComponents/AdminDiscount/AdminDiscount";
 import AdminOrder from "./components/AdminComponents/AdminOrder/AdminOrder";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ToggleSidebarProvider } from "./contexts/ToggleSidebarContext";
@@ -81,7 +87,23 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     element={<EditCategory />}
                   />
                   <Route path="customers" element={<AdminCustomer />} />
+                  <Route
+                    path="customers/customer-orders/:id"
+                    element={<AdminCustomerOrders />}
+                  />
+                  <Route
+                    path="customers/customer-orders/customer-order-items/:id"
+                    element={<AdminCustomerOrderItems />}
+                  />
                   <Route path="discounts" element={<AdminDiscount />} />
+                  <Route
+                    path="discounts/edit-discount/:slug/:id"
+                    element={<EditDiscount />}
+                  />
+                  <Route
+                    path="discounts/add-discount"
+                    element={<AddDiscount />}
+                  />
                   <Route path="orders" element={<AdminOrder />} />
                   <Route path="users" element={<AdminUser />} />
                   <Route path="*" element={<NotFound />} />

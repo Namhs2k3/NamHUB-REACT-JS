@@ -332,3 +332,67 @@ export const addBanner = async ( formData) => {
   const response = await apiClient.post(`/api/BannersManage/add-banner`, formData);
   return response.data;
 };
+
+//Discount
+export const getDiscountList = async () => {
+  
+  const response = await apiClient.get(`/api/DiscountCodes/get-discount-codes`);
+  return response.data;
+};
+
+export const getDiscountById = async (id) => {
+  
+  const response = await apiClient.get(`/api/DiscountCodes/get-discount-codes?id=${id}`);
+  return response.data;
+};
+
+export const updateDiscount = async (id, formData) => {
+  
+  const response = await apiClient.put(`/api/DiscountCodes/update/${id}`, formData);
+  return response.data;
+};
+
+export const addDiscount = async ( formData) => {
+  
+  const response = await apiClient.post(`/api/DiscountCodes/create`, formData);
+  return response.data;
+};
+
+//Customer
+
+export const getCustomerList = async () => {
+  
+  const response = await apiClient.get(`/api/customer-manage-for-admin/get-customer-list`);
+  return response.data;
+};
+export const getCustomerOrderList = async (id) => {
+  
+  const response = await apiClient.get(`/api/customer-manage-for-admin/get-customer-orders-for-admin/${id}`);
+  return response.data;
+};
+export const getCustomerOrderItems = async (id) => {
+  
+  const response = await apiClient.get(`/api/customer-manage-for-admin/get-customer-order-items-for-admin/${id}`);
+  return response.data;
+};
+
+//Order Management
+export const getOrderList = async (status) => {
+  
+  const response = await apiClient.get(`/api/orders-manage-for-admin/get-orders-list${status?`?status=${status}`:""}`);
+  return response.data;
+};
+
+export const getOrderHistory = async (id) => {
+  
+  const response = await apiClient.get(`/api/orders-manage-for-admin/get-orders-history/${id}`);
+  return response.data;
+};
+export const addNewState = async (id, newStatus) => {
+  
+  const response = await apiClient.post(`/api/orders-manage-for-admin/add-new-state-for-order-history/${id}`, newStatus,{
+      headers: { "Content-Type": "application/json" }, // Gửi chuỗi thuần
+    });
+  return response.data;
+};
+

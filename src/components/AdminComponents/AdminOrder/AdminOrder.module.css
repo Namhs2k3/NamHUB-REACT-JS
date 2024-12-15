@@ -1,42 +1,42 @@
-.main-orders {
+.main-banners {
     display: flex;
 }
 
-.order {
+.banner {
     position: relative;
 }
 
 .main-light {
-    padding: 20px;
+    padding: 5px;
     background-color: #F3F4F7;
     min-height: 92vh;
     transition: all 0.3s ease-in-out;
 }
 
 .main-dark {
-    padding: 20px;
+    padding: 5px;
     background-color: #292E37;
     min-height: 92vh;
     color: aliceblue;
     transition: all 0.3s ease-in-out;
 }
 
-.new-user-light {
-    background-color: #fff;
+.list-banner-light {
     padding: 10px;
     border-radius: 5px;
-    border: #c6c6c6 1px solid;
-    margin-bottom: 20px;
     transition: all 0.3s ease-in-out;
+    width: 100%;
+    height: 92vh;
+    color: #333;
 }
 
-.new-user-dark {
-    background-color: #313944;
+.list-banner-dark {
+    color: #D1D1D1;
     padding: 10px;
     border-radius: 5px;
-    border: #4e4e4e 1px solid;
-    margin-bottom: 20px;
     transition: all 0.3s ease-in-out;
+    width: 100%;
+    height: 92vh;
 }
 
 .loading {
@@ -44,4 +44,215 @@
     background-color: #fff;
     opacity: 0.7;
     height: 100vh;
+    z-index: 10000;
+}
+
+.title {
+    text-align: center;
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.div-table {
+    max-height: 510px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.badge {
+    padding: 0.4em 0.6em;
+    border-radius: 0.5em;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 59.25px;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.custom-thead {
+    background-color: #fff;
+    /* Màu header */
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.custom-thead tr th {
+    background-color: #fff;
+    /* Màu header */
+    color: #D53044;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+    /* Màu nền dòng lẻ */
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: #fff;
+    /* Màu nền dòng chẵn */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #ff6778;
+    /* Màu hover */
+}
+
+tbody tr:hover td,
+tbody tr:hover th {
+    background-color: #ff6778;
+    color: #fff;
+    /* Màu hover */
+}
+
+td,
+th {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: bold;
+}
+
+tr {
+    transition: background-color 0.3s ease;
+}
+
+/* Tùy chỉnh toàn bộ thanh cuộn */
+.div-table::-webkit-scrollbar {
+    width: 8px;
+    /* Độ rộng của thanh cuộn */
+    height: 8px;
+    /* Chiều cao của thanh cuộn ngang (nếu có) */
+}
+
+/* Tùy chỉnh phần track (nền phía sau thanh cuộn) */
+.div-table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Màu nền */
+    border-radius: 10px;
+    /* Bo góc */
+}
+
+/* Tùy chỉnh thanh cuộn (scrollbar thumb) */
+.div-table::-webkit-scrollbar-thumb {
+    background: #D53044;
+    /* Màu thanh cuộn */
+    border-radius: 17px 17px 10px 10px;
+    /* Bo góc */
+}
+
+/* Thêm hiệu ứng hover cho thanh cuộn */
+.div-table::-webkit-scrollbar-thumb:hover {
+    background: #D53044;
+    /* Màu khi hover */
+}
+
+/* Tùy chỉnh thanh cuộn khi nhấn (active) */
+.div-table::-webkit-scrollbar-thumb:active {
+    background: #D53044;
+    /* Màu khi nhấn */
+}
+
+
+.my-big-modal {
+    position: fixed;
+    /* Đổi sang fixed để modal hoạt động tốt hơn khi cuộn */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Sử dụng rgba để tạo hiệu ứng overlay mờ */
+    width: 100%;
+    height: 100vh;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    /* Đảm bảo phủ toàn bộ màn hình */
+    left: 0;
+}
+
+.my-main-modal {
+    width: 50%;
+    /* Giới hạn chiều rộng cho màn hình lớn */
+    height: auto;
+    /* Cho phép chiều cao tự động */
+    background-color: #fff;
+    position: fixed;
+    z-index: 2002;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    /* Bo góc mềm mại hơn */
+    padding: 20px;
+    /* Tăng padding để các phần tử không bị dính sát */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Thêm bóng mờ cho modal */
+    animation: fadeIn 0.3s ease;
+    /* Hiệu ứng mượt khi modal xuất hiện */
+}
+
+.update-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    /* Tăng khoảng cách giữa tiêu đề và nội dung */
+}
+
+.btn-x {
+    padding: 5px;
+    margin-bottom: 15px;
+    /* Xóa khoảng cách thừa */
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+.btn-x:hover {
+    cursor: pointer;
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.div-table-modal {
+    height: 300px;
+    overflow-y: auto;
 }

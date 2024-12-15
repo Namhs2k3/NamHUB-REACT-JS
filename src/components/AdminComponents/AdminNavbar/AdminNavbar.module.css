@@ -10,7 +10,7 @@
   z-index: 1000;
   transition: all 0.3s ease-in-out;
   background-color: #292E37;
-  box-shadow: 0px -2px 10px 1px;
+  box-shadow: 0px -2px 5px 1px;
 }
 
 .main-nav-light {
@@ -25,7 +25,7 @@
   z-index: 1000;
   transition: all 0.3s ease-in-out;
   background-color: #fff;
-  box-shadow: 0px -2px 10px 1px;
+  box-shadow: 0px -2px 5px 1px;
 }
 
 .main-nav-collapsed {
