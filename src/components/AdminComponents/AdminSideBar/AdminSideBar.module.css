@@ -118,7 +118,7 @@
 .orders:hover,
 .users:hover,
 .home:hover {
-  background: #fc4c00;
+  background: #ff6f31;
   color: aliceblue;
 }
 
@@ -131,7 +131,7 @@
 .orders-l:hover,
 .users-l:hover,
 .home-l:hover {
-  background: #fc4c00;
+  background: #ff6f31;
   color: aliceblue;
 }
 
@@ -144,7 +144,7 @@
 .orders-collap:hover,
 .users-collap:hover,
 .home-collap:hover {
-  background: #fc4c00;
+  background: #ff6f31;
   color: aliceblue;
 }
 
@@ -157,7 +157,7 @@
 .orders-l-collap:hover,
 .users-l-collap:hover,
 .home-l-collap:hover {
-  background: #fc4c00;
+  background: #ff6f31;
   color: aliceblue;
 }
 

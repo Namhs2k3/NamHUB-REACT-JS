@@ -102,6 +102,7 @@ const Register = () => {
           name="fullName"
           value={userData.fullName}
           onChange={handleInputChange}
+          required
         />
 
         <input

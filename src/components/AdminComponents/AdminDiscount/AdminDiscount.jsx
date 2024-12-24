@@ -20,6 +20,7 @@ import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import DatePicker from "react-datepicker";
+import { Unauthorized } from "../../Unauthorized/Unauth";
 
 const generateSlug = (productName) => {
   // Loại bỏ dấu tiếng Việt
@@ -48,6 +49,7 @@ const AdminDiscount = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [prodList, setProdList] = useState();
+  const [isPermitted, setPermitted] = useState(true);
 
   useEffect(() => {
     const fetchProdListByName = async () => {
@@ -59,11 +61,9 @@ const AdminDiscount = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -97,192 +97,44 @@ const AdminDiscount = () => {
           isSidebarCollapsed={isSidebarCollapsed}
         />
         <div className={clsx(styles[isChecked ? "main-light" : "main-dark"])}>
-          <div
-            className={clsx(
-              styles[isChecked ? "list-discount-light" : "list-discount-dark"]
-            )}
-          >
-            <div className={clsx(styles["title"])}>MÃ GIẢM GIÁ</div>
-            <div className="d-flex justify-content-between align-items-center">
-              <Link
-                to="/admin/discounts/add-discount"
-                className="btn btn-success text-white mb-3"
-              >
-                <FontAwesomeIcon icon={faCirclePlus} /> Thêm Mã Giảm Giá
-              </Link>
-            </div>
-            <div className={clsx(styles["div-table"])}>
-              <table
-                className={clsx(
-                  styles["custom-table"],
-                  "table table-striped table-hover table-responsive"
-                )}
-              >
-                <thead className={clsx(styles["custom-thead"])}>
-                  <tr>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      #
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Mã Giảm Giá
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Loại
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Giá Trị
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      ĐH Từ
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Có Hạn Từ
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Cho Đến Hết
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      SL SD Tối Đa
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Đã Dùng
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      1Lần/1KH
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Trạng Thái
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Thao Tác
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {prodList?.$values?.map((item, index) => (
-                    <tr key={item.bannerId}>
-                      <th style={{ verticalAlign: "middle" }} scope="row">
-                        {index + 1}
+          {isPermitted ? (
+            <div
+              className={clsx(
+                styles[isChecked ? "list-discount-light" : "list-discount-dark"]
+              )}
+            >
+              <div className={clsx(styles["title"])}>MÃ GIẢM GIÁ</div>
+              <div className="d-flex justify-content-between align-items-center">
+                <Link
+                  to="/admin/discounts/add-discount"
+                  className="btn btn-success text-white mb-3"
+                >
+                  <FontAwesomeIcon icon={faCirclePlus} /> Thêm Mã Giảm Giá
+                </Link>
+              </div>
+              <div className={clsx(styles["div-table"])}>
+                <table
+                  className={clsx(
+                    styles["custom-table"],
+                    "table table-striped table-hover table-responsive"
+                  )}
+                >
+                  <thead className={clsx(styles["custom-thead"])}>
+                    <tr>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        #
                       </th>
-                      <td
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "200px",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {item.code}
-                      </td>
-                      <td
+                      <th
+                        scope="col"
                         style={{
                           verticalAlign: "middle",
                           maxWidth: "100px",
@@ -291,129 +143,10 @@ const AdminDiscount = () => {
                           whiteSpace: "nowrap",
                         }}
                       >
-                        {item.discountType === "amount" ? "VND" : "(%)"}
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        {new Intl.NumberFormat("vi-VN").format(
-                          item.discountValue
-                        )}
-                        {item.discountType === "amount" ? "đ" : "%"}
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        {new Intl.NumberFormat("vi-VN").format(
-                          item.minOrderValue
-                        )}
-                        đ
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        {format(item.startDate, "MM/dd/yyyy HH:mm:ss") ||
-                          "Không biết"}
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        {format(item.endDate, "MM/dd/yyyy HH:mm:ss") ||
-                          "Không biết"}
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        {new Intl.NumberFormat("vi-VN").format(
-                          item.maxUsageCount
-                        )}
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        {new Intl.NumberFormat("vi-VN").format(
-                          item.currentUsageCount
-                        )}
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        <span
-                          className={clsx(
-                            styles["badge"],
-                            styles[
-                              item.isSingleUse
-                                ? "badge-success"
-                                : "badge-secondary"
-                            ]
-                          )}
-                        >
-                          {item.isSingleUse ? "True" : "False"}
-                        </span>
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        <span
-                          className={clsx(
-                            styles["badge"],
-                            styles[
-                              item.isActive ? "badge-success" : "badge-danger"
-                            ]
-                          )}
-                        >
-                          {item.isActive ? "Active" : "Inactive"}
-                        </span>
-                      </td>
-                      <td
+                        Mã Giảm Giá
+                      </th>
+                      <th
+                        scope="col"
                         style={{
                           verticalAlign: "middle",
                           maxWidth: "100px",
@@ -422,19 +155,290 @@ const AdminDiscount = () => {
                           whiteSpace: "nowrap",
                         }}
                       >
-                        <Link
-                          to={`/admin/discounts/edit-discount/${generateSlug(item.code)}/${item.discountId}`}
-                          className="btn btn-warning btn-sm"
-                        >
-                          <FontAwesomeIcon icon={faPenToSquare} /> Sửa
-                        </Link>
-                      </td>
+                        Loại
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Giá Trị
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        ĐH Từ
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Có Hạn Từ
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Cho Đến Hết
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        SL SD Tối Đa
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Đã Dùng
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        1Lần/1KH
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Trạng Thái
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Thao Tác
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {prodList?.$values?.map((item, index) => (
+                      <tr key={item.bannerId}>
+                        <th style={{ verticalAlign: "middle" }} scope="row">
+                          {index + 1}
+                        </th>
+                        <td
+                          style={{
+                            verticalAlign: "middle",
+                            maxWidth: "200px",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {item.code}
+                        </td>
+                        <td
+                          style={{
+                            verticalAlign: "middle",
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {item.discountType === "amount" ? "VND" : "(%)"}
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {new Intl.NumberFormat("vi-VN").format(
+                            item.discountValue
+                          )}
+                          {item.discountType === "amount" ? "đ" : "%"}
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {new Intl.NumberFormat("vi-VN").format(
+                            item.minOrderValue
+                          )}
+                          đ
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {format(item.startDate, "MM/dd/yyyy HH:mm:ss") ||
+                            "Không biết"}
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {format(item.endDate, "MM/dd/yyyy HH:mm:ss") ||
+                            "Không biết"}
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {new Intl.NumberFormat("vi-VN").format(
+                            item.maxUsageCount
+                          )}
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {new Intl.NumberFormat("vi-VN").format(
+                            item.currentUsageCount
+                          )}
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          <span
+                            className={clsx(
+                              styles["badge"],
+                              styles[
+                                item.isSingleUse
+                                  ? "badge-success"
+                                  : "badge-secondary"
+                              ]
+                            )}
+                          >
+                            {item.isSingleUse ? "True" : "False"}
+                          </span>
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          <span
+                            className={clsx(
+                              styles["badge"],
+                              styles[
+                                item.isActive ? "badge-success" : "badge-danger"
+                              ]
+                            )}
+                          >
+                            {item.isActive ? "Active" : "Inactive"}
+                          </span>
+                        </td>
+                        <td
+                          style={{
+                            verticalAlign: "middle",
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <Link
+                            to={`/admin/discounts/edit-discount/${generateSlug(item.code)}/${item.discountId}`}
+                            className="btn btn-warning btn-sm"
+                          >
+                            <FontAwesomeIcon icon={faPenToSquare} /> Sửa
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+          ) : (
+            <Unauthorized />
+          )}
         </div>
       </div>
       {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}
@@ -469,6 +473,7 @@ export const EditDiscount = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const [isPermitted, setPermitted] = useState(true);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -479,11 +484,9 @@ export const EditDiscount = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -661,194 +664,202 @@ export const EditDiscount = () => {
           isSidebarCollapsed={isSidebarCollapsed}
         />
         <div className={clsx(styles[isChecked ? "main-light" : "main-dark"])}>
-          <div
-            className={clsx(
-              styles[isChecked ? "list-discount-light" : "list-discount-dark"]
-            )}
-          >
-            <div className={clsx(styles.container)}>
-              <h1>Cập Nhật Mã Giảm Giá</h1>
-              <form
-                onSubmit={handleSubmit}
-                className="d-flex flex-wrap justify-content-between"
-              >
-                <div className={clsx(styles.formGroup)}>
-                  <label htmlFor="code">Mã Giảm Giá</label>
-                  <input
-                    type="text"
-                    id="code"
-                    name="code"
-                    value={productDetails.$values[0].code}
-                    onChange={handleChange}
-                    placeholder="Mã"
-                    disabled
-                  />
-                </div>
-                <div className={clsx(styles.formGroup)}>
-                  <label htmlFor="link">Giảm Theo</label>
-                  <select
-                    name="discountType"
-                    id=""
-                    onChange={handleChange}
-                    value={productDetails.$values[0].discountType}
-                  >
-                    <option value="amount">VND</option>
-                    <option value="percent">Phần Trăm (%)</option>
-                  </select>
-                </div>
+          {isPermitted ? (
+            <div
+              className={clsx(
+                styles[isChecked ? "list-discount-light" : "list-discount-dark"]
+              )}
+            >
+              <div className={clsx(styles.container)}>
+                <h1>Cập Nhật Mã Giảm Giá</h1>
+                <form
+                  onSubmit={handleSubmit}
+                  className="d-flex flex-wrap justify-content-between"
+                >
+                  <div className={clsx(styles.formGroup)}>
+                    <label htmlFor="code">Mã Giảm Giá</label>
+                    <input
+                      type="text"
+                      id="code"
+                      name="code"
+                      value={productDetails.$values[0].code}
+                      onChange={handleChange}
+                      placeholder="Mã"
+                      disabled
+                    />
+                  </div>
+                  <div className={clsx(styles.formGroup)}>
+                    <label htmlFor="link">Giảm Theo</label>
+                    <select
+                      name="discountType"
+                      id=""
+                      onChange={handleChange}
+                      value={productDetails.$values[0].discountType}
+                    >
+                      <option value="amount">VND</option>
+                      <option value="percent">Phần Trăm (%)</option>
+                    </select>
+                  </div>
 
-                <div className={clsx(styles.formGroup, styles.formGroup3)}>
-                  <label htmlFor="discountValue">Giá Trị</label>
-                  <input
-                    type="number"
-                    id="discountValue"
-                    name="discountValue"
-                    value={productDetails.$values[0].discountValue}
-                    onChange={handleChange}
-                    placeholder="Giá Trị"
-                  ></input>
-                </div>
-                <div className={clsx(styles.formGroup, styles.formGroup3)}>
-                  <label htmlFor="minOrderValue">Đơn Hàng Tối Thiểu Từ</label>
-                  <input
-                    type="number"
-                    id="minOrderValue"
-                    name="minOrderValue"
-                    value={productDetails.$values[0].minOrderValue}
-                    onChange={handleChange}
-                    placeholder="Giá Trị"
-                  ></input>
-                </div>
-                <div className={clsx(styles.formGroup, styles.formGroup3)}>
-                  <label htmlFor="maxUsageCount">Lượt Sử Dụng Tối Đa</label>
-                  <input
-                    type="number"
-                    id="maxUsageCount"
-                    name="maxUsageCount"
-                    value={productDetails.$values[0].maxUsageCount}
-                    onChange={handleChange}
-                    placeholder="Giá Trị"
-                  ></input>
-                </div>
-                <div className="d-flex gap-3 mb-3 justify-content-between w-100">
-                  <div className="d-flex justify-content-start w-50">
-                    <div>
-                      <label htmlFor="start" className="d-flex flex-column">
-                        <p className="mb-0 text-start w-100">Bắt Đầu Lúc</p>
-                        <DatePicker
-                          id="start"
-                          selected={
-                            new Date(productDetails.$values[0].startDate)
-                          }
-                          onChange={(date) =>
-                            handleDateChange(date, "startDate")
-                          }
-                          dateFormat="MM/dd/yyyy HH:mm:ss"
-                          showDateSelect
-                          showTimeSelect
-                          placeholderText="Select Start Date"
-                          className={clsx(styles["date"])}
-                          customInput={
-                            <div
-                              className={clsx(
-                                styles["date-picker__input-container"]
-                              )}
-                            >
-                              <input
-                                className={clsx(styles["date"])}
-                                value={format(
-                                  productDetails.$values[0].startDate,
-                                  "MM/dd/yyyy HH:mm:ss"
-                                )}
-                              />
-                              <span
+                  <div className={clsx(styles.formGroup, styles.formGroup3)}>
+                    <label htmlFor="discountValue">Giá Trị</label>
+                    <input
+                      type="number"
+                      id="discountValue"
+                      name="discountValue"
+                      value={productDetails.$values[0].discountValue}
+                      onChange={handleChange}
+                      placeholder="Giá Trị"
+                    ></input>
+                  </div>
+                  <div className={clsx(styles.formGroup, styles.formGroup3)}>
+                    <label htmlFor="minOrderValue">Đơn Hàng Tối Thiểu Từ</label>
+                    <input
+                      type="number"
+                      id="minOrderValue"
+                      name="minOrderValue"
+                      value={productDetails.$values[0].minOrderValue}
+                      onChange={handleChange}
+                      placeholder="Giá Trị"
+                    ></input>
+                  </div>
+                  <div className={clsx(styles.formGroup, styles.formGroup3)}>
+                    <label htmlFor="maxUsageCount">Lượt Sử Dụng Tối Đa</label>
+                    <input
+                      type="number"
+                      id="maxUsageCount"
+                      name="maxUsageCount"
+                      value={productDetails.$values[0].maxUsageCount}
+                      onChange={handleChange}
+                      placeholder="Giá Trị"
+                    ></input>
+                  </div>
+                  <div className="d-flex gap-3 mb-3 justify-content-between w-100">
+                    <div className="d-flex justify-content-start w-50">
+                      <div>
+                        <label htmlFor="start" className="d-flex flex-column">
+                          <p className="mb-0 text-start w-100">Bắt Đầu Lúc</p>
+                          <DatePicker
+                            id="start"
+                            selected={
+                              new Date(productDetails.$values[0].startDate)
+                            }
+                            onChange={(date) =>
+                              handleDateChange(date, "startDate")
+                            }
+                            dateFormat="MM/dd/yyyy HH:mm:ss"
+                            showDateSelect
+                            showTimeSelect
+                            placeholderText="Select Start Date"
+                            className={clsx(styles["date"])}
+                            customInput={
+                              <div
                                 className={clsx(
-                                  styles["date-picker__input-icon"]
+                                  styles["date-picker__input-container"]
                                 )}
                               >
-                                📅
-                              </span>
-                            </div>
-                          }
-                        />
-                      </label>
+                                <input
+                                  className={clsx(styles["date"])}
+                                  value={format(
+                                    productDetails.$values[0].startDate,
+                                    "MM/dd/yyyy HH:mm:ss"
+                                  )}
+                                />
+                                <span
+                                  className={clsx(
+                                    styles["date-picker__input-icon"]
+                                  )}
+                                >
+                                  📅
+                                </span>
+                              </div>
+                            }
+                          />
+                        </label>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="d-flex justify-content-start w-50">
-                    <div>
-                      <label htmlFor="" className="d-flex flex-column">
-                        <p className="mb-0 text-start w-100">Kết Thúc Lúc</p>
-                        <DatePicker
-                          selected={new Date(productDetails.$values[0].endDate)}
-                          onChange={(date) => handleDateChange(date, "endDate")}
-                          dateFormat="MM/dd/yyyy HH:mm:ss"
-                          showDateSelect
-                          showTimeSelect
-                          placeholderText="Select End Date"
-                          className={clsx(styles["date"])}
-                          customInput={
-                            <div
-                              className={clsx(
-                                styles["date-picker__input-container"]
-                              )}
-                            >
-                              <input
-                                className={clsx(styles["date"])}
-                                value={format(
-                                  productDetails.$values[0].endDate,
-                                  "MM/dd/yyyy HH:mm:ss"
-                                )}
-                              />
-                              <span
+                    <div className="d-flex justify-content-start w-50">
+                      <div>
+                        <label htmlFor="" className="d-flex flex-column">
+                          <p className="mb-0 text-start w-100">Kết Thúc Lúc</p>
+                          <DatePicker
+                            selected={
+                              new Date(productDetails.$values[0].endDate)
+                            }
+                            onChange={(date) =>
+                              handleDateChange(date, "endDate")
+                            }
+                            dateFormat="MM/dd/yyyy HH:mm:ss"
+                            showDateSelect
+                            showTimeSelect
+                            placeholderText="Select End Date"
+                            className={clsx(styles["date"])}
+                            customInput={
+                              <div
                                 className={clsx(
-                                  styles["date-picker__input-icon"]
+                                  styles["date-picker__input-container"]
                                 )}
                               >
-                                📅
-                              </span>
-                            </div>
-                          }
-                        />
-                      </label>
+                                <input
+                                  className={clsx(styles["date"])}
+                                  value={format(
+                                    productDetails.$values[0].endDate,
+                                    "MM/dd/yyyy HH:mm:ss"
+                                  )}
+                                />
+                                <span
+                                  className={clsx(
+                                    styles["date-picker__input-icon"]
+                                  )}
+                                >
+                                  📅
+                                </span>
+                              </div>
+                            }
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div className={clsx(styles.customCheckbox, "flex-wrap")}>
+                      <div className="w-50">
+                        <label htmlFor="isActive">
+                          <input
+                            type="checkbox"
+                            id="isActive"
+                            name="isActive"
+                            checked={productDetails.$values[0].isActive}
+                            onChange={handleChange}
+                            placeholder="Active"
+                          ></input>
+                          Active
+                        </label>
+                      </div>
+                      <div className="w-100">
+                        <label htmlFor="isSingleUse">
+                          <input
+                            type="checkbox"
+                            id="isSingleUse"
+                            name="isSingleUse"
+                            checked={productDetails.$values[0].isSingleUse}
+                            onChange={handleChange}
+                            placeholder="isSingleUse"
+                          ></input>
+                          1Lần/1KH
+                        </label>
+                      </div>
                     </div>
                   </div>
-                  <div className={clsx(styles.customCheckbox, "flex-wrap")}>
-                    <div className="w-50">
-                      <label htmlFor="isActive">
-                        <input
-                          type="checkbox"
-                          id="isActive"
-                          name="isActive"
-                          checked={productDetails.$values[0].isActive}
-                          onChange={handleChange}
-                          placeholder="Active"
-                        ></input>
-                        Active
-                      </label>
-                    </div>
-                    <div className="w-100">
-                      <label htmlFor="isSingleUse">
-                        <input
-                          type="checkbox"
-                          id="isSingleUse"
-                          name="isSingleUse"
-                          checked={productDetails.$values[0].isSingleUse}
-                          onChange={handleChange}
-                          placeholder="isSingleUse"
-                        ></input>
-                        1Lần/1KH
-                      </label>
-                    </div>
-                  </div>
-                </div>
 
-                <button type="submit" className={clsx(styles.submitButton)}>
-                  Lưu Thay Đổi
-                </button>
-              </form>
+                  <button type="submit" className={clsx(styles.submitButton)}>
+                    Lưu Thay Đổi
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
+          ) : (
+            <Unauthorized />
+          )}
         </div>
       </div>
       {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}

@@ -1,0 +1,60 @@
+.container {
+    margin: 20px 8px;
+    text-align: center;
+    background-color: #fff;
+    padding: 30px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.allProducts {
+    color: red;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.allProducts:hover {
+    text-decoration: underline;
+}
+
+.grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.categoryCard {
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+}
+
+.categoryCard:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.categoryImage {
+    width: 185px;
+    height: 185px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 25px;
+}
+
+.categoryName {
+    font-size: 16px;
+    color: #333;
+}

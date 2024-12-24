@@ -1,4 +1,3 @@
-// src/components/Register.jsx
 import { useState } from "react";
 import { forgotPassword } from "../../api";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,6 +10,7 @@ const Register = () => {
   const [userEmail, setUserEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -36,26 +36,23 @@ const Register = () => {
   return (
     <div className={clsx(styles["dmain"])}>
       <form onSubmit={handleSubmit} className={clsx(styles["fmain"])}>
-        <div className={clsx(styles["div-header"])}>Nhập Email Của Bạn</div>
+        <div className={clsx(styles["div-header"])}>quên mật khẩu</div>
         <input
           className={clsx("form-control", styles["email-input"])}
           type="email"
           placeholder="Email"
           value={userEmail}
-          onChange={(e) => {
-            setUserEmail(e.target.value);
-          }}
+          onChange={(e) => setUserEmail(e.target.value)}
         />
         <button
           type="submit"
           className={clsx("form-control", styles["btn-submit"])}
         >
-          Send
+          Gửi
         </button>
         <Link to="/login" className={clsx(styles["go-login"])}>
           Quay lại trang đăng nhập
         </Link>
-
         <ToastContainer />
         {isLoading && (
           <Loading className={clsx(styles["fg-loading"])}></Loading>

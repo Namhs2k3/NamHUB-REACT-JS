@@ -4,6 +4,7 @@ import {
   faBars,
   faRightFromBracket,
   faUser,
+  faKey,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,7 +12,8 @@ import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Switch from "../../SwitchButton/Switch";
 import { ThemeContext } from "../../../contexts/ThemeContext";
-import { getCustomerInfo } from "../../../api";
+import { forgotPassword, getCustomerInfo } from "../../../api";
+import { toast } from "react-toastify";
 
 const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
   const navigate = useNavigate("");
@@ -19,10 +21,11 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
   const [isHide, setIsHide] = useState(true);
   const { isChecked, handleChecked } = useContext(ThemeContext);
   const [avatar, setAvatar] = useState("");
+  const [email, setEmail] = useState("");
   const beURL = import.meta.env.VITE_BACKEND_URL;
 
   const handleHiddenOnclick = () => {
-    setIsHide(!isHide);
+    setIsHide((prev) => !prev);
   };
 
   useEffect(() => {
@@ -30,6 +33,7 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
       const data = await getCustomerInfo();
       console.log("data: ", data);
       setAvatar(data.userImage);
+      setEmail(data.email);
     };
 
     AvatarData();
@@ -59,6 +63,17 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
   };
 
   const cancelRemove = () => setConfirmDelete({ isOpen: false });
+
+  const handlePwdChange = async () => {
+    try {
+      toast.info("Vui lòng đợi, chúng tôi đang gửi mã đến email của bạn!");
+      await forgotPassword(email);
+      navigate("/input-token-reset-pwd");
+    } catch (error) {
+      console.log("lỗi khi đổi mk: ", error);
+      toast.error("Có Lỗi Xảy Ra!");
+    }
+  };
   return (
     <div
       className={clsx(
@@ -75,7 +90,11 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
       <div className="d-flex justify-content-between align-items-center">
         <Switch isChecked={isChecked} handleCheck={handleChecked} />
         <img
-          src={`${beURL}${avatar}`}
+          src={
+            avatar
+              ? `${beURL}${avatar}`
+              : "/src/assets/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png"
+          }
           alt=""
           className={clsx(styles["avatar"])}
           onMouseEnter={handleHiddenOnclick}
@@ -94,13 +113,20 @@ const AdminNavbar = ({ toggleSidebar, isSidebarCollapsed }) => {
           Settings
         </div>
         <Link
-          to="/admin/profile/edit"
+          to="/administrator/profile/edit"
           className={clsx(styles[isChecked ? "profile-light" : "profile"])}
         >
           Profile
           <FontAwesomeIcon icon={faUser} />
         </Link>
 
+        <Link
+          className={clsx(styles[isChecked ? "logout-light" : "logout"])}
+          onClick={handlePwdChange}
+        >
+          Đổi Mật Khẩu
+          <FontAwesomeIcon icon={faKey} />
+        </Link>
         <Link
           className={clsx(styles[isChecked ? "logout-light" : "logout"])}
           onClick={handleLogout}

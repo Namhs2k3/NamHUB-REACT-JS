@@ -3,6 +3,7 @@ import axios from "axios";
 import apiClient from "./axiosInstance";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL
+const token = localStorage.getItem("token");
 
 // Đăng nhập
 export const login = async (credentials) => {
@@ -21,7 +22,9 @@ export const login = async (credentials) => {
 export const refreshToken = async () => {
   const currentRefreshToken = localStorage.getItem("refreshToken");
   if (!currentRefreshToken) {
-    throw new Error("Refresh Token không tồn tại");
+    console.warn("Refresh Token không tồn tại. Chuyển hướng về trang đăng nhập...");
+    window.location.href = "/login"; // Hoặc sử dụng `useNavigate` nếu trong một component React
+    return; // Kết thúc hàm
   }
 
   try {
@@ -259,9 +262,14 @@ export const addEmployee = async (empInfo) => {
   return response.data;
 };
 //Thông Tin Cá Nhân
+//Không cần đăng nhập
 export const getCustomerInfo = async () => {
   
-  const response = await apiClient.get(`/api/user-info/get-customer-info`);
+  const response = await axios.get(`${baseURL}/api/user-info/get-customer-info`,
+    {
+      headers: {
+      Authorization:`Bearer ${token}`
+    }});
   return response.data;
 };
 
@@ -358,7 +366,7 @@ export const addDiscount = async ( formData) => {
   return response.data;
 };
 
-//Customer
+//Customer Manage
 
 export const getCustomerList = async () => {
   
@@ -388,6 +396,7 @@ export const getOrderHistory = async (id) => {
   const response = await apiClient.get(`/api/orders-manage-for-admin/get-orders-history/${id}`);
   return response.data;
 };
+
 export const addNewState = async (id, newStatus) => {
   
   const response = await apiClient.post(`/api/orders-manage-for-admin/add-new-state-for-order-history/${id}`, newStatus,{
@@ -396,3 +405,101 @@ export const addNewState = async (id, newStatus) => {
   return response.data;
 };
 
+//Deliver Order List 
+export const getOrderListForDeliver = async () => {
+  
+  const response = await apiClient.get(`/api/Delivers/get-orders-list-for-deliver`);
+  return response.data;
+};
+
+export const orderCompleted = async (id) => {
+  
+  const response = await apiClient.post(`/api/Delivers/delivery-completed/${id}`);
+  return response.data;
+};
+
+//API for customer
+export const getCategoryListForCus = async () => {
+  
+  const response = await apiClient.get(`/api/Customer/get-categories-list`);
+  return response.data;
+};
+
+export const getBannerListForCus = async () => {
+  
+  const response = await apiClient.get(`/api/Customer/get-banner-list`);
+  return response.data;
+};
+
+export const getDiscountedProductsForCus = async () => {
+  
+  const response = await apiClient.get(`/api/Customer/get-discounted-foods`);
+  return response.data;
+};
+
+export const getPopularProductsForCus = async () => {
+  
+  const response = await apiClient.get(`/api/Customer/get-popular-foods`);
+  return response.data;
+};
+
+export const getFoodListForCus = async (name, cateId, productId, page,pageSize) => {
+  const params = new URLSearchParams();
+
+  if (name) params.append("searchTerm", name);
+  if (cateId) params.append("categoryId", cateId);
+  if (productId) params.append("productId", productId);
+  if (page) params.append("page", page);
+  if (pageSize) params.append("pageSize", pageSize);
+
+  const response = await apiClient.get(`/api/Customer/get-food-list?${params.toString()}`);
+  return response.data;
+};
+
+export const getCartCount = async () => {
+  
+  const response = await axios.get(`${baseURL}/api/Customer/get-cart-item-count`,
+    {
+      headers: {
+      Authorization:`Bearer ${token}`
+    }});
+  return response.data;
+};
+
+export const getCartItems = async () => {
+  
+  const response = await axios.get(`${baseURL}/api/Customer/get-cus-cart-items`,
+    {
+      headers: {
+      Authorization:`Bearer ${token}`
+    }});
+  return response.data;
+};
+
+export const increaseCartItem = async (id) => {
+  
+  const response = await apiClient.post(`/api/Customer/increase-quantity?foodId=${id}`);
+  return response.data;
+};
+export const decreaseCartItem = async (id) => {
+  
+  const response = await apiClient.post(`/api/Customer/decrease-quantity?foodId=${id}`);
+  return response.data;
+};
+export const removeCartItem = async (id) => {
+  
+  const response = await apiClient.delete(`/api/Customer/delete-cart-item?foodId=${id}`);
+  return response.data;
+};
+export const addToCart = async (id) => {
+  const response = await axios.post(
+    `${baseURL}/api/Customer/add-to-cart?foodId=${id}`, 
+    {}, // Nếu không có body data, truyền vào một object rỗng
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};

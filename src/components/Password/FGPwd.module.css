@@ -1,54 +1,98 @@
+/* Căn chỉnh giao diện chính */
 .dmain {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: max-content;
   flex-direction: column;
-  background-image: url("/src/assets/empty-orange-color-shopping-bag-260nw-1520795969_LE_auto_x2_LE_auto_x2.jpg");
+  background: #F5F5F5;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 3%;
 }
 
+/* Form chính */
 .fmain {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 10px;
-  background-color: aliceblue;
-  padding: 50px;
-  border-radius: 7px;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
 }
 
+/* Header tiêu đề */
 .div-header {
   font-weight: bold;
   text-align: center;
-  font-size: 70px;
-  margin-bottom: 30px;
+  font-size: 30px;
+  margin-bottom: 20px;
   color: #fc4c00;
+  text-transform: uppercase;
 }
 
+/* Link quay lại đăng nhập */
 .go-login {
   color: #fc4c00;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
+.go-login:hover {
+  color: #d43e00;
+  text-decoration: underline;
+}
+
+/* Input email */
 .email-input {
-  border: 1px solid #fc4c00 !important;
+  border: 2px solid #fc4c00 !important;
   border-radius: 5px;
   width: 100% !important;
   text-align: center;
+  padding: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
 }
 
+.email-input:focus {
+  border-color: #d43e00 !important;
+  outline: none;
+  box-shadow: 0 0 5px rgba(252, 76, 0, 0.5);
+}
+
+/* Nút gửi */
 .btn-submit {
   background-color: #fc4c00 !important;
-  color: aliceblue !important;
+  color: white !important;
   font-weight: bold !important;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.btn-submit:hover {
+  background-color: #d43e00 !important;
+  transform: scale(1.05);
+}
+
+/* Loading overlay */
 .fg-loading {
   position: absolute;
-  background-color: aliceblue;
-  opacity: 0.8;
-  width: 765px !important;
-  height: 375px !important;
-  border-radius: 7px;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
   z-index: 1001;
 }

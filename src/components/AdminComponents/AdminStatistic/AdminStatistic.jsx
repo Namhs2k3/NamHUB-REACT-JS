@@ -44,6 +44,7 @@ import DatePicker from "react-datepicker";
 import { toast, ToastContainer } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { Unauthorized } from "../../Unauthorized/Unauth";
 
 // Đăng ký các thành phần của Chart.js
 ChartJS.register(
@@ -63,6 +64,8 @@ ChartJS.register(
 const AdminStatistic = () => {
   const { isSidebarCollapsed, toggleSidebar } =
     useContext(ToggleSidebarContext);
+
+  const [isPermitted, setPermitted] = useState(true);
 
   const { isChecked } = useContext(ThemeContext);
 
@@ -129,11 +132,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -149,11 +150,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -169,11 +168,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -194,11 +191,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -218,11 +213,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -242,11 +235,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -265,11 +256,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -288,11 +277,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -311,11 +298,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -334,11 +319,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -354,11 +337,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -376,11 +357,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -398,11 +377,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -426,11 +403,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -454,11 +429,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -476,11 +449,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -498,11 +469,9 @@ const AdminStatistic = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -974,414 +943,444 @@ const AdminStatistic = () => {
           isSidebarCollapsed={isSidebarCollapsed}
         />
         <div className={clsx(styles[isChecked ? "main-light" : "main-dark"])}>
-          <div className="d-flex justify-content-between align-items-center">
-            <div
-              className={clsx(
-                styles[isChecked ? "filter-light" : "filter-dark"],
-                styles["statistic-filter"]
-              )}
-            >
-              Đang Xem Thống Kê Về
-              <select
-                name="filter-type"
-                id="filter-type"
-                value={selectedType}
-                onChange={handleChangeType}
-                className={clsx(styles["filter-type"])}
-              >
-                <option value="revenue">Doanh Thu</option>
-                <option value="orders">Đơn Hàng</option>
-                <option value="users">Người Dùng</option>
-                <option value="best-seller">Bán Chạy</option>
-              </select>
-            </div>
-            <div
-              className={clsx(
-                styles[isChecked ? "filter-light" : "filter-dark"],
-                styles["statistic-filter"]
-              )}
-            >
-              Thống Kê Trong Năm
-              <select
-                name="filter-type"
-                id="filter-type"
-                value={selectedYear}
-                onChange={handleChangeYear}
-                className={clsx(styles["filter-type"])}
-              >
-                <option value={new Date().getFullYear()}>
-                  {new Date().getFullYear()}
-                </option>
-                <option value={new Date().getFullYear() - 1}>
-                  {new Date().getFullYear() - 1}
-                </option>
-                <option value={new Date().getFullYear() - 2}>
-                  {new Date().getFullYear() - 2}
-                </option>
-              </select>
-            </div>
-          </div>
-          {selectedType === "revenue" && (
+          {isPermitted ? (
             <>
-              <div className={clsx(styles["div-bar-line"])}>
-                <div
-                  className={clsx(
-                    styles[isChecked ? "new-user-light" : "new-user-dark"],
-                    styles[
-                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
-                    ]
-                  )}
-                >
-                  <Bar data={revenueMonth} options={optionRevenueMonth} />
-                </div>
-
-                <div
-                  className={clsx(
-                    styles[isChecked ? "new-user-light" : "new-user-dark"],
-                    styles[
-                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
-                    ]
-                  )}
-                >
-                  <Line data={quarterRevenue} options={optionsQuarterRevenue} />
-                </div>
-              </div>
-
-              <div
-                className={clsx(
-                  "d-flex justify-content-between align-items-center flex-column",
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <div className={clsx(styles["filter-tiltle"])}>
-                  LỌC THEO KHOẢNG THỜI GIAN
-                </div>
-                <DatePicker
-                  selected={selectedDate.start}
-                  onChange={(date) =>
-                    setSelectedDate((prev) => ({
-                      ...prev, // Sao chép các giá trị hiện tại
-                      start: date, // Thay đổi thuộc tính `start`
-                    }))
-                  }
-                  dateFormat="MM/dd/yyyy"
-                  showDateSelect
-                  placeholderText="Start"
-                  className={clsx(styles["date"])}
-                />
-                Đến
-                <DatePicker
-                  selected={selectedDate.end}
-                  onChange={(date) =>
-                    date >= selectedDate.start
-                      ? setSelectedDate((prev) => ({
-                          ...prev, // Sao chép các giá trị hiện tại
-                          end: date, // Thay đổi thuộc tính `start`
-                        }))
-                      : toast.error(
-                          "Ngày kết thúc (End) phải lớn hơn hoặc bằng ngày bắt đầu (Start)"
-                        )
-                  }
-                  dateFormat="MM/dd/yyyy"
-                  showDateSelect
-                  placeholderText="End"
-                  className={clsx(styles["date"])}
-                />
-                <p>
-                  Doanh Thu Trong Khoảng{" "}
-                  <span className={clsx(styles["revenue"])}>
-                    {format(selectedDate.start, "MM/dd/yyyy")}
-                  </span>{" "}
-                  Đến{" "}
-                  <span className={clsx(styles["revenue"])}>
-                    {format(selectedDate.end, "MM/dd/yyyy")}
-                  </span>{" "}
-                  Là:{" "}
-                  <span className={clsx(styles["revenue"])}>
-                    {new Intl.NumberFormat("vi-VN").format(revenueByPeriodDate)}
-                    đ
-                  </span>
-                </p>
-                <div className="d-flex justify-content-center align-items-center w-100 gap-3">
-                  <div
-                    style={{
-                      width: "30%",
-                      height: "350px",
-                      padding: "0",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <PolarArea data={dataPolar} options={optionsPolar} />
-                  </div>
-                  <div
-                    style={{
-                      width: "30%",
-                      height: "350px",
-                      padding: "0",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Pie data={dataPie} options={optionsPie} />
-                  </div>
-                  <div
-                    style={{
-                      width: "30%",
-                      height: "350px",
-                      padding: "0px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Doughnut data={dataDoughnut} options={optionsDoghnut} />
-                  </div>
-                </div>
-              </div>
-              <div
-                className={clsx(
-                  "d-flex justify-content-center align-items-center",
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <p>
-                  Tổng Doanh Thu :{" "}
-                  <span className={clsx(styles["revenue"])}>
-                    {totalRevenue}đ
-                  </span>
-                </p>
-              </div>
-            </>
-          )}
-          {selectedType === "users" && (
-            <>
-              <div className={clsx(styles["div-bar-line"])}>
-                <div
-                  className={clsx(
-                    styles[isChecked ? "new-user-light" : "new-user-dark"],
-                    styles[
-                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
-                    ]
-                  )}
-                >
-                  <Bar data={dataBar} options={optionsBar} />
-                </div>
-
-                <div
-                  className={clsx(
-                    styles[isChecked ? "new-user-light" : "new-user-dark"],
-                    styles[
-                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
-                    ]
-                  )}
-                >
-                  <Line data={data} options={options} />
-                </div>
-              </div>
-
-              <div
-                className={clsx(
-                  "d-flex justify-content-center align-items-center",
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <p>
-                  Tổng Số Người Dùng :{" "}
-                  <span className={clsx(styles["revenue"])}>{allUsers}</span>
-                </p>
-              </div>
-            </>
-          )}
-          {selectedType === "orders" && (
-            <>
-              <div className={clsx(styles["div-bar-line"])}>
-                <div
-                  className={clsx(
-                    styles[isChecked ? "new-user-light" : "new-user-dark"],
-                    styles[
-                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
-                    ]
-                  )}
-                >
-                  <Bar data={dataBarOrders} options={optionsBarOrders} />
-                </div>
-
-                <div
-                  className={clsx(
-                    styles[isChecked ? "new-user-light" : "new-user-dark"],
-                    styles[
-                      !isSidebarCollapsed ? "bar-line" : "bar-line-collapsed"
-                    ]
-                  )}
-                >
-                  <Line data={dataOrders} options={optionsOrders} />
-                </div>
-              </div>
-
               <div className="d-flex justify-content-between align-items-center">
                 <div
                   className={clsx(
-                    "d-flex justify-content-center align-items-center flex-column m-0",
-                    styles[isChecked ? "new-user-light" : "new-user-dark"],
-                    styles["all-order"]
+                    styles[isChecked ? "filter-light" : "filter-dark"],
+                    styles["statistic-filter"]
                   )}
                 >
-                  <p>
-                    Tổng Số Đơn Hàng :{" "}
-                    <span className={clsx(styles["revenue"])}>
-                      {getTotalOrder}
-                    </span>
-                  </p>
-
-                  <p>
-                    Số Đơn Hàng Trong Ngày :{" "}
-                    <span className={clsx(styles["revenue"])}>
-                      {getTodayOrders}
-                    </span>
-                  </p>
+                  Đang Xem Thống Kê Về
+                  <select
+                    name="filter-type"
+                    id="filter-type"
+                    value={selectedType}
+                    onChange={handleChangeType}
+                    className={clsx(styles["filter-type"])}
+                  >
+                    <option value="revenue">Doanh Thu</option>
+                    <option value="orders">Đơn Hàng</option>
+                    <option value="users">Người Dùng</option>
+                    <option value="best-seller">Bán Chạy</option>
+                  </select>
                 </div>
-
                 <div
                   className={clsx(
-                    "d-flex justify-content-center align-items-center flex-column m-0",
-                    styles[isChecked ? "new-user-light" : "new-user-dark"],
-                    styles["all-order-by-time"]
+                    styles[isChecked ? "filter-light" : "filter-dark"],
+                    styles["statistic-filter"]
                   )}
                 >
-                  <div className={clsx(styles["filter-tiltle"])}>
-                    LỌC THEO KHOẢNG THỜI GIAN
-                  </div>
-                  <DatePicker
-                    selected={selectedDate.start}
-                    onChange={(date) =>
-                      setSelectedDate((prev) => ({
-                        ...prev, // Sao chép các giá trị hiện tại
-                        start: date, // Thay đổi thuộc tính `start`
-                      }))
-                    }
-                    dateFormat="MM/dd/yyyy"
-                    showDateSelect
-                    placeholderText="Start"
-                    className={clsx(styles["date"])}
-                  />
-                  Đến
-                  <DatePicker
-                    selected={selectedDate.end}
-                    onChange={(date) =>
-                      date >= selectedDate.start
-                        ? setSelectedDate((prev) => ({
-                            ...prev, // Sao chép các giá trị hiện tại
-                            end: date, // Thay đổi thuộc tính `start`
-                          }))
-                        : toast.error(
-                            "Ngày kết thúc (End) phải lớn hơn hoặc bằng ngày bắt đầu (Start)"
-                          )
-                    }
-                    dateFormat="MM/dd/yyyy"
-                    showDateSelect
-                    placeholderText="End"
-                    className={clsx(styles["date"])}
-                  />
-                  <p>
-                    Số Đơn Hàng Từ Ngày{" "}
-                    <span className={clsx(styles["revenue"])}>
-                      {format(selectedDate.start, "MM/dd/yyyy")}
-                    </span>{" "}
-                    Đến Ngày{" "}
-                    <span className={clsx(styles["revenue"])}>
-                      {format(selectedDate.end, "MM/dd/yyyy")}
-                    </span>{" "}
-                    Là{" "}
-                    <span className={clsx(styles["revenue"])}>
-                      {getOrdersByPeriodTime}
-                    </span>
-                  </p>
+                  Thống Kê Trong Năm
+                  <select
+                    name="filter-type"
+                    id="filter-type"
+                    value={selectedYear}
+                    onChange={handleChangeYear}
+                    className={clsx(styles["filter-type"])}
+                  >
+                    <option value={new Date().getFullYear()}>
+                      {new Date().getFullYear()}
+                    </option>
+                    <option value={new Date().getFullYear() - 1}>
+                      {new Date().getFullYear() - 1}
+                    </option>
+                    <option value={new Date().getFullYear() - 2}>
+                      {new Date().getFullYear() - 2}
+                    </option>
+                  </select>
                 </div>
               </div>
-            </>
-          )}
-          {selectedType === "best-seller" && (
-            <>
-              <div
-                className={clsx(
-                  "d-flex justify-content-center align-items-center flex-column",
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <div>
-                  Top 5 Sản Phẩm Bán Chạy Nhất Mọi Thời Điểm{" "}
-                  <FontAwesomeIcon icon={faMedal} />
-                </div>
-                <div className={clsx(styles["best-seller-table"])}>
-                  {
-                    //có thể dùng .slice(0, 5) để lấy tối đa 5 cái nhưng BE đã xử lý rồi nen ko cần nữa
-                    bestSellers.$values.map((item, index) => (
-                      <div
-                        key={index}
-                        className={clsx(styles["best-seller-item"])}
-                      >
-                        <FontAwesomeIcon icon={faTrophy} /> {index + 1}.{" "}
-                        {item?.productName || "Ko Có"}
-                      </div>
-                    ))
-                  }
-                </div>
-              </div>
+              {selectedType === "revenue" && (
+                <>
+                  <div className={clsx(styles["div-bar-line"])}>
+                    <div
+                      className={clsx(
+                        styles[isChecked ? "new-user-light" : "new-user-dark"],
+                        styles[
+                          !isSidebarCollapsed
+                            ? "bar-line"
+                            : "bar-line-collapsed"
+                        ]
+                      )}
+                    >
+                      <Bar data={revenueMonth} options={optionRevenueMonth} />
+                    </div>
 
-              <div
-                className={clsx(
-                  "d-flex justify-content-center align-items-center flex-column",
-                  styles[isChecked ? "new-user-light" : "new-user-dark"]
-                )}
-              >
-                <div className={clsx(styles["best-seller-by-quarter-table"])}>
-                  {Array.from({ length: 4 }).map((_, quarterIndex) => {
-                    const quarter = quarterIndex + 1; // Quý 1 -> Quý 4
-                    return (
-                      <div
-                        key={quarter}
-                        className={clsx(
-                          styles[
-                            !isSidebarCollapsed
-                              ? "best-seller-by-quarter-table-item"
-                              : "best-seller-by-quarter-table-item-collapsed"
-                          ]
+                    <div
+                      className={clsx(
+                        styles[isChecked ? "new-user-light" : "new-user-dark"],
+                        styles[
+                          !isSidebarCollapsed
+                            ? "bar-line"
+                            : "bar-line-collapsed"
+                        ]
+                      )}
+                    >
+                      <Line
+                        data={quarterRevenue}
+                        options={optionsQuarterRevenue}
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    className={clsx(
+                      "d-flex justify-content-between align-items-center flex-column",
+                      styles[isChecked ? "new-user-light" : "new-user-dark"]
+                    )}
+                  >
+                    <div className={clsx(styles["filter-tiltle"])}>
+                      LỌC THEO KHOẢNG THỜI GIAN
+                    </div>
+                    <DatePicker
+                      selected={selectedDate.start}
+                      onChange={(date) =>
+                        setSelectedDate((prev) => ({
+                          ...prev, // Sao chép các giá trị hiện tại
+                          start: date, // Thay đổi thuộc tính `start`
+                        }))
+                      }
+                      dateFormat="MM/dd/yyyy"
+                      showDateSelect
+                      placeholderText="Start"
+                      className={clsx(styles["date"])}
+                    />
+                    Đến
+                    <DatePicker
+                      selected={selectedDate.end}
+                      onChange={(date) =>
+                        date >= selectedDate.start
+                          ? setSelectedDate((prev) => ({
+                              ...prev, // Sao chép các giá trị hiện tại
+                              end: date, // Thay đổi thuộc tính `start`
+                            }))
+                          : toast.error(
+                              "Ngày kết thúc (End) phải lớn hơn hoặc bằng ngày bắt đầu (Start)"
+                            )
+                      }
+                      dateFormat="MM/dd/yyyy"
+                      showDateSelect
+                      placeholderText="End"
+                      className={clsx(styles["date"])}
+                    />
+                    <p>
+                      Doanh Thu Trong Khoảng{" "}
+                      <span className={clsx(styles["revenue"])}>
+                        {format(selectedDate.start, "MM/dd/yyyy")}
+                      </span>{" "}
+                      Đến{" "}
+                      <span className={clsx(styles["revenue"])}>
+                        {format(selectedDate.end, "MM/dd/yyyy")}
+                      </span>{" "}
+                      Là:{" "}
+                      <span className={clsx(styles["revenue"])}>
+                        {new Intl.NumberFormat("vi-VN").format(
+                          revenueByPeriodDate
                         )}
+                        đ
+                      </span>
+                    </p>
+                    <div className="d-flex justify-content-center align-items-center w-100 gap-3">
+                      <div
+                        style={{
+                          width: "30%",
+                          height: "350px",
+                          padding: "0",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
                       >
-                        <label
-                          htmlFor=""
-                          className={clsx(
-                            styles[
-                              !isChecked
-                                ? "my-floating-label"
-                                : "my-floating-label-dark"
-                            ]
-                          )}
-                        >
-                          Quý {quarter}
-                        </label>
-                        {Array.from({ length: 5 }).map((_, index) => {
-                          const item =
-                            bestSellersByQuarter.quarters[String(quarter)]
-                              .$values[index];
-                          return (
-                            <div
-                              key={index}
-                              className={clsx(styles["best-seller-item"])}
-                            >
-                              {index + 1}. {item?.productName || "Không Có"}
-                            </div>
-                          );
-                        })}
+                        <PolarArea data={dataPolar} options={optionsPolar} />
                       </div>
-                    );
-                  })}
-                </div>
-              </div>
+                      <div
+                        style={{
+                          width: "30%",
+                          height: "350px",
+                          padding: "0",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Pie data={dataPie} options={optionsPie} />
+                      </div>
+                      <div
+                        style={{
+                          width: "30%",
+                          height: "350px",
+                          padding: "0px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Doughnut
+                          data={dataDoughnut}
+                          options={optionsDoghnut}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={clsx(
+                      "d-flex justify-content-center align-items-center",
+                      styles[isChecked ? "new-user-light" : "new-user-dark"]
+                    )}
+                  >
+                    <p>
+                      Tổng Doanh Thu :{" "}
+                      <span className={clsx(styles["revenue"])}>
+                        {totalRevenue}đ
+                      </span>
+                    </p>
+                  </div>
+                </>
+              )}
+              {selectedType === "users" && (
+                <>
+                  <div className={clsx(styles["div-bar-line"])}>
+                    <div
+                      className={clsx(
+                        styles[isChecked ? "new-user-light" : "new-user-dark"],
+                        styles[
+                          !isSidebarCollapsed
+                            ? "bar-line"
+                            : "bar-line-collapsed"
+                        ]
+                      )}
+                    >
+                      <Bar data={dataBar} options={optionsBar} />
+                    </div>
+
+                    <div
+                      className={clsx(
+                        styles[isChecked ? "new-user-light" : "new-user-dark"],
+                        styles[
+                          !isSidebarCollapsed
+                            ? "bar-line"
+                            : "bar-line-collapsed"
+                        ]
+                      )}
+                    >
+                      <Line data={data} options={options} />
+                    </div>
+                  </div>
+
+                  <div
+                    className={clsx(
+                      "d-flex justify-content-center align-items-center",
+                      styles[isChecked ? "new-user-light" : "new-user-dark"]
+                    )}
+                  >
+                    <p>
+                      Tổng Số Người Dùng :{" "}
+                      <span className={clsx(styles["revenue"])}>
+                        {allUsers}
+                      </span>
+                    </p>
+                  </div>
+                </>
+              )}
+              {selectedType === "orders" && (
+                <>
+                  <div className={clsx(styles["div-bar-line"])}>
+                    <div
+                      className={clsx(
+                        styles[isChecked ? "new-user-light" : "new-user-dark"],
+                        styles[
+                          !isSidebarCollapsed
+                            ? "bar-line"
+                            : "bar-line-collapsed"
+                        ]
+                      )}
+                    >
+                      <Bar data={dataBarOrders} options={optionsBarOrders} />
+                    </div>
+
+                    <div
+                      className={clsx(
+                        styles[isChecked ? "new-user-light" : "new-user-dark"],
+                        styles[
+                          !isSidebarCollapsed
+                            ? "bar-line"
+                            : "bar-line-collapsed"
+                        ]
+                      )}
+                    >
+                      <Line data={dataOrders} options={optionsOrders} />
+                    </div>
+                  </div>
+
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div
+                      className={clsx(
+                        "d-flex justify-content-center align-items-center flex-column m-0",
+                        styles[isChecked ? "new-user-light" : "new-user-dark"],
+                        styles["all-order"]
+                      )}
+                    >
+                      <p>
+                        Tổng Số Đơn Hàng :{" "}
+                        <span className={clsx(styles["revenue"])}>
+                          {getTotalOrder}
+                        </span>
+                      </p>
+
+                      <p>
+                        Số Đơn Hàng Trong Ngày :{" "}
+                        <span className={clsx(styles["revenue"])}>
+                          {getTodayOrders}
+                        </span>
+                      </p>
+                    </div>
+
+                    <div
+                      className={clsx(
+                        "d-flex justify-content-center align-items-center flex-column m-0",
+                        styles[isChecked ? "new-user-light" : "new-user-dark"],
+                        styles["all-order-by-time"]
+                      )}
+                    >
+                      <div className={clsx(styles["filter-tiltle"])}>
+                        LỌC THEO KHOẢNG THỜI GIAN
+                      </div>
+                      <DatePicker
+                        selected={selectedDate.start}
+                        onChange={(date) =>
+                          setSelectedDate((prev) => ({
+                            ...prev, // Sao chép các giá trị hiện tại
+                            start: date, // Thay đổi thuộc tính `start`
+                          }))
+                        }
+                        dateFormat="MM/dd/yyyy"
+                        showDateSelect
+                        placeholderText="Start"
+                        className={clsx(styles["date"])}
+                      />
+                      Đến
+                      <DatePicker
+                        selected={selectedDate.end}
+                        onChange={(date) =>
+                          date >= selectedDate.start
+                            ? setSelectedDate((prev) => ({
+                                ...prev, // Sao chép các giá trị hiện tại
+                                end: date, // Thay đổi thuộc tính `start`
+                              }))
+                            : toast.error(
+                                "Ngày kết thúc (End) phải lớn hơn hoặc bằng ngày bắt đầu (Start)"
+                              )
+                        }
+                        dateFormat="MM/dd/yyyy"
+                        showDateSelect
+                        placeholderText="End"
+                        className={clsx(styles["date"])}
+                      />
+                      <p>
+                        Số Đơn Hàng Từ Ngày{" "}
+                        <span className={clsx(styles["revenue"])}>
+                          {format(selectedDate.start, "MM/dd/yyyy")}
+                        </span>{" "}
+                        Đến Ngày{" "}
+                        <span className={clsx(styles["revenue"])}>
+                          {format(selectedDate.end, "MM/dd/yyyy")}
+                        </span>{" "}
+                        Là{" "}
+                        <span className={clsx(styles["revenue"])}>
+                          {getOrdersByPeriodTime}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
+              {selectedType === "best-seller" && (
+                <>
+                  <div
+                    className={clsx(
+                      "d-flex justify-content-center align-items-center flex-column",
+                      styles[isChecked ? "new-user-light" : "new-user-dark"]
+                    )}
+                  >
+                    <div>
+                      Top 5 Sản Phẩm Bán Chạy Nhất Mọi Thời Điểm{" "}
+                      <FontAwesomeIcon icon={faMedal} />
+                    </div>
+                    <div className={clsx(styles["best-seller-table"])}>
+                      {
+                        //có thể dùng .slice(0, 5) để lấy tối đa 5 cái nhưng BE đã xử lý rồi nen ko cần nữa
+                        bestSellers.$values.map((item, index) => (
+                          <div
+                            key={index}
+                            className={clsx(styles["best-seller-item"])}
+                          >
+                            <FontAwesomeIcon icon={faTrophy} /> {index + 1}.{" "}
+                            {item?.productName || "Ko Có"}
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </div>
+
+                  <div
+                    className={clsx(
+                      "d-flex justify-content-center align-items-center flex-column",
+                      styles[isChecked ? "new-user-light" : "new-user-dark"]
+                    )}
+                  >
+                    <div
+                      className={clsx(styles["best-seller-by-quarter-table"])}
+                    >
+                      {Array.from({ length: 4 }).map((_, quarterIndex) => {
+                        const quarter = quarterIndex + 1; // Quý 1 -> Quý 4
+                        return (
+                          <div
+                            key={quarter}
+                            className={clsx(
+                              styles[
+                                !isSidebarCollapsed
+                                  ? "best-seller-by-quarter-table-item"
+                                  : "best-seller-by-quarter-table-item-collapsed"
+                              ]
+                            )}
+                          >
+                            <label
+                              htmlFor=""
+                              className={clsx(
+                                styles[
+                                  !isChecked
+                                    ? "my-floating-label"
+                                    : "my-floating-label-dark"
+                                ]
+                              )}
+                            >
+                              Quý {quarter}
+                            </label>
+                            {Array.from({ length: 5 }).map((_, index) => {
+                              const item =
+                                bestSellersByQuarter.quarters[String(quarter)]
+                                  .$values[index];
+                              return (
+                                <div
+                                  key={index}
+                                  className={clsx(styles["best-seller-item"])}
+                                >
+                                  {index + 1}. {item?.productName || "Không Có"}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
+              )}
             </>
+          ) : (
+            <Unauthorized />
           )}
         </div>
       </div>

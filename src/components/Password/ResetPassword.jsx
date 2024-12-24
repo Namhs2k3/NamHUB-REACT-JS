@@ -57,32 +57,41 @@ const RSPwd = () => {
       <div className={clsx(styles["dsubMain"])}>
         <div className={clsx(styles["div-header"])}>Thay Đổi Mật Khẩu</div>
         <form onSubmit={handleSubmit} className={clsx(styles["fmain"])}>
-          <input
-            className={clsx("form-control", styles["input"])}
-            type="text"
-            placeholder="Reset Password Token"
-            name="token"
-            value={userData.token}
-            onChange={handleInputChange}
-          />
-          <input
-            className={clsx("form-control", styles["input"])}
-            type={showPassword ? "text" : "password"}
-            placeholder="New Password"
-            name="newPassword"
-            value={userData.newPassword}
-            onChange={handleInputChange}
-          />
-          <input
-            className={clsx("form-control", styles["input"])}
-            type={showPassword ? "text" : "password"}
-            placeholder="Confirm Password"
-            value={confirmNewPwd}
-            onChange={(e) => {
-              setConfirm(e.target.value);
-            }}
-          />
-          {/* Hiển thị icon và toggle mật khẩu */}
+          <div className="form-floating mb-3">
+            <input
+              type="text"
+              className={clsx("form-control", styles["input"])}
+              id="token"
+              name="token"
+              value={userData.token}
+              onChange={handleInputChange}
+              placeholder="Reset Password Token"
+            />
+            <label htmlFor="token">Reset Password Token</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              type={showPassword ? "text" : "password"}
+              className={clsx("form-control", styles["input"])}
+              id="newPassword"
+              name="newPassword"
+              value={userData.newPassword}
+              onChange={handleInputChange}
+              placeholder="New Password"
+            />
+            <label htmlFor="newPassword">New Password</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              type={showPassword ? "text" : "password"}
+              className={clsx("form-control", styles["input"])}
+              id="confirmPassword"
+              value={confirmNewPwd}
+              onChange={(e) => setConfirm(e.target.value)}
+              placeholder="Confirm Password"
+            />
+            <label htmlFor="confirmPassword">Confirm Password</label>
+          </div>
           <div className={clsx(styles["div-eye"])}>
             <span>{showPassword ? "Ẩn Mật Khẩu " : "Hiện Mật Khẩu "}</span>
             <FontAwesomeIcon

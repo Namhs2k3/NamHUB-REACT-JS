@@ -7,14 +7,20 @@ import { format } from "date-fns";
 import { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import { ToggleSidebarContext } from "../../../contexts/ToggleSidebarContext";
 import "react-datepicker/dist/react-datepicker.css";
-import { addNewState, getOrderHistory, getOrderList } from "../../../api";
-import { useNavigate } from "react-router-dom";
+import {
+  addNewState,
+  getCustomerOrderItems,
+  getOrderHistory,
+  getOrderList,
+} from "../../../api";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { toast, ToastContainer } from "react-toastify";
 import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft, faX } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import { Unauthorized } from "../../Unauthorized/Unauth";
 
 const AdminOrder = () => {
   const { isSidebarCollapsed, toggleSidebar } =
@@ -32,6 +38,7 @@ const AdminOrder = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [prodList, setProdList] = useState();
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isPermitted, setPermitted] = useState(true);
   const [currentOrderId, setCurrentOrderId] = useState(null); // Lưu trữ userId
   const handleOpenModal = (orderId) => {
     setCurrentOrderId(orderId); // Lưu userId
@@ -48,11 +55,9 @@ const AdminOrder = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -86,375 +91,386 @@ const AdminOrder = () => {
           isSidebarCollapsed={isSidebarCollapsed}
         />
         <div className={clsx(styles[isChecked ? "main-light" : "main-dark"])}>
-          <div
-            className={clsx(
-              styles[isChecked ? "list-banner-light" : "list-banner-dark"]
-            )}
-          >
-            <div className={clsx(styles["title"])}>Danh Sách Đơn Hàng</div>
+          {isPermitted ? (
             <div
-              style={{
-                marginBottom: "20px",
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-              }}
+              className={clsx(
+                styles[isChecked ? "list-banner-light" : "list-banner-dark"]
+              )}
             >
-              <label
-                htmlFor="statusFilter"
+              <div className={clsx(styles["title"])}>Danh Sách Đơn Hàng</div>
+              <div
                 style={{
-                  fontWeight: "bold",
-                  fontSize: "16px",
+                  marginBottom: "20px",
                   display: "flex",
                   alignItems: "center",
-                  gap: "5px",
+                  gap: "10px",
                 }}
               >
-                <span role="img" aria-label="filter">
-                  🔍
-                </span>
-                Lọc Theo Trạng Thái
-              </label>
-              <select
-                id="statusFilter"
-                value={status}
-                onChange={handleStatusChange}
-                style={{
-                  padding: "8px 12px",
-                  fontSize: "14px",
-                  borderRadius: "4px",
-                  border: "1px solid #ddd",
-                  outline: "none",
-                  cursor: "pointer",
-                  transition: "border-color 0.2s ease",
-                }}
-                onMouseEnter={(e) => (e.target.style.borderColor = "#aaa")}
-                onMouseLeave={(e) => (e.target.style.borderColor = "#ddd")}
-              >
-                <option value="">Tất Cả</option>
-                <option value="Completed">Completed</option>
-                <option value="Pending">Pending</option>
-                <option value="Preparing">Preparing</option>
-                <option value="Ready">Ready</option>
-                <option value="On Delivery">On Delivery</option>
-                <option value="Failed">Failed</option>
-              </select>
-            </div>
+                <label
+                  htmlFor="statusFilter"
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <span role="img" aria-label="filter">
+                    🔍
+                  </span>
+                  Lọc Theo Trạng Thái
+                </label>
+                <select
+                  id="statusFilter"
+                  value={status}
+                  onChange={handleStatusChange}
+                  style={{
+                    padding: "8px 12px",
+                    fontSize: "14px",
+                    borderRadius: "4px",
+                    border: "1px solid #ddd",
+                    outline: "none",
+                    cursor: "pointer",
+                    transition: "border-color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => (e.target.style.borderColor = "#aaa")}
+                  onMouseLeave={(e) => (e.target.style.borderColor = "#ddd")}
+                >
+                  <option value="">Tất Cả</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Preparing">Preparing</option>
+                  <option value="Ready">Ready</option>
+                  <option value="On Delivery">On Delivery</option>
+                  <option value="Failed">Failed</option>
+                </select>
+              </div>
 
-            <div className="d-flex justify-content-between align-items-center"></div>
-            <div className={clsx(styles["div-table"])}>
-              <table
-                className={clsx(
-                  styles["custom-table"],
-                  "table table-striped table-hover table-responsive"
-                )}
-              >
-                <thead className={clsx(styles["custom-thead"])}>
-                  <tr>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Mã
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Tên KH
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      SDT
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Ngày Đặt
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Tổng
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Mã KM
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Giảm
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Phải Trả
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      PTTT
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      T.Toán
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Trạng Thái
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Thao Tác
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {prodList?.$values && prodList.$values.length > 0 ? (
-                    prodList?.$values?.map((item, index) => (
-                      <tr key={index}>
-                        <th style={{ verticalAlign: "middle" }} scope="row">
-                          {item.orderId}
-                        </th>
-                        <td
-                          style={{
-                            verticalAlign: "middle",
-                            maxWidth: "200px",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {item.fullName}
-                        </td>
-                        <td
-                          style={{
-                            verticalAlign: "middle",
-                            maxWidth: "100px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {item.phone || "Không có"}
-                        </td>
-                        <td
-                          style={{
-                            maxWidth: "100px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          {format(item.orderDate, "MM/dd/yyyy HH:mm") ||
-                            "Không có"}
-                        </td>
-                        <td
-                          style={{
-                            maxWidth: "100px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          {new Intl.NumberFormat("vi-VN").format(
-                            item.totalAmount
-                          )}{" "}
-                          đ
-                        </td>
-                        <td
-                          style={{
-                            maxWidth: "100px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          {item.discountCodeUsed || "Không có"}
-                        </td>
-                        <td
-                          style={{
-                            maxWidth: "100px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          {new Intl.NumberFormat("vi-VN").format(
-                            item.discountAmount
-                          )}{" "}
-                          đ
-                        </td>
-                        <td
-                          style={{
-                            maxWidth: "100px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          {new Intl.NumberFormat("vi-VN").format(
-                            item.totalAfterDiscount
-                          )}{" "}
-                          đ
-                        </td>
-                        <td
-                          style={{
-                            maxWidth: "100px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          {item.payment?.paymentMethod
-                            ? item.payment.paymentMethod
-                            : "Không Biết"}
-                        </td>
-                        <td
-                          style={{
-                            maxWidth: "100px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          {`${item.paymentStatus === "Đã Thanh Toán" ? "Rồi" : "Chưa"}` ||
-                            "Không biết"}
-                        </td>
-                        <td
-                          style={{
-                            maxWidth: "100px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          {`${item.status}` || "Không biết"}
-                        </td>
-                        <td
-                          style={{
-                            verticalAlign: "middle",
-                            maxWidth: "100px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          <button
-                            onClick={() => handleOpenModal(item.orderId)}
-                            className="btn btn-warning btn-sm me-1"
+              <div className="d-flex justify-content-between align-items-center"></div>
+              <div className={clsx(styles["div-table"])}>
+                <table
+                  className={clsx(
+                    styles["custom-table"],
+                    "table table-striped table-hover table-responsive"
+                  )}
+                >
+                  <thead className={clsx(styles["custom-thead"])}>
+                    <tr>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Mã
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Tên KH
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        SDT
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Ngày Đặt
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Tổng
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Mã KM
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Giảm
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Phải Trả
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        PTTT
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        T.Toán
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Trạng Thái
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Thao Tác
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {prodList?.$values && prodList.$values.length > 0 ? (
+                      prodList?.$values?.map((item, index) => (
+                        <tr key={index}>
+                          <th style={{ verticalAlign: "middle" }} scope="row">
+                            {item.orderId}
+                          </th>
+                          <td
+                            style={{
+                              verticalAlign: "middle",
+                              maxWidth: "200px",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}
                           >
-                            <FontAwesomeIcon icon={faClockRotateLeft} /> LSDH
-                          </button>
+                            {item.fullName}
+                          </td>
+                          <td
+                            style={{
+                              verticalAlign: "middle",
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {item.phone || "Không có"}
+                          </td>
+                          <td
+                            style={{
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {format(item.orderDate, "MM/dd/yyyy HH:mm") ||
+                              "Không có"}
+                          </td>
+                          <td
+                            style={{
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {new Intl.NumberFormat("vi-VN").format(
+                              item.totalAmount
+                            )}{" "}
+                            đ
+                          </td>
+                          <td
+                            style={{
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {item.discountCodeUsed || "Không có"}
+                          </td>
+                          <td
+                            style={{
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {new Intl.NumberFormat("vi-VN").format(
+                              item.discountAmount
+                            )}{" "}
+                            đ
+                          </td>
+                          <td
+                            style={{
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {new Intl.NumberFormat("vi-VN").format(
+                              item.totalAfterDiscount
+                            )}{" "}
+                            đ
+                          </td>
+                          <td
+                            style={{
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {item.payment?.paymentMethod
+                              ? item.payment.paymentMethod
+                              : "Không Biết"}
+                          </td>
+                          <td
+                            style={{
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {`${item.paymentStatus === "Đã Thanh Toán" ? "Rồi" : "Chưa"}` ||
+                              "Không biết"}
+                          </td>
+                          <td
+                            style={{
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {`${item.status}` || "Không biết"}
+                          </td>
+                          <td
+                            colSpan={2}
+                            style={{
+                              verticalAlign: "middle",
+                              maxWidth: "300px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            <button
+                              onClick={() => handleOpenModal(item.orderId)}
+                              className="btn btn-warning btn-sm me-1"
+                            >
+                              <FontAwesomeIcon icon={faClockRotateLeft} /> LSDH
+                            </button>
+                            <Link
+                              to={`/admin/orders/order-details/${item.orderId}`}
+                              className="btn btn-primary text-white btn-sm me-1"
+                            >
+                              Chi Tiết
+                            </Link>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="12" className="text-center">
+                          Không có dữ liệu
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="12" className="text-center">
-                        Không có dữ liệu
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+          ) : (
+            <Unauthorized />
+          )}
         </div>
       </div>
       {isOpenModal && (
@@ -643,6 +659,225 @@ const OpenModal = ({ isOpenModal, setIsOpenModal, orderId }) => {
         </Fragment>
       )}
     </>
+  );
+};
+export const AdminViewOrderItems = () => {
+  const { id } = useParams();
+  const { isSidebarCollapsed, toggleSidebar } =
+    useContext(ToggleSidebarContext);
+
+  const { isChecked } = useContext(ThemeContext);
+
+  const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [prodList, setProdList] = useState();
+  const [isPermitted, setPermitted] = useState(true);
+
+  useEffect(() => {
+    const fetchProdListByName = async () => {
+      setIsLoading(false);
+      try {
+        const data = await getCustomerOrderItems(id);
+        console.log("Customer Order Items: ", data);
+        setProdList(data);
+      } catch (err) {
+        console.error("Lỗi khi lấy dữ liệu: ", err);
+        if (err.status === 401) {
+          navigate("/login");
+        } else if (err.status === 403) {
+          setPermitted(false);
+        } else if (
+          err.status === 404 &&
+          err.response.data === "Không có sản phẩm nào trong đơn hàng này."
+        ) {
+          setProdList();
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProdListByName();
+  }, [navigate, id]);
+
+  return (
+    <div className={clsx(styles["main-banners"])}>
+      <Helmet>
+        <title>Chi Tiết Đơn hàng</title>
+        <meta name="description" content="Xem Các Banner Quảng Cáo" />
+        <meta name="keywords" content="quảng cáo, banner" />
+        <meta property="og:title" content="Danh Sách Các Banner Quảng Cáo" />
+        <meta
+          property="og:description"
+          content="Xem Danh Sách Các Banner Quảng Cáo"
+        />
+        <meta property="og:image" content="/src/assets/Logo.png" />
+      </Helmet>
+      <AdminSideBar
+        site="orders"
+        className={clsx(styles["side-bar"])}
+        isSidebarCollapsed={isSidebarCollapsed}
+      ></AdminSideBar>
+      <div className={clsx(styles["banner"])}>
+        <AdminNavbar
+          toggleSidebar={toggleSidebar}
+          isSidebarCollapsed={isSidebarCollapsed}
+        />
+        <div className={clsx(styles[isChecked ? "main-light" : "main-dark"])}>
+          {isPermitted ? (
+            <div
+              className={clsx(
+                styles[isChecked ? "list-banner-light" : "list-banner-dark"]
+              )}
+            >
+              <div className={clsx(styles["title"])}>Chi Tiết Đơn Hàng</div>
+              <div className="d-flex justify-content-between align-items-center"></div>
+              <div className={clsx(styles["div-table"])}>
+                <table
+                  className={clsx(
+                    styles["custom-table"],
+                    "table table-striped table-hover table-responsive"
+                  )}
+                >
+                  <thead className={clsx(styles["custom-thead"])}>
+                    <tr>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        #
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Tên SP
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Đơn Giá
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Số Lượng
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Tổng Tiền
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {prodList?.$values && prodList.$values.length > 0 ? (
+                      prodList.$values.map((item, index) => (
+                        <tr key={item.orderItemId}>
+                          <th style={{ verticalAlign: "middle" }} scope="row">
+                            {index + 1}
+                          </th>
+                          <td
+                            style={{
+                              verticalAlign: "middle",
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {item.productName || "Không Có"}
+                          </td>
+                          <td
+                            style={{
+                              verticalAlign: "middle",
+                              maxWidth: "200px",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {new Intl.NumberFormat("vi-VN").format(item.price)}{" "}
+                            đ
+                          </td>
+                          <td
+                            style={{
+                              maxWidth: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {item.quantity || 0}
+                          </td>
+                          <td
+                            style={{
+                              verticalAlign: "middle",
+                              maxWidth: "200px",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {new Intl.NumberFormat("vi-VN").format(
+                              item.totalPrice
+                            )}{" "}
+                            đ
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5" style={{ textAlign: "center" }}>
+                          Không có sản phẩm nào trong đơn hàng này.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ) : (
+            <Unauthorized />
+          )}
+        </div>
+      </div>
+      {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}
+      <ToastContainer></ToastContainer>
+    </div>
   );
 };
 OpenModal.propTypes = {

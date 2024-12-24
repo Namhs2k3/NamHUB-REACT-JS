@@ -3,11 +3,12 @@
 }
 
 .main-div {
-  background-image: url(/src/assets/empty-orange-color-shopping-bag-260nw-1520795969_LE_auto_x2_LE_auto_x2.jpg);
+  background: #F5F5F5;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: max-content;
+  padding: 3%;
 }
 
 .div-confirm {
@@ -16,7 +17,7 @@
   justify-content: center;
   flex-direction: column;
   height: 50vh;
-  background-color: aliceblue;
+  background-color: #fff;
   background-repeat: no-repeat;
   color: #10375c;
   padding: 50px;

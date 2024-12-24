@@ -18,6 +18,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { Unauthorized } from "../../Unauthorized/Unauth";
 
 const generateSlug = (productName) => {
   // Loại bỏ dấu tiếng Việt
@@ -42,6 +43,8 @@ const AdminCategory = () => {
 
   const { isChecked } = useContext(ThemeContext);
 
+  const [isPermitted, setPermitted] = useState(true);
+
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -59,11 +62,9 @@ const AdminCategory = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -105,194 +106,198 @@ const AdminCategory = () => {
           isSidebarCollapsed={isSidebarCollapsed}
         />
         <div className={clsx(styles[isChecked ? "main-light" : "main-dark"])}>
-          <div
-            className={clsx(
-              styles[isChecked ? "list-cate-light" : "list-cate-dark"]
-            )}
-          >
-            <div className={clsx(styles["title"])}>CÁC DANH MỤC SẢN PHẨM</div>
-            <div className="d-flex justify-content-between align-items-center">
-              <Link
-                to="/admin/categories/add-category"
-                className="btn btn-success text-white mb-3"
-              >
-                <FontAwesomeIcon icon={faCirclePlus} /> Thêm Danh Mục
-              </Link>
-              <div className={clsx(styles["search-container"])}>
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm..."
-                  value={searchTerm}
-                  onChange={handleSearchTermChange}
-                  className={clsx(styles["search-input"])}
-                />
+          {isPermitted ? (
+            <div
+              className={clsx(
+                styles[isChecked ? "list-cate-light" : "list-cate-dark"]
+              )}
+            >
+              <div className={clsx(styles["title"])}>CÁC DANH MỤC SẢN PHẨM</div>
+              <div className="d-flex justify-content-between align-items-center">
+                <Link
+                  to="/admin/categories/add-category"
+                  className="btn btn-success text-white mb-3"
+                >
+                  <FontAwesomeIcon icon={faCirclePlus} /> Thêm Danh Mục
+                </Link>
+                <div className={clsx(styles["search-container"])}>
+                  <input
+                    type="text"
+                    placeholder="Tìm kiếm..."
+                    value={searchTerm}
+                    onChange={handleSearchTermChange}
+                    className={clsx(styles["search-input"])}
+                  />
+                </div>
+              </div>
+              <div className={clsx(styles["div-table"])}>
+                <table
+                  className={clsx(
+                    styles["custom-table"],
+                    "table table-striped table-hover table-responsive"
+                  )}
+                >
+                  <thead className={clsx(styles["custom-thead"])}>
+                    <tr>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        #
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Ảnh
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Tên
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Mô Tả
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Keywords
+                      </th>
+                      <th
+                        scope="col"
+                        style={{
+                          verticalAlign: "middle",
+                          maxWidth: "100px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Thao Tác
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {prodList?.$values?.map((item, index) => (
+                      <tr key={item.productId}>
+                        <th style={{ verticalAlign: "middle" }} scope="row">
+                          {index + 1}
+                        </th>
+                        <td
+                          style={{
+                            verticalAlign: "middle",
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <img
+                            src={item.imgURL || "../../../assets/Logo.png"}
+                            alt={item.categoryName || "Default Image"}
+                            className={clsx(styles["img"])}
+                            style={{
+                              width: "50px",
+                              height: "50px",
+                              objectFit: "cover",
+                              borderRadius: "5px",
+                            }}
+                          />
+                        </td>
+                        <td
+                          style={{
+                            verticalAlign: "middle",
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {item.categoryName}
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {item.description || "Không có mô tả"}
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {item.keywords || "Không có từ khóa"}
+                        </td>
+                        <td
+                          style={{
+                            verticalAlign: "middle",
+                            maxWidth: "100px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <Link
+                            to={`/admin/categories/edit-category/${generateSlug(item.categoryName)}/${item.categoryID}`}
+                            className="btn btn-warning btn-sm"
+                          >
+                            <FontAwesomeIcon icon={faPenToSquare} /> Sửa
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
-            <div className={clsx(styles["div-table"])}>
-              <table
-                className={clsx(
-                  styles["custom-table"],
-                  "table table-striped table-hover table-responsive"
-                )}
-              >
-                <thead className={clsx(styles["custom-thead"])}>
-                  <tr>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      #
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Ảnh
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Tên
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Mô Tả
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Keywords
-                    </th>
-                    <th
-                      scope="col"
-                      style={{
-                        verticalAlign: "middle",
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Thao Tác
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {prodList?.$values?.map((item, index) => (
-                    <tr key={item.productId}>
-                      <th style={{ verticalAlign: "middle" }} scope="row">
-                        {index + 1}
-                      </th>
-                      <td
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        <img
-                          src={item.imgURL || "../../../assets/Logo.png"}
-                          alt={item.categoryName || "Default Image"}
-                          className={clsx(styles["img"])}
-                          style={{
-                            width: "50px",
-                            height: "50px",
-                            objectFit: "cover",
-                            borderRadius: "5px",
-                          }}
-                        />
-                      </td>
-                      <td
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {item.categoryName}
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        {item.description || "Không có mô tả"}
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        {item.keywords || "Không có từ khóa"}
-                      </td>
-                      <td
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        <Link
-                          to={`/admin/categories/edit-category/${generateSlug(item.categoryName)}/${item.categoryID}`}
-                          className="btn btn-warning btn-sm"
-                        >
-                          <FontAwesomeIcon icon={faPenToSquare} /> Sửa
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          ) : (
+            <Unauthorized />
+          )}
         </div>
       </div>
       {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}
@@ -324,6 +329,7 @@ export const EditCategory = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const [isPermitted, setPermitted] = useState(true);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -334,11 +340,9 @@ export const EditCategory = () => {
       } catch (err) {
         console.error("Lỗi khi lấy dữ liệu: ", err);
         if (err.status === 401) {
-          navigate("/unauthenticated");
+          navigate("/login");
         } else if (err.status === 403) {
-          navigate("/unauthorized");
-        } else {
-          navigate("/not-found");
+          setPermitted(false);
         }
       } finally {
         setIsLoading(false);
@@ -448,69 +452,75 @@ export const EditCategory = () => {
           isSidebarCollapsed={isSidebarCollapsed}
         />
         <div className={clsx(styles[isChecked ? "main-light" : "main-dark"])}>
-          <div
-            className={clsx(
-              styles[isChecked ? "list-cate-light" : "list-cate-dark"]
-            )}
-          >
-            <div className={clsx(styles.container)}>
-              <h1>Chỉnh Sửa Danh Mục</h1>
-              <form
-                onSubmit={handleSubmit}
-                className="d-flex flex-wrap justify-content-between"
-              >
-                <div className={clsx(styles.formGroup)}>
-                  <label htmlFor="categoryName">Tên Danh Mục</label>
-                  <input
-                    type="text"
-                    id="categoryName"
-                    name="categoryName"
-                    value={productDetails.$values[0].categoryName}
-                    onChange={handleChange}
-                    placeholder="Tên Danh Mục"
-                    required
-                  />
-                </div>
-                <div className={clsx(styles.formGroup)}>
-                  <label htmlFor="keywords">Từ Khóa Tìm Kiếm</label>
-                  <input
-                    type="text"
-                    id="keywords"
-                    name="keywords"
-                    value={productDetails.$values[0].keywords}
-                    onChange={handleChange}
-                    placeholder="Từ Khóa"
-                  />
-                </div>
+          {isPermitted ? (
+            <div
+              className={clsx(
+                styles[isChecked ? "list-cate-light" : "list-cate-dark"]
+              )}
+            >
+              <div className={clsx(styles.container)}>
+                <h1>Chỉnh Sửa Danh Mục</h1>
+                <form
+                  onSubmit={handleSubmit}
+                  className="d-flex flex-wrap justify-content-between"
+                >
+                  <div className={clsx(styles.formGroup)}>
+                    <label htmlFor="categoryName">Tên Danh Mục</label>
+                    <input
+                      type="text"
+                      id="categoryName"
+                      name="categoryName"
+                      value={productDetails.$values[0].categoryName}
+                      onChange={handleChange}
+                      placeholder="Tên Danh Mục"
+                      required
+                    />
+                  </div>
+                  <div className={clsx(styles.formGroup)}>
+                    <label htmlFor="keywords">Từ Khóa Tìm Kiếm</label>
+                    <input
+                      type="text"
+                      id="keywords"
+                      name="keywords"
+                      value={productDetails.$values[0].keywords}
+                      onChange={handleChange}
+                      placeholder="Từ Khóa"
+                    />
+                  </div>
 
-                <div className={clsx(styles.formGroup, styles.formGroupCustom)}>
-                  <label htmlFor="description">Mô Tả</label>
-                  <textarea
-                    id="description"
-                    name="description"
-                    value={productDetails.$values[0].description}
-                    onChange={handleChange}
-                    placeholder="Mô Tả"
-                  ></textarea>
-                </div>
+                  <div
+                    className={clsx(styles.formGroup, styles.formGroupCustom)}
+                  >
+                    <label htmlFor="description">Mô Tả</label>
+                    <textarea
+                      id="description"
+                      name="description"
+                      value={productDetails.$values[0].description}
+                      onChange={handleChange}
+                      placeholder="Mô Tả"
+                    ></textarea>
+                  </div>
 
-                <div className={clsx(styles.customFormGroup)}>
-                  <label htmlFor="imgURL">Ảnh</label>
-                  <input
-                    type="file"
-                    id="imgURL"
-                    name="imgURL"
-                    className={clsx(styles["form-control"], "form-control")}
-                    onChange={handleChange}
-                  />
-                </div>
+                  <div className={clsx(styles.customFormGroup)}>
+                    <label htmlFor="imgURL">Ảnh</label>
+                    <input
+                      type="file"
+                      id="imgURL"
+                      name="imgURL"
+                      className={clsx(styles["form-control"], "form-control")}
+                      onChange={handleChange}
+                    />
+                  </div>
 
-                <button type="submit" className={clsx(styles.submitButton)}>
-                  Lưu Thay Đổi
-                </button>
-              </form>
+                  <button type="submit" className={clsx(styles.submitButton)}>
+                    Lưu Thay Đổi
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
+          ) : (
+            <Unauthorized />
+          )}
         </div>
       </div>
       {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}

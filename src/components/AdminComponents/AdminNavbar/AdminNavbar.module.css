@@ -7,10 +7,10 @@
   justify-content: space-between;
   position: sticky;
   top: 0px;
-  z-index: 1000;
+  z-index: 1001;
   transition: all 0.3s ease-in-out;
   background-color: #292E37;
-  box-shadow: 0px -2px 5px 1px;
+  box-shadow: 4px -2px 5px 1px;
 }
 
 .main-nav-light {
@@ -22,10 +22,10 @@
   justify-content: space-between;
   position: sticky;
   top: 0px;
-  z-index: 1000;
+  z-index: 1001;
   transition: all 0.3s ease-in-out;
   background-color: #fff;
-  box-shadow: 0px -2px 5px 1px;
+  box-shadow: 4px -2px 5px 1px;
 }
 
 .main-nav-collapsed {
@@ -64,27 +64,29 @@
 }
 
 .popup {
-  height: 150px;
+  height: 198px;
   width: 150px;
   position: absolute;
-  border-radius: 5px;
+  border-radius: 7px;
   background-color: #292E37;
   border: none;
   top: 60px;
   right: 30px;
   transition:
     opacity 0.3s ease-in-out,
-    visibility 0.3s ease-in-out;
+    visibility 0.3s ease-in-out,
+    height 0.3s ease-in-out;
   opacity: 1;
   visibility: visible;
   border: #3A4155 1px solid;
+  overflow: hidden;
 }
 
 .popup-light {
-  height: 150px;
+  height: 198px;
   width: 150px;
   position: absolute;
-  border-radius: 5px;
+  border-radius: 7px;
   background-color: #fff;
   color: #000;
   border: none;
@@ -92,13 +94,16 @@
   right: 30px;
   transition:
     opacity 0.3s ease-in-out,
-    visibility 0.3s ease-in-out;
+    visibility 0.3s ease-in-out,
+    height 0.3s ease-in-out;
   opacity: 1;
   visibility: visible;
   border: #fc4c00 1px solid;
+  overflow: hidden;
 }
 
 .popup-hidden {
+  height: 0px;
   opacity: 0;
   visibility: hidden;
 }

@@ -31,7 +31,9 @@ import AdminDiscount, {
   AddDiscount,
   EditDiscount,
 } from "./components/AdminComponents/AdminDiscount/AdminDiscount";
-import AdminOrder from "./components/AdminComponents/AdminOrder/AdminOrder";
+import AdminOrder, {
+  AdminViewOrderItems,
+} from "./components/AdminComponents/AdminOrder/AdminOrder";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ToggleSidebarProvider } from "./contexts/ToggleSidebarContext";
 import NotFound from "./components/NotFound/NotFound";
@@ -45,19 +47,72 @@ import Profile, {
   AdminProfile,
   CreateProfile,
 } from "./components/Profile/Profile";
+import OrderList, {
+  OrderDetail,
+} from "./components/DeliverComponent/OrderList";
+import Home from "./components/UserComponent/UserHome/Home";
+import UserNavbar from "./components/UserComponent/UserNavBar/UserNavbar"; // Import UserNavbar
+import { AddToCartProvider } from "./contexts/AddToCartContext";
+import Footer from "./components/UserComponent/UserFooter/Footer";
+import ProductDetail from "./components/UserComponent/UserProducts/ProductDetail/ProductDetail";
+
+export const UserRouters = () => {
+  return (
+    <Routes>
+      <Route
+        path="/*"
+        element={
+          <AddToCartProvider>
+            <UserNavbar /> {/* Navbar cho các component không phải admin */}
+            <Routes>
+              <Route index element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/confirm-email" element={<ConfirmEmail />} />
+              <Route path="/products" element={<ConfirmEmail />} />
+              <Route
+                path="/products/product-detail/:id/:slug"
+                element={<ProductDetail />}
+              />
+              <Route
+                path="/input-token-reset-pwd"
+                element={<ResetPassword />}
+              />
+              <Route path="/deliver/order-list" element={<OrderList />} />
+              <Route
+                path="/deliver/order-details/:orderId"
+                element={<OrderDetail />}
+              />
+              <Route
+                path="/customer/profile/create"
+                element={<CreateProfile />}
+              />
+              <Route path="/customer/profile/edit" element={<Profile />} />
+              <Route
+                path="/administrator/profile/edit"
+                element={<AdminProfile />}
+              />
+              <Route path="/unauthorized" element={<Unauthorized />} />
+              <Route path="/unauthenticated" element={<Unauthenticated />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Footer></Footer>
+          </AddToCartProvider>
+        }
+      />
+    </Routes>
+  );
+};
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/confirm-email" element={<ConfirmEmail />} />
-          <Route path="/input-token-reset-pwd" element={<ResetPassword />} />
+          {/* Routes dành cho admin */}
           <Route
             path="/admin/*"
             element={
@@ -105,18 +160,19 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     element={<AddDiscount />}
                   />
                   <Route path="orders" element={<AdminOrder />} />
+                  <Route
+                    path="orders/order-details/:id"
+                    element={<AdminViewOrderItems />}
+                  />
                   <Route path="users" element={<AdminUser />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </ToggleSidebarProvider>
             }
           />
-          <Route path="/customer/profile/create" element={<CreateProfile />} />
-          <Route path="/customer/profile/edit" element={<Profile />} />
-          <Route path="/admin/profile/edit" element={<AdminProfile />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="/unauthenticated" element={<Unauthenticated />} />
-          <Route path="*" element={<NotFound />} />
+
+          {/* Routes không phải admin có UserNavbar */}
+          <Route path="/*" element={<UserRouters />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

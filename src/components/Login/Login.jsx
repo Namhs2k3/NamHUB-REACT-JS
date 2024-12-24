@@ -1,6 +1,6 @@
 import { useState } from "react";
 import clsx from "clsx";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import styles from "./Login.module.css";
@@ -16,7 +16,6 @@ const Login = () => {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   // Cập nhật thông tin đăng nhập vào state
   const handleInputChange = (e) => {
@@ -49,7 +48,7 @@ const Login = () => {
           toast.success("Đăng nhập thành công!");
           setTimeout(() => {
             toast.dismiss();
-            navigate("/home");
+            window.location.href = "/home";
           }, 1000); // Đợi 1 giây trước khi chuyển trang
         }
       } else {

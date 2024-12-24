@@ -1,30 +1,26 @@
 import clsx from "clsx";
 import styles from "./Unauth.module.css";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFaceDizzy } from "@fortawesome/free-solid-svg-icons";
 
 export const Unauthorized = () => {
   const navigate = useNavigate();
   return (
     <div className={clsx(styles["big-div"])}>
       <div className={clsx(styles["not-found"])}>
-        <FontAwesomeIcon
-          icon={faFaceDizzy}
-          className={clsx(styles["sad"], "mb-5")}
-        />
-        403 - Forbidden
+        <img src="/src/assets/undraw_safe_re_kiil.svg" alt="403 Forbidden" />
+        <h1>403 - Forbidden</h1>
+        <p>Oops! You don&apos;t have permission to access this page.</p>
         <button
           className={clsx(styles["go-home"])}
           onClick={() => navigate("/login")}
         >
-          Đăng Nhập Bằng Tài Khoản Admin
+          Log in as Admin
         </button>
         <button
           className={clsx(styles["go-home"])}
           onClick={() => navigate("/home")}
         >
-          Trang Chủ
+          Go to Homepage
         </button>
       </div>
     </div>
@@ -36,16 +32,17 @@ export const Unauthenticated = () => {
   return (
     <div className={clsx(styles["big-div"])}>
       <div className={clsx(styles["not-found"])}>
-        <FontAwesomeIcon
-          icon={faFaceDizzy}
-          className={clsx(styles["sad"], "mb-5")}
+        <img
+          src="/src/assets/undraw_mobile_login_re_9ntv.svg"
+          alt="403 Forbidden"
         />
-        401 - Unauthorized
+        <h1>401 - Unauthorized</h1>
+        <p>Oh! You must be logged-in to access this page!</p>
         <button
           className={clsx(styles["go-home"])}
           onClick={() => navigate("/login")}
         >
-          Đăng Nhập
+          Log-in
         </button>
       </div>
     </div>

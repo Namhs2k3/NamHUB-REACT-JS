@@ -18,6 +18,7 @@ import {
   faUserPlus,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
+import { Unauthorized } from "../../Unauthorized/Unauth";
 
 const AdminUser = () => {
   const { isSidebarCollapsed, toggleSidebar } =
@@ -33,6 +34,7 @@ const AdminUser = () => {
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
+  const [isPermitted, setPermitted] = useState(true);
 
   const fetchUserListByName = useCallback(async () => {
     setIsLoading(false);
@@ -43,11 +45,9 @@ const AdminUser = () => {
     } catch (err) {
       console.error("Lỗi khi lấy dữ liệu: ", err);
       if (err.status === 401) {
-        navigate("/unauthenticated");
+        navigate("/login");
       } else if (err.status === 403) {
-        navigate("/unauthorized");
-      } else {
-        navigate("/not-found");
+        setPermitted(false);
       }
     } finally {
       setIsLoading(false);
@@ -84,126 +84,133 @@ const AdminUser = () => {
           isSidebarCollapsed={isSidebarCollapsed}
         />
         <div className={clsx(styles[isChecked ? "main-light" : "main-dark"])}>
-          <div
-            className={clsx(
-              styles[isChecked ? "list-product-light" : "list-product-dark"]
-            )}
-          >
-            <div className={clsx(styles["title"])}>
-              DANH SÁCH TÀI KHOẢN NGƯỜI DÙNG
-            </div>
-            <div className="d-flex justify-content-between align-items-center">
-              <button
-                className="btn btn-success text-white mb-3"
-                onClick={handleAddEmployee}
-              >
-                <FontAwesomeIcon icon={faUserPlus} /> Thêm Nhân Viên
-              </button>
-            </div>
-            <div className={clsx(styles["div-table"])}>
-              <table
-                className={clsx(
-                  styles["custom-table"],
-                  "table table-striped table-hover"
-                )}
-              >
-                <thead className={clsx(styles["custom-thead"])}>
-                  <tr>
-                    <th scope="col" style={{ verticalAlign: "middle" }}>
-                      #
-                    </th>
-                    <th scope="col" style={{ verticalAlign: "middle" }}>
-                      Username
-                    </th>
-                    <th scope="col" style={{ verticalAlign: "middle" }}>
-                      Email
-                    </th>
-                    <th scope="col" style={{ verticalAlign: "middle" }}>
-                      Verified
-                    </th>
-                    <th scope="col" style={{ verticalAlign: "middle" }}>
-                      Full Name
-                    </th>
-                    <th scope="col" style={{ verticalAlign: "middle" }}>
-                      Role
-                    </th>
-                    <th scope="col" style={{ verticalAlign: "middle" }}>
-                      Update At
-                    </th>
-                    <th scope="col" style={{ verticalAlign: "middle" }}>
-                      Create At
-                    </th>
-                    <th scope="col" style={{ verticalAlign: "middle" }}>
-                      Thao Tác
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {userList?.$values?.map((item, index) => (
-                    <tr key={item.userId}>
-                      <th style={{ verticalAlign: "middle" }} scope="row">
-                        {index + 1}
+          {isPermitted ? (
+            <div
+              className={clsx(
+                styles[isChecked ? "list-product-light" : "list-product-dark"]
+              )}
+            >
+              <div className={clsx(styles["title"])}>
+                DANH SÁCH TÀI KHOẢN NGƯỜI DÙNG
+              </div>
+              <div className="d-flex justify-content-between align-items-center">
+                <button
+                  className="btn btn-success text-white mb-3"
+                  onClick={handleAddEmployee}
+                >
+                  <FontAwesomeIcon icon={faUserPlus} /> Thêm Nhân Viên
+                </button>
+              </div>
+              <div className={clsx(styles["div-table"])}>
+                <table
+                  className={clsx(
+                    styles["custom-table"],
+                    "table table-striped table-hover"
+                  )}
+                >
+                  <thead className={clsx(styles["custom-thead"])}>
+                    <tr>
+                      <th scope="col" style={{ verticalAlign: "middle" }}>
+                        #
                       </th>
-                      <td style={{ verticalAlign: "middle" }}>
-                        {item.username}
-                      </td>
-                      <td
-                        style={{
-                          maxWidth: "150px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          verticalAlign: "middle",
-                        }}
-                      >
-                        {item.email || "Không có email"}
-                      </td>
-                      <td style={{ verticalAlign: "middle" }}>
-                        <span
-                          className={clsx(
-                            styles["badge"],
-                            styles[
-                              item.emailVerified
-                                ? "badge-success"
-                                : "badge-secondary"
-                            ]
-                          )}
-                        >
-                          {item.emailVerified ? "Rồi" : "Chưa"}
-                        </span>
-                      </td>
-                      <td style={{ verticalAlign: "middle" }}>
-                        {item.fullName}
-                      </td>
-                      <td style={{ verticalAlign: "middle" }}>
-                        {item.roles?.$values
-                          ?.map((role) => role.roleName)
-                          .join(", ")}
-                      </td>
-                      <td style={{ verticalAlign: "middle" }}>
-                        {format(new Date(item.updatedAt), "MM/dd/yyyy")}
-                      </td>
-                      <td style={{ verticalAlign: "middle" }}>
-                        {format(new Date(item.createdAt), "MM/dd/yyyy")}
-                      </td>
-                      <td
-                        style={{ textAlign: "center", verticalAlign: "middle" }}
-                      >
-                        <button
-                          onClick={() =>
-                            handleRoleChange(item.userId, item.username)
-                          }
-                          className="btn btn-warning btn-sm me-1"
-                        >
-                          <FontAwesomeIcon icon={faPenToSquare} />
-                        </button>
-                      </td>
+                      <th scope="col" style={{ verticalAlign: "middle" }}>
+                        Username
+                      </th>
+                      <th scope="col" style={{ verticalAlign: "middle" }}>
+                        Email
+                      </th>
+                      <th scope="col" style={{ verticalAlign: "middle" }}>
+                        Verified
+                      </th>
+                      <th scope="col" style={{ verticalAlign: "middle" }}>
+                        Full Name
+                      </th>
+                      <th scope="col" style={{ verticalAlign: "middle" }}>
+                        Role
+                      </th>
+                      <th scope="col" style={{ verticalAlign: "middle" }}>
+                        Update At
+                      </th>
+                      <th scope="col" style={{ verticalAlign: "middle" }}>
+                        Create At
+                      </th>
+                      <th scope="col" style={{ verticalAlign: "middle" }}>
+                        Thao Tác
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {userList?.$values?.map((item, index) => (
+                      <tr key={item.userId}>
+                        <th style={{ verticalAlign: "middle" }} scope="row">
+                          {index + 1}
+                        </th>
+                        <td style={{ verticalAlign: "middle" }}>
+                          {item.username}
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "150px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {item.email || "Không có email"}
+                        </td>
+                        <td style={{ verticalAlign: "middle" }}>
+                          <span
+                            className={clsx(
+                              styles["badge"],
+                              styles[
+                                item.emailVerified
+                                  ? "badge-success"
+                                  : "badge-secondary"
+                              ]
+                            )}
+                          >
+                            {item.emailVerified ? "Rồi" : "Chưa"}
+                          </span>
+                        </td>
+                        <td style={{ verticalAlign: "middle" }}>
+                          {item.fullName}
+                        </td>
+                        <td style={{ verticalAlign: "middle" }}>
+                          {item.roles?.$values
+                            ?.map((role) => role.roleName)
+                            .join(", ")}
+                        </td>
+                        <td style={{ verticalAlign: "middle" }}>
+                          {format(new Date(item.updatedAt), "MM/dd/yyyy")}
+                        </td>
+                        <td style={{ verticalAlign: "middle" }}>
+                          {format(new Date(item.createdAt), "MM/dd/yyyy")}
+                        </td>
+                        <td
+                          style={{
+                            textAlign: "center",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          <button
+                            onClick={() =>
+                              handleRoleChange(item.userId, item.username)
+                            }
+                            className="btn btn-warning btn-sm me-1"
+                          >
+                            <FontAwesomeIcon icon={faPenToSquare} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+          ) : (
+            <Unauthorized />
+          )}
         </div>
       </div>
       {isOpenModal && (

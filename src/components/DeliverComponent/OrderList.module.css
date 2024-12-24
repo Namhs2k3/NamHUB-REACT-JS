@@ -1,0 +1,271 @@
+.container {
+    max-width: 1171px;
+    margin: 3% auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+}
+
+.title {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cardContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.orderId {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+}
+
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.ready {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.onDelivery {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.cardBody {
+    line-height: 1.6;
+    color: #666;
+}
+
+.cardBody p {
+    margin: 8px 0;
+}
+
+.cardBody strong {
+    font-weight: bold;
+    color: #333;
+}
+
+.loading {
+    position: absolute;
+    background-color: #fff;
+    opacity: 0.7;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+.actionButtons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.actionButton {
+    padding: 8px 15px;
+    border: none;
+    min-width: 45%;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.actionButton:hover {
+    transform: scale(1.05);
+}
+
+.acceptButton {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.acceptButton:hover {
+    background-color: #0056b3;
+}
+
+.successButton {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.successButton:hover {
+    background-color: #1e7e34;
+}
+
+.failureButton {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.failureButton:hover {
+    background-color: #a71d2a;
+}
+
+.noOrders {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin-top: 50px;
+    font-weight: bold;
+}
+
+.detailsButton {
+    background-color: #6f42c1;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.detailsButton:hover {
+    background-color: #5a3795;
+}
+
+/*Order Items*/
+
+.order-items-container {
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 900px;
+    background-color: #fefefe;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Tiêu đề chính */
+.title {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+/* Bảng chi tiết đơn hàng */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.table th {
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.table tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.table tr:hover {
+    background-color: #f1f8ff;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Ô cuối cùng trong bảng */
+.table td:last-child {
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Thông báo khi không có đơn hàng */
+.noOrderMessage {
+    text-align: center;
+    color: #dc3545;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.backButton {
+    margin-top: 10px;
+    background-color: #28a745;
+    color: #fff;
+    position: absolute;
+    bottom: 10px;
+}
+
+.backButton:hover {
+    background-color: #1e7e34;
+}
+
+/* Hiệu ứng xuất hiện mềm mại */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

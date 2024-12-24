@@ -1,24 +1,26 @@
 import clsx from "clsx";
 import styles from "./NotFound.module.css";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFaceFrown } from "@fortawesome/free-solid-svg-icons";
 
 const NotFound = () => {
   const navigate = useNavigate();
   return (
     <div className={clsx(styles["big-div"])}>
       <div className={clsx(styles["not-found"])}>
-        <FontAwesomeIcon
-          icon={faFaceFrown}
-          className={clsx(styles["sad"], "mb-5")}
+        <img
+          src="/src/assets/undraw_page_not_found_re_e9o6.svg"
+          alt="403 Forbidden"
         />
-        404 - Page Not Found
+        <h1>404 - NotFound</h1>
+        <p>
+          Sorry, this page could not be found. It may have been deleted or the
+          address changed.
+        </p>
         <button
           className={clsx(styles["go-home"])}
           onClick={() => navigate("/home")}
         >
-          Quay Lại Trang Chủ
+          Go to Homepage
         </button>
       </div>
     </div>

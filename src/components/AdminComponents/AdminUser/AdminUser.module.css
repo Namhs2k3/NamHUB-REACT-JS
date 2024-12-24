@@ -23,7 +23,7 @@
 
 .new-user-light {
     background-color: #fff;
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     border: #c6c6c6 1px solid;
     margin-bottom: 20px;
@@ -32,7 +32,7 @@
 
 .new-user-dark {
     background-color: #313944;
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     border: #4e4e4e 1px solid;
     margin-bottom: 20px;
