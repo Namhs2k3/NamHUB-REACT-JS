@@ -55,6 +55,15 @@ import UserNavbar from "./components/UserComponent/UserNavBar/UserNavbar"; // Im
 import { AddToCartProvider } from "./contexts/AddToCartContext";
 import Footer from "./components/UserComponent/UserFooter/Footer";
 import ProductDetail from "./components/UserComponent/UserProducts/ProductDetail/ProductDetail";
+import Checkout from "./components/UserComponent/Checkout/Checkout";
+import { CartAmountProvider } from "./contexts/CartAmountContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import EmailSuccess from "./components/ConfirmEmail/VerifySuccess/EmailSuccess";
+import EmailFailure from "./components/ConfirmEmail/VerifyFailure/EmailFailure";
+import OrderSuccess from "./components/UserComponent/Checkout/OrderSuccess/OrderSuccess";
+import OrderFailure from "./components/UserComponent/Checkout/OrderFailure/OrderFailure";
+import OrderTracking from "./components/UserComponent/UserOrders/OrderTracking";
 
 export const UserRouters = () => {
   return (
@@ -72,7 +81,20 @@ export const UserRouters = () => {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/confirm-email" element={<ConfirmEmail />} />
+              <Route path="/verify-email-failure" element={<EmailFailure />} />
+              <Route path="/verify-email-success" element={<EmailSuccess />} />
+              <Route path="/order-success" element={<OrderSuccess />} />
+              <Route path="/order-failure" element={<OrderFailure />} />
+              <Route path="/my-orders" element={<OrderTracking />} />
               <Route path="/products" element={<ConfirmEmail />} />
+              <Route
+                path="/checkout"
+                element={
+                  <CartAmountProvider>
+                    <Checkout />
+                  </CartAmountProvider>
+                }
+              />
               <Route
                 path="/products/product-detail/:id/:slug"
                 element={<ProductDetail />}
@@ -99,6 +121,18 @@ export const UserRouters = () => {
               <Route path="/unauthenticated" element={<Unauthenticated />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
             <Footer></Footer>
           </AddToCartProvider>
         }

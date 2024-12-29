@@ -1,0 +1,122 @@
+.container {
+    padding: 20px;
+    width: 1172px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    margin: 3% auto;
+}
+
+.title {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 5%;
+    color: #333;
+    text-align: center;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    border-bottom: 2px solid #e0e0e0;
+    padding: 0 15px;
+    margin-bottom: 1%;
+}
+
+.tab {
+    position: relative;
+    flex: 1;
+    text-align: center;
+    font-size: 16px;
+    padding: 12px 0;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+    color: #6c757d;
+}
+
+.tab:hover {
+    color: #495057;
+    background-color: #e9ecef;
+}
+
+.tab.active {
+    color: #fc4c00;
+    border-bottom: 3px solid #fc4c00;
+}
+
+.tab:not(.active):hover::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    background-color: #fc4c00;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.tab:not(.active):hover::after {
+    opacity: 1;
+}
+
+.orders {
+    display: grid;
+    gap: 20px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.orderCard {
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.orderCard:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.orderName {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.orderStatus {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.status {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.status.pending {
+    color: #f39c12;
+}
+
+.status.shipping {
+    color: #3498db;
+}
+
+.status.completed {
+    color: #2ecc71;
+}
+
+.status.canceled {
+    color: #e74c3c;
+}
+
+.orderTotal {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.noOrders {
+    text-align: center;
+    color: #999;
+    font-size: 16px;
+}

@@ -15,8 +15,9 @@ import { useCallback } from "react";
 import PropTypes from "prop-types";
 import { saveProductToLocalStorage } from "../../../setGetRecentProduct";
 import { Link } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 
-const CartItems = ({ setReload }) => {
+const CartItems = ({ setReload, isOpenCart }) => {
   const [results, setResults] = useState([]);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [itemToRemove, setItemToRemove] = useState(null);
@@ -80,90 +81,106 @@ const CartItems = ({ setReload }) => {
   return (
     <>
       <div className={clsx(styles.bigDiv)}></div>
-      <div className={clsx(styles.cartItems)}>
-        {results && results.length > 0 ? (
-          <>
-            <ul className={styles.list}>
-              {results.map((item) => (
-                <li key={item.id} className={clsx(styles.cartItem)}>
-                  <img
-                    src={`${baseUrl}${item.imageUrl}`}
-                    alt={item.name}
-                    className={clsx(styles.image)}
-                  />
-                  <div className={clsx(styles.itemDetails)}>
-                    <a
-                      href={`/products/product-detail/${item.productId}/${generateSlug(item.productName)}`}
-                      className={clsx(styles.name)}
-                      onClick={() => {
-                        saveProductToLocalStorage(item.productId); // Gọi hàm thay vì gán giá trị
-                      }}
-                    >
-                      {item.productName}
-                    </a>
-                    <div className={clsx(styles.quantityControl)}>
-                      <button
-                        className={clsx(styles.decreaseButton)}
-                        onClick={() => handleDecrease(item.productId)}
-                        disabled={item.quantity <= 1}
+      <CSSTransition
+        in={isOpenCart}
+        timeout={300}
+        classNames={{
+          enter: styles["popup-enter"],
+          enterActive: styles["popup-enter-active"],
+          exit: styles["popup-exit"],
+          exitActive: styles["popup-exit-active"],
+        }}
+        unmountOnExit
+      >
+        <div className={clsx(styles.cartItems)}>
+          {results && results.length > 0 ? (
+            <>
+              <ul className={styles.list}>
+                {results.map((item) => (
+                  <li key={item.id} className={clsx(styles.cartItem)}>
+                    <img
+                      src={`${baseUrl}${item.imageUrl}`}
+                      alt={item.name}
+                      className={clsx(styles.image)}
+                    />
+                    <div className={clsx(styles.itemDetails)}>
+                      <a
+                        href={`/products/product-detail/${item.productId}/${generateSlug(item.productName)}`}
+                        className={clsx(styles.name)}
+                        onClick={() => {
+                          saveProductToLocalStorage(item.productId); // Gọi hàm thay vì gán giá trị
+                        }}
                       >
-                        -
-                      </button>
-                      <span className={clsx(styles.quantity)}>
-                        {item.quantity}
-                      </span>
-                      <button
-                        className={clsx(styles.increaseButton)}
-                        onClick={() => handleIncrease(item.productId)}
-                      >
-                        +
-                      </button>
-                      <span className={clsx(styles.discountedPrice, "ms-3")}>
-                        {"x"}
-                        {formatCurrency(item.discountedPrice)}
-                      </span>
+                        {item.productName}
+                      </a>
+                      <div className={clsx(styles.quantityControl)}>
+                        <button
+                          className={clsx(styles.decreaseButton)}
+                          onClick={() => handleDecrease(item.productId)}
+                          disabled={item.quantity <= 1}
+                        >
+                          -
+                        </button>
+                        <span className={clsx(styles.quantity)}>
+                          {item.quantity}
+                        </span>
+                        <button
+                          className={clsx(styles.increaseButton)}
+                          onClick={() => handleIncrease(item.productId)}
+                        >
+                          +
+                        </button>
+                        <span className={clsx(styles.discountedPrice, "ms-3")}>
+                          {"x"}
+                          {formatCurrency(item.discountedPrice)}
+                        </span>
+                      </div>
                     </div>
-                  </div>
+                    <button
+                      className={clsx(styles.deleteButton)}
+                      onClick={() => handleRemove(item.productId)}
+                    >
+                      <FontAwesomeIcon icon={faTrashCan} />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <div className={clsx(styles.summary)}>
+                <p className={clsx(styles.total)}>
+                  Tạm tính:{" "}
+                  <span className={styles.totalPrice}>
+                    {formatCurrency(totalAmount)}
+                  </span>
+                </p>
+                <div className={clsx(styles.actionButtons)}>
                   <button
-                    className={clsx(styles.deleteButton)}
-                    onClick={() => handleRemove(item.productId)}
+                    onClick={() => {
+                      window.location.href = "/checkout";
+                    }}
+                    className={clsx(styles.checkoutButton)}
                   >
-                    <FontAwesomeIcon icon={faTrashCan} />
+                    Thanh Toán
                   </button>
-                </li>
-              ))}
-            </ul>
-            <div className={clsx(styles.summary)}>
-              <p className={clsx(styles.total)}>
-                Tạm tính:{" "}
-                <span className={styles.totalPrice}>
-                  {formatCurrency(totalAmount)}
-                </span>
-              </p>
-              <div className={clsx(styles.actionButtons)}>
-                <button className={clsx(styles.cartButton)}>Giỏ Hàng</button>
-                <button className={clsx(styles.checkoutButton)}>
-                  Thanh Toán
-                </button>
+                </div>
               </div>
+            </>
+          ) : (
+            <div className={clsx(styles.emptyCartContainer)}>
+              <div className={clsx(styles.iconEmpty)}>
+                <img
+                  src="/src/assets/undraw_empty-cart_574u.svg" // Thay bằng link ảnh hoặc SVG tương tự
+                  alt="Giỏ hàng trống"
+                  className={clsx(styles.imageEmpty)}
+                />
+              </div>
+              <p className={clsx(styles.message)}>Giỏ hàng đang trống</p>
+              <Link to="/products" className={clsx(styles.continueShopping)}>
+                Tiếp tục mua hàng
+              </Link>
             </div>
-          </>
-        ) : (
-          <div className={clsx(styles.emptyCartContainer)}>
-            <div className={clsx(styles.iconEmpty)}>
-              <img
-                src="/src/assets/undraw_empty-cart_574u.svg" // Thay bằng link ảnh hoặc SVG tương tự
-                alt="Giỏ hàng trống"
-                className={clsx(styles.imageEmpty)}
-              />
-            </div>
-            <p className={clsx(styles.message)}>Giỏ hàng đang trống</p>
-            <Link to="/products" className={clsx(styles.continueShopping)}>
-              Tiếp tục mua hàng
-            </Link>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </CSSTransition>
 
       {showConfirmModal && (
         <div className={clsx(styles.confirmModal)}>
@@ -189,5 +206,6 @@ const CartItems = ({ setReload }) => {
 };
 CartItems.propTypes = {
   setReload: PropTypes.func,
+  isOpenCart: PropTypes.bool,
 };
 export default CartItems;

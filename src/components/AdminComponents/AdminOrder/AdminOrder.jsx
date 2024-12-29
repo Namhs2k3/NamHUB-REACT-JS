@@ -12,6 +12,7 @@ import {
   getCustomerOrderItems,
   getOrderHistory,
   getOrderList,
+  orderCompleted,
 } from "../../../api";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ThemeContext } from "../../../contexts/ThemeContext";
@@ -523,7 +524,11 @@ const OpenModal = ({ isOpenModal, setIsOpenModal, orderId }) => {
     e.preventDefault();
     const dataSend = status;
     try {
-      await addNewState(orderId, dataSend);
+      if (status !== "Completed") {
+        await addNewState(orderId, dataSend);
+      } else {
+        await orderCompleted(orderId);
+      }
       toast.success("Cập Nhật Trạng Thái Thành Công!");
       fetchOrderHistory();
     } catch (err) {

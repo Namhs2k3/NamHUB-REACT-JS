@@ -1,7 +1,7 @@
 // src/components/Register.jsx
 import { useState } from "react";
 import { resetPassword } from "../../api";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import styles from "./RSPwd.module.css";
@@ -109,7 +109,7 @@ const RSPwd = () => {
           <Link to="/login" className={clsx(styles["go-login"])}>
             Quay lại trang đăng nhập
           </Link>
-          <ToastContainer />
+
           {isLoading && (
             <Loading className={clsx(styles["rs-loading"])}></Loading>
           )}

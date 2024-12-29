@@ -31,7 +31,7 @@ const DiscountedProducts = () => {
       console.log("products result: ", data);
     } catch (error) {
       console.log("co loi xay ra: ", error);
-      if (error.response.status === 404) {
+      if (error.response.status === 401) {
         toast.error("Vui lòng đăng nhập để tiếp tục");
         return;
       }

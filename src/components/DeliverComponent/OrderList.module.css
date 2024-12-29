@@ -187,7 +187,7 @@
     margin-bottom: 25px;
     font-size: 30px;
     font-weight: bold;
-    color: #444;
+    color: #000;
     text-transform: uppercase;
     letter-spacing: 1.2px;
     border-bottom: 2px solid #007bff;
@@ -247,14 +247,14 @@
 
 .backButton {
     margin-top: 10px;
-    background-color: #28a745;
+    background-color: #fc4c00;
     color: #fff;
-    position: absolute;
+    position: fixed;
     bottom: 10px;
 }
 
 .backButton:hover {
-    background-color: #1e7e34;
+    background-color: #e44400;
 }
 
 /* Hiệu ứng xuất hiện mềm mại */

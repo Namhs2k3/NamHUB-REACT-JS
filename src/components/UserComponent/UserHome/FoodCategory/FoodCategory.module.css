@@ -6,55 +6,81 @@
 }
 
 .title {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: left;
+    color: #2c3e50;
+    letter-spacing: 0.5px;
+}
+
+.title span {
+    font-size: 16px;
+    font-weight: normal;
 }
 
 .allProducts {
-    color: red;
-    font-size: 16px;
-    margin-left: 10px;
-    cursor: pointer;
-    font-weight: normal;
+    color: #fc4c00;
     text-decoration: none;
+    transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
+    border-bottom: 2px solid transparent;
 }
 
 .allProducts:hover {
-    text-decoration: underline;
+    color: #fc4c00;
+    border-bottom: 2px solid #fc4c00;
 }
 
 .grid {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    align-items: center;
-    flex-wrap: wrap;
+    justify-items: center;
+    align-items: start;
 }
 
 .categoryCard {
-    text-align: center;
-    padding: 10px;
-    border-radius: 10px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .categoryCard:hover {
     transform: translateY(-5px);
-    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    background-color: #f9f9f9;
 }
 
 .categoryImage {
-    width: 185px;
+    width: 100%;
+    max-width: 185px;
     height: 185px;
     object-fit: cover;
     margin-bottom: 10px;
-    border-radius: 25px;
+    border-radius: 4px;
+    transition: transform 0.3s ease, border 0.3s ease;
+    border: 1px solid #ddd;
+}
+
+.categoryCard:hover .categoryImage {
+    transform: scale(1.03);
+    border-color: #3498db;
 }
 
 .categoryName {
     font-size: 16px;
     color: #333;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 10px;
+    transition: color 0.3s ease;
+}
+
+.categoryCard:hover .categoryName {
+    color: #2ecc71;
 }

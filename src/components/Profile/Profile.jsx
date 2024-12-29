@@ -14,7 +14,7 @@ import {
   getUserInfo,
 } from "../../api";
 import Loading from "../Loading/Loading";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash, faX } from "@fortawesome/free-solid-svg-icons";
@@ -274,7 +274,6 @@ export const CreateProfile = () => {
         </button>
       </form>
       {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}
-      <ToastContainer></ToastContainer>
     </div>
   );
 };
@@ -611,7 +610,6 @@ const Profile = () => {
         />
       )}
       {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}
-      <ToastContainer></ToastContainer>
     </div>
   );
 };
@@ -949,12 +947,11 @@ export const AdminProfile = () => {
         />
       )}
       {isLoading && <Loading className={clsx(styles["loading"])}></Loading>}
-      <ToastContainer></ToastContainer>
     </div>
   );
 };
 
-const AddUserAddress = ({ isOpenModal, setIsOpenModal }) => {
+export const AddUserAddress = ({ isOpenModal, setIsOpenModal }) => {
   const [userAddressInfo, setuserAddressInfo] = useState({
     addressLine1: "",
     city: "",
@@ -1094,7 +1091,11 @@ const AddUserAddress = ({ isOpenModal, setIsOpenModal }) => {
   );
 };
 
-const EditUserAddresses = ({ isOpenModal, setIsOpenModal, userName }) => {
+export const EditUserAddresses = ({
+  isOpenModal,
+  setIsOpenModal,
+  userName,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [confirmDelete, setConfirmDelete] = useState({
@@ -1132,7 +1133,7 @@ const EditUserAddresses = ({ isOpenModal, setIsOpenModal, userName }) => {
       });
 
       await Promise.all(updatePromises); // Thực hiện tất cả các cập nhật song song
-      toast.success("Cập nhật tất cả địa chỉ thành công!");
+      toast.success("Cập nhật địa chỉ thành công!");
       setIsOpenModal(false);
     } catch (error) {
       console.error("Lỗi khi cập nhật địa chỉ:", error);

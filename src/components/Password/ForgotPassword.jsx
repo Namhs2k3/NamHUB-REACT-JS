@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { forgotPassword } from "../../api";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import clsx from "clsx";
@@ -53,7 +53,7 @@ const Register = () => {
         <Link to="/login" className={clsx(styles["go-login"])}>
           Quay lại trang đăng nhập
         </Link>
-        <ToastContainer />
+
         {isLoading && (
           <Loading className={clsx(styles["fg-loading"])}></Loading>
         )}

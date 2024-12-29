@@ -263,13 +263,9 @@ export const addEmployee = async (empInfo) => {
 };
 //Thông Tin Cá Nhân
 //Không cần đăng nhập
-export const getCustomerInfo = async () => {
+export const getCustomerInfo = async (id) => {
   
-  const response = await axios.get(`${baseURL}/api/user-info/get-customer-info`,
-    {
-      headers: {
-      Authorization:`Bearer ${token}`
-    }});
+  const response = await apiClient.get(`/api/user-info/get-customer-info${id?`?userIdParam=${id}`:""}`);
   return response.data;
 };
 
@@ -436,6 +432,11 @@ export const getDiscountedProductsForCus = async () => {
   const response = await apiClient.get(`/api/Customer/get-discounted-foods`);
   return response.data;
 };
+export const getDiscountCodeForCus = async () => {
+  
+  const response = await apiClient.get(`/api/Customer/get-active-discount-codes-for-customer`);
+  return response.data;
+};
 
 export const getPopularProductsForCus = async () => {
   
@@ -458,21 +459,13 @@ export const getFoodListForCus = async (name, cateId, productId, page,pageSize) 
 
 export const getCartCount = async () => {
   
-  const response = await axios.get(`${baseURL}/api/Customer/get-cart-item-count`,
-    {
-      headers: {
-      Authorization:`Bearer ${token}`
-    }});
+  const response = await apiClient.get(`/api/Customer/get-cart-item-count`);
   return response.data;
 };
 
 export const getCartItems = async () => {
   
-  const response = await axios.get(`${baseURL}/api/Customer/get-cus-cart-items`,
-    {
-      headers: {
-      Authorization:`Bearer ${token}`
-    }});
+  const response = await apiClient.get(`/api/Customer/get-cus-cart-items`);
   return response.data;
 };
 
@@ -501,5 +494,42 @@ export const addToCart = async (id) => {
       },
     }
   );
+  return response.data;
+};
+
+
+//Đánh giá sản phẩm
+
+export const createReview = (data) => {
+  return axios.post(`${baseURL}/api/Customer/create-comment`, data , {
+    headers:{
+      Authorization: `Bearer ${token}`,
+      "Content-Type":"application/json"
+    }
+  });
+};
+
+export const updateReview = ( data) => {
+  return axios.put(`${baseURL}/api/Customer/update-comment`, data , {
+    headers:{
+      Authorization: `Bearer ${token}`,
+      "Content-Type":"application/json"
+    }
+  });
+};
+
+export const deleteReview = (commentId) => {
+  return axios.delete(`${baseURL}/api/Customer/delete-comment/${commentId}` , {
+    headers:{
+      Authorization: `Bearer ${token}`,
+      "Content-Type":"application/json"
+    }
+  });
+};
+
+// Checkout
+export const checkout = async (data) => {
+  
+  const response = await apiClient.post(`/api/Payment/checkout`, data);
   return response.data;
 };

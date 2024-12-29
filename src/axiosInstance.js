@@ -73,6 +73,7 @@ apiClient.interceptors.response.use(
       error.response.status === 401 &&
       originalRequest &&
       !originalRequest._retry
+      && cachedToken
     ) {
       originalRequest._retry = true; // Đánh dấu đã retry
 

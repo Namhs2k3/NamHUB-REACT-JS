@@ -1,3 +1,4 @@
+import { CSSTransition } from "react-transition-group";
 import clsx from "clsx";
 import styles from "./UserNavbar.module.css";
 import Logo from "../../Logo/Logo";
@@ -20,7 +21,7 @@ import {
   getCategoryListForCus,
   getCustomerInfo,
 } from "../../../api";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import SearchResult from "./SearchResult";
 import CartItems from "./CartItems";
@@ -371,13 +372,72 @@ const UserNavbar = () => {
           </div>
         )}
       </header>
-      {isOpenResult ? (
-        <SearchResult name={searchTerm} cateId={selectedCategory} />
-      ) : null}
-      {isOpenCart ? <CartItems setReload={setReload} /> : null}
-      {isOpenCategory ? <AllCategory /> : null}
-      {isOpenRecent ? <RecentProducts setOpenRecent={setOpenRecent} /> : null}
-      <ToastContainer />
+      {/* SearchResult */}
+      <CSSTransition
+        in={isOpenResult}
+        timeout={300}
+        classNames={{
+          enter: styles["popup-enter"],
+          enterActive: styles["popup-enter-active"],
+          exit: styles["popup-exit"],
+          exitActive: styles["popup-exit-active"],
+        }}
+        unmountOnExit
+      >
+        <SearchResult
+          name={searchTerm}
+          cateId={selectedCategory}
+          isOpenResult={isOpenResult}
+        />
+      </CSSTransition>
+
+      {/* CartItems */}
+      <CSSTransition
+        in={isOpenCart}
+        timeout={300}
+        classNames={{
+          enter: styles["popup-enter"],
+          enterActive: styles["popup-enter-active"],
+          exit: styles["popup-exit"],
+          exitActive: styles["popup-exit-active"],
+        }}
+        unmountOnExit
+      >
+        <CartItems setReload={setReload} isOpenCart={isOpenCart} />
+      </CSSTransition>
+
+      {/* AllCategory */}
+      <CSSTransition
+        in={isOpenCategory}
+        timeout={300}
+        classNames={{
+          enter: styles["popup-enter"],
+          enterActive: styles["popup-enter-active"],
+          exit: styles["popup-exit"],
+          exitActive: styles["popup-exit-active"],
+        }}
+        unmountOnExit
+      >
+        <AllCategory isOpenCategory={isOpenCategory} />
+      </CSSTransition>
+
+      {/* RecentProducts */}
+      <CSSTransition
+        in={isOpenRecent}
+        timeout={300}
+        classNames={{
+          enter: styles["popup-enter"],
+          enterActive: styles["popup-enter-active"],
+          exit: styles["popup-exit"],
+          exitActive: styles["popup-exit-active"],
+        }}
+        unmountOnExit
+      >
+        <RecentProducts
+          setOpenRecent={setOpenRecent}
+          isOpenRecent={isOpenRecent}
+        />
+      </CSSTransition>
     </>
   );
 };
@@ -402,7 +462,10 @@ const Popup = ({ email, setIsHide }) => {
   return (
     <>
       <div className={clsx(styles["setting-light"])}>Settings</div>
-      <Link to="/admin/profile/edit" className={clsx(styles["profile-light"])}>
+      <Link
+        to="/customer/profile/edit"
+        className={clsx(styles["profile-light"])}
+      >
         Profile
         <FontAwesomeIcon icon={faUser} />
       </Link>

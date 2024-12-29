@@ -14,7 +14,7 @@ import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import { faTruckFast } from "@fortawesome/free-solid-svg-icons";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
@@ -207,7 +207,6 @@ const OrderList = () => {
           ))}
         </div>
       )}
-      <ToastContainer />
     </div>
   );
 };

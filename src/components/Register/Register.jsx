@@ -7,8 +7,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { register } from "../../api";
 import Loading from "../Loading/Loading";
 import styles from "./Register.module.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import CSS của react-toastify
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -176,7 +175,6 @@ const Register = () => {
         />
       </div>
 
-      <ToastContainer />
       {isLoading && (
         <Loading className={clsx(styles["regis-loading"])}></Loading>
       )}

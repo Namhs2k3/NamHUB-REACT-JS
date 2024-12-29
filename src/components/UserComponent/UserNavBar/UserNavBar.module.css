@@ -668,3 +668,26 @@
     height: 94px;
     object-fit: cover;
 }
+
+/*Hiệu Ứng Của Các Modal*/
+.popup-enter {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.popup-enter-active {
+    opacity: 0.3;
+    transform: translateY(0);
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.popup-exit {
+    opacity: 0.3;
+    transform: translateY(0);
+}
+
+.popup-exit-active {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 300ms ease, transform 300ms ease;
+}

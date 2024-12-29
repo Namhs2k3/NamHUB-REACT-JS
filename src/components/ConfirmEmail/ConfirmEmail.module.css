@@ -13,6 +13,7 @@
 
 .div-confirm {
   display: flex;
+  width: 1172px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -21,11 +22,10 @@
   background-repeat: no-repeat;
   color: #10375c;
   padding: 50px;
-  border-radius: 30px;
 }
 
 .p-confirm {
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
   color: #fc4c00;
 }

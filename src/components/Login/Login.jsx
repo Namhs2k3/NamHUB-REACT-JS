@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import styles from "./Login.module.css";
 import { login } from "../../api";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import CSS của react-toastify
+import { toast } from "react-toastify";
 import Loading from "../Loading/Loading";
 
 const Login = () => {
@@ -143,8 +142,6 @@ const Login = () => {
           className={clsx(styles["icon-eye"])}
         />
       </div>
-
-      <ToastContainer />
       {isLoading && (
         <Loading className={clsx(styles["login-loading"])}></Loading>
       )}
