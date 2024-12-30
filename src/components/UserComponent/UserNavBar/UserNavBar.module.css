@@ -97,7 +97,7 @@
 .menuBar {
     display: flex;
     align-items: center;
-    background-color: #ff4500;
+    background-color: #FF7D01;
     padding: 0px 20px;
     color: white;
     justify-content: space-between;
@@ -128,7 +128,6 @@
 .menuLink {
     color: white;
     text-decoration: none;
-    font-weight: bold;
 }
 
 .recent {
@@ -200,7 +199,7 @@
     width: 150px;
     position: absolute;
     z-index: 111;
-    border-radius: 7px;
+    border-radius: 2px;
     background-color: #fff;
     color: #000;
     border: none;
@@ -212,7 +211,7 @@
         height 0.3s ease-in-out;
     opacity: 1;
     visibility: visible;
-    border: #fc4c00 1px solid;
+    border: #FF7D01 1px solid;
     overflow: hidden;
 }
 
@@ -224,16 +223,16 @@
 
 .setting-light {
     padding: 10px;
-    background-color: #fc4c00 !important;
+    background-color: #FF7D01 !important;
     color: #fff;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom: 1px solid #fc4c00;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom: 1px solid #FF7D01;
     background: #323A49;
 }
 

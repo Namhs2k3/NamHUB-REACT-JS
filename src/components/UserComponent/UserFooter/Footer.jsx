@@ -20,7 +20,7 @@ const Footer = () => {
             <li>
               <a
                 href="#about"
-                title="Learn more about us"
+                title="Learn more about Me"
                 className={styles.link}
               >
                 About
@@ -29,7 +29,7 @@ const Footer = () => {
             <li>
               <a
                 href="#services"
-                title="Discover our services"
+                title="Discover My services"
                 className={styles.link}
               >
                 Services
@@ -38,7 +38,7 @@ const Footer = () => {
             <li>
               <a
                 href="#blog"
-                title="Read our latest blog posts"
+                title="Read My latest blog posts"
                 className={styles.link}
               >
                 Blog
@@ -47,7 +47,7 @@ const Footer = () => {
             <li>
               <a
                 href="#contact"
-                title="Get in touch with us"
+                title="Get in touch with Me"
                 className={styles.link}
               >
                 Contact
@@ -58,14 +58,14 @@ const Footer = () => {
 
         {/* Nhóm liên kết mạng xã hội */}
         <div className={styles.linksGroup}>
-          <h2 className={styles.groupTitle}>Follow Us</h2>
+          <h2 className={styles.groupTitle}>Follow Me</h2>
           <div className={styles.socials}>
             <a
               href="https://facebook.com"
               className={`${styles.icon} ${styles.facebook}`}
               target="_blank"
               rel="noopener noreferrer"
-              title="Visit our Facebook page"
+              title="Visit My Facebook page"
             >
               Facebook
             </a>
@@ -74,7 +74,7 @@ const Footer = () => {
               className={`${styles.icon} ${styles.twitter}`}
               target="_blank"
               rel="noopener noreferrer"
-              title="Follow us on Twitter"
+              title="Follow Me on Twitter"
             >
               Twitter
             </a>
@@ -83,7 +83,7 @@ const Footer = () => {
               className={`${styles.icon} ${styles.instagram}`}
               target="_blank"
               rel="noopener noreferrer"
-              title="Check out our Instagram"
+              title="Check out My Instagram"
             >
               Instagram
             </a>

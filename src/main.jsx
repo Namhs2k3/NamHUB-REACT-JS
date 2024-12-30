@@ -36,7 +36,7 @@ import AdminOrder, {
 } from "./components/AdminComponents/AdminOrder/AdminOrder";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ToggleSidebarProvider } from "./contexts/ToggleSidebarContext";
-import NotFound from "./components/NotFound/NotFound";
+import NotFound, { AdminNotFound } from "./components/NotFound/NotFound";
 import {
   Unauthenticated,
   Unauthorized,
@@ -199,7 +199,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     element={<AdminViewOrderItems />}
                   />
                   <Route path="users" element={<AdminUser />} />
-                  <Route path="*" element={<NotFound />} />
+                  <Route path="*" element={<AdminNotFound />} />
                 </Routes>
               </ToggleSidebarProvider>
             }

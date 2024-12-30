@@ -114,10 +114,6 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.actionButton:hover {
-    transform: scale(1.05);
-}
-
 .acceptButton {
     background-color: #007bff;
     color: #fff;
@@ -148,9 +144,8 @@
 .noOrders {
     text-align: center;
     font-size: 18px;
-    color: #666;
+    color: #333;
     margin-top: 50px;
-    font-weight: bold;
 }
 
 .detailsButton {
@@ -186,11 +181,11 @@
     text-align: center;
     margin-bottom: 25px;
     font-size: 30px;
-    font-weight: bold;
     color: #000;
+    font-weight: normal;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    border-bottom: 2px solid #007bff;
+    border-bottom: 2px solid #fc4c00;
     display: inline-block;
     padding-bottom: 8px;
 }
@@ -240,7 +235,6 @@
     text-align: center;
     color: #dc3545;
     font-size: 18px;
-    font-weight: bold;
     margin-top: 20px;
     animation: fadeIn 1s ease-in-out;
 }
@@ -255,6 +249,11 @@
 
 .backButton:hover {
     background-color: #e44400;
+}
+
+.disabledButton {
+    background-color: #555;
+    color: white;
 }
 
 /* Hiệu ứng xuất hiện mềm mại */

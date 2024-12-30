@@ -6,6 +6,7 @@ import Loading from "../../Loading/Loading";
 import { format } from "date-fns";
 import { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import { ToggleSidebarContext } from "../../../contexts/ToggleSidebarContext";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   addNewState,
@@ -45,28 +46,56 @@ const AdminOrder = () => {
     setCurrentOrderId(orderId); // Lưu userId
     setIsOpenModal(true); // Mở modal
   };
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [deliver, setDeliver] = useState("");
+  const [name, setName] = useState("");
+  const fetchProdListByName = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const data = await getOrderList(
+        status,
+        startDate !== null ? format(startDate, "MM/dd/yyyy HH:mm") : null,
+        endDate !== null ? format(endDate, "MM/dd/yyyy HH:mm") : null,
+        deliver,
+        name
+      );
+      console.log("Order List: ", data);
+      setProdList(data);
+    } catch (err) {
+      console.error("Lỗi khi lấy dữ liệu: ", err);
+      if (err.status === 401) {
+        navigate("/login");
+      } else if (err.status === 403) {
+        setPermitted(false);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }, [navigate, status, startDate, endDate, deliver, name]);
 
   useEffect(() => {
-    const fetchProdListByName = async () => {
-      setIsLoading(true);
-      try {
-        const data = await getOrderList(status);
-        console.log("Order List: ", data);
-        setProdList(data);
-      } catch (err) {
-        console.error("Lỗi khi lấy dữ liệu: ", err);
-        if (err.status === 401) {
-          navigate("/login");
-        } else if (err.status === 403) {
-          setPermitted(false);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    setIsLoading(true);
+    const timeoutId = setTimeout(() => {
+      fetchProdListByName();
+    }, 1000);
 
-    fetchProdListByName();
-  }, [navigate, status, isOpenModal]);
+    return () => clearTimeout(timeoutId); // Xóa timeout khi component unmount hoặc dependency thay đổi
+  }, [fetchProdListByName, isOpenModal]);
+
+  const handleRefund = async (orderId) => {
+    const yes = confirm("Bạn có chắc là đã hoàn tiền cho đơn hàng này?");
+    if (yes) {
+      try {
+        await addNewState(orderId, "Refunded");
+        toast.success("Cập Nhật Trạng Thái Thành Công!");
+        fetchProdListByName();
+      } catch (err) {
+        console.log("có lỗi:", err);
+        toast.error("Cập Nhật Trạng Thái Thất Bại!");
+      }
+    }
+  };
 
   return (
     <div className={clsx(styles["main-banners"])}>
@@ -101,7 +130,7 @@ const AdminOrder = () => {
               <div className={clsx(styles["title"])}>Danh Sách Đơn Hàng</div>
               <div
                 style={{
-                  marginBottom: "20px",
+                  marginBottom: "",
                   display: "flex",
                   alignItems: "center",
                   gap: "10px",
@@ -145,10 +174,263 @@ const AdminOrder = () => {
                   <option value="Ready">Ready</option>
                   <option value="On Delivery">On Delivery</option>
                   <option value="Failed">Failed</option>
+                  <option value="Refunded">Refunded</option>
                 </select>
               </div>
+              <div
+                className={clsx(
+                  styles.h10,
+                  "d-flex align-items-center justify-content-around mb-2"
+                )}
+              >
+                <label
+                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                  className="d-flex flex-column "
+                >
+                  <span
+                    style={{
+                      textAlign: "left",
+                      width: "100%",
+                    }}
+                  >
+                    Tên Khách Hàng:
+                  </span>
 
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Tên khách hàng"
+                    style={{
+                      padding: "8px",
+                      fontSize: "14px",
+                      borderRadius: "4px",
+                      border: "1px solid #ddd",
+                    }}
+                  />
+                </label>
+
+                <label
+                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                  className="d-flex flex-column "
+                >
+                  <span
+                    style={{
+                      textAlign: "left",
+                      width: "100%",
+                    }}
+                  >
+                    Giao thành công:
+                  </span>
+
+                  <input
+                    type="text"
+                    value={deliver}
+                    onChange={(e) => setDeliver(e.target.value)}
+                    placeholder="Tên người giao hàng"
+                    style={{
+                      padding: "8px",
+                      fontSize: "14px",
+                      borderRadius: "4px",
+                      border: "1px solid #ddd",
+                    }}
+                  />
+                </label>
+                <label
+                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                  className="d-flex flex-column "
+                >
+                  <span
+                    style={{
+                      textAlign: "left",
+                      width: "100%",
+                    }}
+                  >
+                    Ngày bắt đầu:
+                  </span>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    dateFormat="dd/MM/yyyy"
+                    placeholderText="Chọn ngày bắt đầu"
+                    className={styles.date}
+                  />
+                </label>
+
+                <label
+                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                  className="d-flex flex-column "
+                >
+                  <span
+                    style={{
+                      textAlign: "left",
+                      width: "100%",
+                    }}
+                  >
+                    Ngày kết thúc:
+                  </span>
+
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    dateFormat="dd/MM/yyyy"
+                    placeholderText="Chọn ngày kết thúc"
+                    className={styles.date}
+                  />
+                </label>
+              </div>
               <div className="d-flex justify-content-between align-items-center"></div>
+              <div className="w-100">
+                <thead className={clsx(styles["custom-thead"])}>
+                  <tr>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Mã
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "150px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Tên KH
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      UpdatedBy
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      SDT
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Ngày Đặt
+                    </th>
+
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Mã KM
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Giảm
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "80px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Phải Trả
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      PTTT
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      T.Toán
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Trạng Thái
+                    </th>
+                    <th
+                      scope="col"
+                      style={{
+                        verticalAlign: "middle",
+                        width: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Thao Tác
+                    </th>
+                  </tr>
+                </thead>
+              </div>
               <div className={clsx(styles["div-table"])}>
                 <table
                   className={clsx(
@@ -156,170 +438,36 @@ const AdminOrder = () => {
                     "table table-striped table-hover table-responsive"
                   )}
                 >
-                  <thead className={clsx(styles["custom-thead"])}>
-                    <tr>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Mã
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Tên KH
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        SDT
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Ngày Đặt
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Tổng
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Mã KM
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Giảm
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Phải Trả
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        PTTT
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        T.Toán
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Trạng Thái
-                      </th>
-                      <th
-                        scope="col"
-                        style={{
-                          verticalAlign: "middle",
-                          maxWidth: "100px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Thao Tác
-                      </th>
-                    </tr>
-                  </thead>
                   <tbody>
                     {prodList?.$values && prodList.$values.length > 0 ? (
                       prodList?.$values?.map((item, index) => (
                         <tr key={index}>
-                          <th style={{ verticalAlign: "middle" }} scope="row">
+                          <th
+                            style={{ verticalAlign: "middle", width: "46px" }}
+                            scope="row"
+                          >
                             {item.orderId}
                           </th>
                           <td
                             style={{
                               verticalAlign: "middle",
-                              maxWidth: "200px",
+                              width: "150px",
                               textOverflow: "ellipsis",
                               whiteSpace: "nowrap",
                             }}
                           >
                             {item.fullName}
+                          </td>
+                          <td
+                            style={{
+                              width: "100px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {item.byDeliver}
                           </td>
                           <td
                             style={{
@@ -344,20 +492,7 @@ const AdminOrder = () => {
                             {format(item.orderDate, "MM/dd/yyyy HH:mm") ||
                               "Không có"}
                           </td>
-                          <td
-                            style={{
-                              maxWidth: "100px",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                              verticalAlign: "middle",
-                            }}
-                          >
-                            {new Intl.NumberFormat("vi-VN").format(
-                              item.totalAmount
-                            )}{" "}
-                            đ
-                          </td>
+
                           <td
                             style={{
                               maxWidth: "100px",
@@ -442,6 +577,7 @@ const AdminOrder = () => {
                               textOverflow: "ellipsis",
                               whiteSpace: "nowrap",
                             }}
+                            className="d-flex flex-column gap-1"
                           >
                             <button
                               onClick={() => handleOpenModal(item.orderId)}
@@ -455,6 +591,15 @@ const AdminOrder = () => {
                             >
                               Chi Tiết
                             </Link>
+                            {item.status === "Failed" &&
+                            item.payment.paymentStatus === "Completed" ? (
+                              <button
+                                onClick={() => handleRefund(item.orderId)}
+                                className="btn btn-danger btn-sm me-1"
+                              >
+                                Hoàn Tiền
+                              </button>
+                            ) : null}
                           </td>
                         </tr>
                       ))
@@ -612,7 +757,10 @@ const OpenModal = ({ isOpenModal, setIsOpenModal, orderId }) => {
                   status === "" ||
                   orderHistoryStatus?.some((item) => item.status === status) ||
                   orderHistoryStatus?.some(
-                    (item) => item.status === "Completed"
+                    (item) =>
+                      item.status === "Completed" ||
+                      item.status === "Failed" ||
+                      item.status === "Refunded"
                   )
                 }
               >

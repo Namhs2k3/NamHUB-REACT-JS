@@ -11,6 +11,7 @@ import { addEmployee, getUserList, updateUserRoles } from "../../../api";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -61,9 +62,12 @@ const AdminUser = () => {
 
   const [currentUserId, setCurrentUserId] = useState(null); // Lưu trữ userId
   const [currentUserName, setCurrentUserName] = useState(null); // Lưu trữ userId
-  const handleRoleChange = (userId, username) => {
+  const [currentUserRoles, setCurrentUserRoles] = useState([]); // Lưu trữ userRoles
+  const handleRoleChange = (userId, username, userRoles) => {
     setCurrentUserId(userId); // Lưu userId
     setCurrentUserName(username);
+    setCurrentUserRoles(userRoles);
+    console.log("userRoles: ", userRoles);
     setIsOpenModal(true); // Mở modal
   };
 
@@ -195,7 +199,11 @@ const AdminUser = () => {
                         >
                           <button
                             onClick={() =>
-                              handleRoleChange(item.userId, item.username)
+                              handleRoleChange(
+                                item.userId,
+                                item.username,
+                                item.roles.$values?.map((role) => role.roleName)
+                              )
                             }
                             className="btn btn-warning btn-sm me-1"
                           >
@@ -219,6 +227,7 @@ const AdminUser = () => {
           setIsOpenModal={setIsOpenModal}
           userId={currentUserId}
           userName={currentUserName}
+          userRoles={currentUserRoles}
         />
       )}
 
@@ -234,8 +243,14 @@ const AdminUser = () => {
   );
 };
 
-const OpenModal = ({ isOpenModal, setIsOpenModal, userId, userName }) => {
-  const [selectedRoles, setSelectedRoles] = useState([]); // State lưu trữ các vai trò đã chọn
+const OpenModal = ({
+  isOpenModal,
+  setIsOpenModal,
+  userId,
+  userName,
+  userRoles,
+}) => {
+  const [selectedRoles, setSelectedRoles] = useState(userRoles); // State lưu trữ các vai trò đã chọn
 
   console.log("userId đc truyền vào: ", userId);
   const handleCheckboxChange = (event) => {
@@ -302,6 +317,7 @@ const OpenModal = ({ isOpenModal, setIsOpenModal, userId, userName }) => {
                   type="checkbox"
                   value="ADMIN"
                   onChange={handleCheckboxChange}
+                  checked={userRoles.some((role) => role === "ADMIN")}
                 />
                 ADMIN
               </label>
@@ -310,6 +326,7 @@ const OpenModal = ({ isOpenModal, setIsOpenModal, userId, userName }) => {
                   type="checkbox"
                   value="EMPLOYEE"
                   onChange={handleCheckboxChange}
+                  checked={userRoles.some((role) => role === "EMPLOYEE")}
                 />
                 EMPLOYEE
               </label>
@@ -318,6 +335,7 @@ const OpenModal = ({ isOpenModal, setIsOpenModal, userId, userName }) => {
                   type="checkbox"
                   value="DELIVER"
                   onChange={handleCheckboxChange}
+                  checked={userRoles.some((role) => role === "DELIVER")}
                 />
                 DELIVER
               </label>
@@ -326,6 +344,7 @@ const OpenModal = ({ isOpenModal, setIsOpenModal, userId, userName }) => {
                   type="checkbox"
                   value="USER"
                   onChange={handleCheckboxChange}
+                  checked={userRoles.some((role) => role === "USER")}
                 />
                 USER
               </label>
@@ -359,11 +378,22 @@ const AddEmployee = ({ isOpenModal, setIsOpenModal }) => {
     e.stopPropagation(); // Ngừng sự kiện lan truyền, không tắt modal
   };
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
+    console.log("userInfo", userInfo);
     try {
-      await addEmployee(userInfo); // Gọi API với userId và selectedRoles
-      toast.success("Thêm nhân viên mới thành công!");
-      setIsOpenModal(false);
+      if (
+        userInfo.username !== "" &&
+        userInfo.email !== "" &&
+        userInfo.password !== "" &&
+        userInfo.fullName !== ""
+      ) {
+        await addEmployee(userInfo); // Gọi API với userId và selectedRoles
+        toast.success("Thêm nhân viên mới thành công!");
+        setIsOpenModal(false);
+      } else {
+        toast.error("Vui lòng điền đủ thông tin");
+      }
     } catch (error) {
       console.error("Thêm nhân viên mới thất bại:", error);
       toast.error(error.response.data);
@@ -436,6 +466,7 @@ const AddEmployee = ({ isOpenModal, setIsOpenModal }) => {
                     placeholder="Email"
                     onChange={handleInputChange}
                     className="form-control"
+                    required
                   />
                   <label htmlFor="email">Email</label>
                 </div>
@@ -464,6 +495,7 @@ const AddEmployee = ({ isOpenModal, setIsOpenModal }) => {
               </div>
             </form>
           </div>
+          <ToastContainer />
         </Fragment>
       )}
     </>
@@ -475,6 +507,7 @@ OpenModal.propTypes = {
   setIsOpenModal: PropTypes.func,
   userId: PropTypes.number,
   userName: PropTypes.string,
+  userRoles: PropTypes.array,
 };
 
 AddEmployee.propTypes = {

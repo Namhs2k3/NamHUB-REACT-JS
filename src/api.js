@@ -381,9 +381,19 @@ export const getCustomerOrderItems = async (id) => {
 };
 
 //Order Management
-export const getOrderList = async (status) => {
+export const getOrderList = async (status, startDate,
+        endDate,
+        deliver,
+        name) => {
+          const params = new URLSearchParams();
+
+  if (name) params.append("userName", name);
+  if (status) params.append("status", status);
+  if (startDate) params.append("startDate", startDate);
+  if (endDate) params.append("endDate", endDate);
+  if (deliver) params.append("deliverName", deliver);
   
-  const response = await apiClient.get(`/api/orders-manage-for-admin/get-orders-list${status?`?status=${status}`:""}`);
+  const response = await apiClient.get(`/api/orders-manage-for-admin/get-orders-list?${params.toString()}`);
   return response.data;
 };
 
@@ -531,5 +541,18 @@ export const deleteReview = (commentId) => {
 export const checkout = async (data) => {
   
   const response = await apiClient.post(`/api/Payment/checkout`, data);
+  return response.data;
+};
+
+//CustomerOrder
+export const getOrdersForCus = async () => {
+  
+  const response = await apiClient.get(`/api/Customer/get-customer-orders`);
+  return response.data;
+};
+
+export const getOrderItemsForCus = async (id) => {
+  
+  const response = await apiClient.get(`/api/Customer/get-customer-orders-items/${id}`);
   return response.data;
 };

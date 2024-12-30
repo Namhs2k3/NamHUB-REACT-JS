@@ -9,6 +9,17 @@
     color: #333;
 }
 
+.big-div-admin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    padding: 3%;
+    background-color: #F3F4F7;
+    color: #333;
+}
+
 .not-found {
     text-align: center;
 }

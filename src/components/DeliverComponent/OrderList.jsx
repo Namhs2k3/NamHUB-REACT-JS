@@ -13,7 +13,7 @@ import Loading from "../Loading/Loading";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-import { faTruckFast } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faTruckFast } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 
 const OrderList = () => {
@@ -145,7 +145,7 @@ const OrderList = () => {
                     to={`/deliver/order-details/${order.orderId}`}
                     className={clsx(styles.actionButton, styles.detailsButton)}
                   >
-                    Chi Tiết
+                    <FontAwesomeIcon icon={faCircleInfo} /> Chi Tiết
                   </Link>
                 </div>
               </div>
@@ -184,18 +184,22 @@ const OrderList = () => {
                       <button
                         className={clsx(
                           styles.actionButton,
-                          styles.successButton
+                          { [styles.successButton]: order.isByThisUser },
+                          { [styles.disabledButton]: !order.isByThisUser }
                         )}
                         onClick={() => handleDeliverySuccess(order.orderId)}
+                        disabled={!order.isByThisUser}
                       >
                         Giao Thành Công
                       </button>
                       <button
                         className={clsx(
                           styles.actionButton,
-                          styles.failureButton
+                          { [styles.failureButton]: order.isByThisUser },
+                          { [styles.disabledButton]: !order.isByThisUser }
                         )}
                         onClick={() => handleDeliveryFailure(order.orderId)}
+                        disabled={!order.isByThisUser}
                       >
                         Giao Thất Bại
                       </button>
