@@ -26,6 +26,7 @@
 
 .logo {
     margin: 0;
+    cursor: pointer;
 }
 
 .searchBar {

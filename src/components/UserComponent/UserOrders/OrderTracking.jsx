@@ -80,7 +80,7 @@ const OrderTracking = () => {
                   : status === "Preparing"
                     ? "Đang Chuẩn Bị Món"
                     : status === "On Delivery"
-                      ? "Chờ Giao Hàng"
+                      ? "Đang Giao Hàng"
                       : status === "Completed"
                         ? "Hoàn Thành"
                         : status === "Failed"
@@ -122,12 +122,14 @@ const OrderTracking = () => {
                     : order.status === "Preparing"
                       ? "Đang Chuẩn Bị Món"
                       : order.status === "On Delivery"
-                        ? "Chờ Giao Hàng"
+                        ? "Đang Giao Hàng"
                         : order.status === "Completed"
                           ? "Hoàn Thành"
                           : order.status === "Failed"
                             ? "Đã Hủy"
-                            : "Đã Hoàn Tiền"}
+                            : order.status === "Ready"
+                              ? "Chờ Giao Hàng"
+                              : "Đã Hoàn Tiền"}
                 </span>
               </p>
               <p className={styles.orderPayMethod}>

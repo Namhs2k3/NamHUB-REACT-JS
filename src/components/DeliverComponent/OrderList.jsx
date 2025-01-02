@@ -15,13 +15,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCircleInfo, faTruckFast } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [isPermitted, setPermitted] = useState(true);
-  const [updateTrigger, setUpdateTrigger] = useState(false);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -44,14 +44,41 @@ const OrderList = () => {
     };
 
     fetchProductDetails();
-  }, [navigate, updateTrigger]);
+    // Kết nối SignalR
+    const connection = new HubConnectionBuilder()
+      .withUrl(`${import.meta.env.VITE_BACKEND_URL}/orderHub`) // Đảm bảo URL đúng với backend
+      .withAutomaticReconnect()
+      .build();
+
+    connection
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+        // Lắng nghe sự kiện 'OrderUpdated'
+        connection.on("OrderUpdated", (orderId, status) => {
+          if (status) {
+            toast(
+              `Đơn hàng #${orderId} đã được cập nhật trạng thái: ${status}`
+            );
+          } else {
+            toast(`Đơn hàng #${orderId} đã được cập nhật trạng thái`);
+          }
+          fetchProductDetails(); // Cập nhật danh sách đơn hàng
+        });
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
+
+    // Cleanup khi component unmount
+    return () => {
+      connection.stop();
+    };
+  }, [navigate]);
 
   const handleAcceptOrder = async (orderId) => {
     try {
       setIsLoading(true);
       await addNewState(orderId, "On Delivery");
       toast.info(`Đã nhận đơn hàng: #${orderId}`);
-      setUpdateTrigger((prev) => !prev); // Kích hoạt cập nhật
     } catch (err) {
       console.error("Lỗi khi lấy dữ liệu: ", err);
       if (err.status === 401) {
@@ -71,7 +98,6 @@ const OrderList = () => {
       setIsLoading(true);
       await orderCompleted(orderId);
       toast.success(`Giao thành công đơn hàng: #${orderId}`);
-      setUpdateTrigger((prev) => !prev); // Kích hoạt cập nhật
     } catch (err) {
       console.error("Lỗi khi lấy dữ liệu: ", err);
       if (err.status === 401) {
@@ -91,7 +117,6 @@ const OrderList = () => {
       setIsLoading(true);
       await addNewState(orderId, "Failed");
       toast.warning(`Đơn hàng #${orderId} giao thất bại!`);
-      setUpdateTrigger((prev) => !prev); // Kích hoạt cập nhật
     } catch (err) {
       console.error("Lỗi khi lấy dữ liệu: ", err);
       if (err.status === 401) {

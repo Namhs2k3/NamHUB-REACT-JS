@@ -68,6 +68,7 @@ const Checkout = () => {
     });
   };
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setDisabled] = useState(false);
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [discountCodes, setDiscountCodes] = useState([]);
@@ -166,7 +167,7 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setDisabled(true);
     // Kiểm tra số điện thoại hợp lệ
     const isValidPhone = /^\d{10,15}$/.test(userInfo.phone);
     if (!isValidPhone) {
@@ -370,7 +371,11 @@ const Checkout = () => {
           </div>
         </div>
 
-        <button type="submit" className={styles.submitButton}>
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={isDisabled}
+        >
           Đặt Hàng
         </button>
       </form>

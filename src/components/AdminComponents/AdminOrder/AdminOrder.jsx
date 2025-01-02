@@ -23,6 +23,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft, faX } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import { Unauthorized } from "../../Unauthorized/Unauth";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const AdminOrder = () => {
   const { isSidebarCollapsed, toggleSidebar } =
@@ -75,12 +76,30 @@ const AdminOrder = () => {
   }, [navigate, status, startDate, endDate, deliver, name]);
 
   useEffect(() => {
-    setIsLoading(true);
-    const timeoutId = setTimeout(() => {
-      fetchProdListByName();
-    }, 1000);
+    fetchProdListByName();
 
-    return () => clearTimeout(timeoutId); // Xóa timeout khi component unmount hoặc dependency thay đổi
+    // Kết nối SignalR
+    const connection = new HubConnectionBuilder()
+      .withUrl(`${import.meta.env.VITE_BACKEND_URL}/orderHub`) // Đảm bảo URL đúng với backend
+      .withAutomaticReconnect()
+      .build();
+
+    connection
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+        // Lắng nghe sự kiện 'OrderUpdated'
+        connection.on("OrderSuccess", (orderId) => {
+          toast(`Đơn hàng #${orderId} mới`);
+          fetchProdListByName(); // Cập nhật danh sách đơn hàng
+        });
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
+
+    // Cleanup khi component unmount
+    return () => {
+      connection.stop();
+    };
   }, [fetchProdListByName, isOpenModal]);
 
   const handleRefund = async (orderId) => {

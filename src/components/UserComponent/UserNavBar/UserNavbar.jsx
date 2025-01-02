@@ -33,6 +33,7 @@ const UserNavbar = () => {
   const { addNew } = useContext(AddToCartContext);
   const date = new Date();
   const beUrl = import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     userName: "",
     userImage: "",
@@ -243,7 +244,12 @@ const UserNavbar = () => {
         <nav className={styles.navbar}>
           {/* Logo */}
           <div className={clsx(styles.navbar, "container")}>
-            <div className={styles.logo}>
+            <div
+              className={styles.logo}
+              onClick={() => {
+                navigate("/home");
+              }}
+            >
               <Logo></Logo>
             </div>
 
