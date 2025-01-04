@@ -1,6 +1,6 @@
 .main-nav {
   padding: 10px;
-  width: 80vw !important;
+  min-width: 80vw !important;
   border-bottom: 1px solid #292E37;
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@
 
 .main-nav-light {
   padding: 10px;
-  width: 80vw !important;
+  min-width: 80vw !important;
   border-bottom: 1px solid #fff;
   display: flex;
   align-items: center;
@@ -30,7 +30,7 @@
 
 .main-nav-collapsed {
   padding: 10px;
-  width: 94vw !important;
+  min-width: 95vw !important;
   border-bottom: 1px solid #292E37;
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@
 
 .main-nav-collapsed-light {
   padding: 10px;
-  width: 94vw !important;
+  min-width: 95vw !important;
   border-bottom: 1px solid #fff;
   display: flex;
   align-items: center;

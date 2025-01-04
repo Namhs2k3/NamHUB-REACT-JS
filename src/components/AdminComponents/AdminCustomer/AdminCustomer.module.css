@@ -9,14 +9,16 @@
 .main-light {
     padding: 20px;
     background-color: #F3F4F7;
-    min-height: 92vh;
+    height: 91.5vh;
+    overflow-y: hidden;
     transition: all 0.3s ease-in-out;
 }
 
 .main-dark {
     padding: 20px;
     background-color: #292E37;
-    min-height: 92vh;
+    height: 91.5vh;
+    overflow-y: hidden;
     color: aliceblue;
     transition: all 0.3s ease-in-out;
 }
