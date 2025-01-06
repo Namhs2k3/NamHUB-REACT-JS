@@ -59,10 +59,8 @@
     max-height: 510px;
     overflow-y: auto;
     overflow-x: auto;
-    border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .custom-table {
@@ -107,7 +105,7 @@
 .custom-thead tr th {
     background-color: #fff;
     /* Màu header */
-    color: #D53044;
+    color: #000;
     position: sticky;
     top: 0;
     z-index: 1;
@@ -139,7 +137,7 @@ td,
 th {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #f0f0f0 !important;
 }
 
 th {

@@ -91,7 +91,7 @@ const AdminCustomer = () => {
                 <table
                   className={clsx(
                     styles["custom-table"],
-                    "table table-striped table-hover table-responsive"
+                    "table  table-hover table-responsive"
                   )}
                 >
                   <thead className={clsx(styles["custom-thead"])}>
@@ -407,7 +407,7 @@ export const AdminCustomerOrders = () => {
                 <table
                   className={clsx(
                     styles["custom-table"],
-                    "table table-striped table-hover table-responsive"
+                    "table  table-hover table-responsive"
                   )}
                 >
                   <thead className={clsx(styles["custom-thead"])}>
@@ -671,7 +671,7 @@ export const AdminCustomerOrderItems = () => {
                 <table
                   className={clsx(
                     styles["custom-table"],
-                    "table table-striped table-hover table-responsive"
+                    "table  table-hover table-responsive"
                   )}
                 >
                   <thead className={clsx(styles["custom-thead"])}>

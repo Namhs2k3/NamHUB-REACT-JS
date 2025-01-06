@@ -460,7 +460,7 @@ const AdminOrder = () => {
                 <table
                   className={clsx(
                     styles["custom-table"],
-                    "table table-striped table-hover table-responsive"
+                    "table  table-hover table-responsive"
                   )}
                 >
                   <tbody>
@@ -796,7 +796,7 @@ const OpenModal = ({ isOpenModal, setIsOpenModal, orderId }) => {
             <div className="py-3">
               {orderHistoryStatus.length > 0 ? (
                 <div className={clsx(styles["div-table-modal"])}>
-                  <table className="table table-striped">
+                  <table className="table ">
                     <thead className={clsx(styles["custom-thead"])}>
                       <tr>
                         <th>#</th>
@@ -915,7 +915,7 @@ export const AdminViewOrderItems = () => {
                 <table
                   className={clsx(
                     styles["custom-table"],
-                    "table table-striped table-hover table-responsive"
+                    "table  table-hover table-responsive"
                   )}
                 >
                   <thead className={clsx(styles["custom-thead"])}>

@@ -107,10 +107,7 @@ const AdminUser = () => {
               </div>
               <div className={clsx(styles["div-table"])}>
                 <table
-                  className={clsx(
-                    styles["custom-table"],
-                    "table table-striped table-hover"
-                  )}
+                  className={clsx(styles["custom-table"], "table  table-hover")}
                 >
                   <thead className={clsx(styles["custom-thead"])}>
                     <tr>
