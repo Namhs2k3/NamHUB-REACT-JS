@@ -425,9 +425,9 @@ export const orderCompleted = async (id) => {
 };
 
 //API for customer
-export const getCategoryListForCus = async () => {
+export const getCategoryListForCus = async (id) => {
   
-  const response = await apiClient.get(`/api/Customer/get-categories-list`);
+  const response = await apiClient.get(`/api/Customer/get-categories-list${id?`?categoryId=${id}`:""}`);
   return response.data;
 };
 

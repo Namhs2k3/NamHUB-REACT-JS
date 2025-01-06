@@ -6,6 +6,7 @@ import {
   getCategoryListForCus,
   getFoodListForCus,
 } from "../../../../api";
+import { useNavigate, useParams } from "react-router-dom";
 import { generateSlug } from "../../../../generateSlug";
 import { formatCurrency } from "../../../../formatCurrency";
 import ReactStars from "react-stars";
@@ -20,7 +21,8 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Products = () => {
+const ProductsByCategory = () => {
+  const { cateId, slug } = useParams();
   const [results, setResults] = useState([]);
   const [products, setProducts] = useState([]);
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
@@ -28,16 +30,25 @@ const Products = () => {
   const [page, setPage] = useState(1);
   const pageSize = 12;
   const [totalPages, setTotalPages] = useState(1);
+  const [cateById, setCateById] = useState({});
+  const navigate = useNavigate();
 
   const fetchResult = useCallback(async () => {
     try {
       const data = await getCategoryListForCus();
+      const cateById = await getCategoryListForCus(cateId);
       setResults(data.$values || []);
+      setCateById(cateById.$values[0]);
+      // Kiểm tra nếu slug không khớp với cateById.categoryName
+      if (slug !== generateSlug(cateById.$values[0].categoryName)) {
+        navigate("/not-found");
+      }
       console.log("Categories result: ", data);
+      console.log("Categories by Id result: ", cateById.$values[0]);
     } catch (error) {
       console.error("Có lỗi xảy ra: ", error);
     }
-  }, []);
+  }, [cateId, slug, navigate]);
 
   useEffect(() => {
     fetchResult();
@@ -46,7 +57,13 @@ const Products = () => {
   useEffect(() => {
     const fetchProductsResult = async () => {
       try {
-        const data = await getFoodListForCus(null, null, null, page, pageSize);
+        const data = await getFoodListForCus(
+          null,
+          cateId,
+          null,
+          page,
+          pageSize
+        );
         setProducts(data.items.$values || []);
         setTotalPages(data.totalPages);
         console.log("products result: ", data);
@@ -55,7 +72,7 @@ const Products = () => {
       }
     };
     fetchProductsResult();
-  }, [page, pageSize]);
+  }, [page, pageSize, cateId]);
 
   const handleAddToCart = async (id) => {
     try {
@@ -115,7 +132,11 @@ const Products = () => {
         {/* Product List */}
         <div className="col-md-10">
           <div>
-            <h3 className="fw-bold mb-5">Sản Phẩm</h3>
+            <h3 className="fw-bold">Sản Phẩm</h3>
+            <h6 className="mb-5 ms-3">
+              Lọc Theo:{" "}
+              <span className=" text-danger">{cateById.categoryName}</span>
+            </h6>
           </div>
           <div className="row g-4">
             {products.map((product) => (
@@ -124,7 +145,7 @@ const Products = () => {
                   href={`/products/product-detail/${product.productId}/${generateSlug(product.productName)}`}
                   className="text-decoration-none text-black col-md-3"
                   onClick={() => {
-                    saveProductToLocalStorage(product.productId);
+                    saveProductToLocalStorage(product.productId); // Gọi hàm thay vì gán giá trị
                   }}
                 >
                   <div className={styles.productCard}>
@@ -256,4 +277,4 @@ const renderPaginationButtons = (page, totalPages, setPage) => {
   return buttons;
 };
 
-export default Products;
+export default ProductsByCategory;

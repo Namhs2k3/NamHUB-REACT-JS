@@ -320,14 +320,14 @@ const UserNavbar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="#" className={styles.menuLink}>
-                  Liên hệ
-                </Link>
+                <a href="/home#discountedFood" className={styles.menuLink}>
+                  Món khuyến mãi
+                </a>
               </li>
               <li>
-                <Link href="#" className={styles.menuLink}>
-                  Món khuyến mãi
-                </Link>
+                <a href="/home#popularFood" className={styles.menuLink}>
+                  Bán chạy
+                </a>
               </li>
             </ul>
             <div className={clsx(styles.menuLink, styles.recent)}>

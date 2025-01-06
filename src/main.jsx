@@ -64,6 +64,8 @@ import EmailFailure from "./components/ConfirmEmail/VerifyFailure/EmailFailure";
 import OrderSuccess from "./components/UserComponent/Checkout/OrderSuccess/OrderSuccess";
 import OrderFailure from "./components/UserComponent/Checkout/OrderFailure/OrderFailure";
 import OrderTracking from "./components/UserComponent/UserOrders/OrderTracking";
+import Products from "./components/UserComponent/UserProducts/Products/Products";
+import ProductsByCategory from "./components/UserComponent/UserProducts/ProductByCategory/ProductsByCategory";
 
 export const UserRouters = () => {
   return (
@@ -86,7 +88,11 @@ export const UserRouters = () => {
               <Route path="/order-success" element={<OrderSuccess />} />
               <Route path="/order-failure" element={<OrderFailure />} />
               <Route path="/my-orders" element={<OrderTracking />} />
-              <Route path="/products" element={<ConfirmEmail />} />
+              <Route path="/products" element={<Products />} />
+              <Route
+                path="/products/product-by-category/:cateId/:slug"
+                element={<ProductsByCategory />}
+              />
               <Route
                 path="/checkout"
                 element={

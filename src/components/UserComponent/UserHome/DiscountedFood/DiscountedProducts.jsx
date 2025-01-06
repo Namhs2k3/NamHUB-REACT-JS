@@ -52,7 +52,7 @@ const DiscountedProducts = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="discountedFood">
       <div className={styles.header}>
         <h2>Sản Phẩm Khuyến Mãi</h2>
       </div>

@@ -52,7 +52,7 @@ const PopularFood = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="popularFood">
       <div className={styles.header}>
         <h2>Sản Phẩm Bán Chạy</h2>
       </div>
