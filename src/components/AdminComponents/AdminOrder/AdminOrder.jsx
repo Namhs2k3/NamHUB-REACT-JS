@@ -93,6 +93,12 @@ const AdminOrder = () => {
           toast(`Đơn hàng #${orderId} mới`);
           fetchProdListByName(); // Cập nhật danh sách đơn hàng
         });
+        connection.on("OrderUpdated", (orderId, status) => {
+          toast(
+            `Đơn hàng #${orderId} đã được cập nhật thành ${status ?? "Completed"}`
+          );
+          fetchProdListByName(); // Cập nhật danh sách đơn hàng
+        });
       })
       .catch((err) => console.error("SignalR connection error:", err));
 
