@@ -40,6 +40,13 @@ const Register = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
+      // Kiểm tra nếu username có chứa dấu hoặc khoảng trống
+      const usernamePattern = /^[A-Za-z0-9]*$/; // Không có dấu và không có khoảng trắng
+      if (!usernamePattern.test(userData.username)) {
+        toast.error("Tên người dùng không được chứa dấu hoặc khoảng trống.");
+        setIsLoading(false); // Dừng loading nếu có lỗi
+        return;
+      }
       if (userData.password !== confirmPassword) {
         toast.error("Mật khẩu xác nhận không khớp.");
         return;
@@ -120,7 +127,7 @@ const Register = () => {
           id="floatingUN"
           placeholder="User Name"
           name="username"
-          value={userData.username}
+          value={userData.username.replace(" ", "")}
           onChange={handleInputChange}
         />
 
