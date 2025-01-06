@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import styles from "./UserNavBar.module.css";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCategoryListForCus } from "../../../api";
 import { generateSlug } from "../../../generateSlug";
@@ -50,12 +49,12 @@ const AllCategory = ({ isOpenCategory }) => {
                       className={clsx(styles.imageCategory)}
                     />
                     <div className={clsx(styles.itemDetails)}>
-                      <Link
-                        to={`/products/product-by-category/${item.categoryID}/${generateSlug(item.categoryName)}`}
+                      <a
+                        href={`/products/product-by-category/${item.categoryID}/${generateSlug(item.categoryName)}`}
                         className={clsx(styles.name)}
                       >
                         {item.categoryName}
-                      </Link>
+                      </a>
                     </div>
                   </li>
                 ))}

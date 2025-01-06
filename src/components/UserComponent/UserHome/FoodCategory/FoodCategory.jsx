@@ -2,7 +2,6 @@ import { useState } from "react";
 import styles from "./FoodCategory.module.css";
 import { useEffect } from "react";
 import { getCategoryListForCus } from "../../../../api";
-import { Link } from "react-router-dom";
 import { generateSlug } from "../../../../generateSlug";
 
 const FoodCategory = () => {
@@ -26,15 +25,15 @@ const FoodCategory = () => {
       <h2 className={styles.title}>
         DANH MỤC SẢN PHẨM{" "}
         <span>
-          <Link to={`/products`} className={styles.allProducts}>
+          <a href={`/products`} className={styles.allProducts}>
             Tất cả sản phẩm
-          </Link>
+          </a>
         </span>
       </h2>
       <div className={styles.grid}>
         {categories.map((category) => (
-          <Link
-            to={`/products/product-by-category/${category.categoryID}/${generateSlug(category.categoryName)}`}
+          <a
+            href={`/products/product-by-category/${category.categoryID}/${generateSlug(category.categoryName)}`}
             key={category.categoryID}
             className={styles.categoryCard}
           >
@@ -44,7 +43,7 @@ const FoodCategory = () => {
               className={styles.categoryImage}
             />
             <p className={styles.categoryName}>{category.categoryName}</p>
-          </Link>
+          </a>
         ))}
       </div>
     </div>

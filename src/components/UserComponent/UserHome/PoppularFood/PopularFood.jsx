@@ -11,7 +11,6 @@ import { addToCart, getPopularProductsForCus } from "../../../../api";
 import { formatCurrency } from "../../../../formatCurrency";
 import ReactStars from "react-stars";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
 import AddShoppingCartSharpIcon from "@mui/icons-material/AddShoppingCartSharp";
 import CropFreeOutlinedIcon from "@mui/icons-material/CropFreeOutlined";
 import { generateSlug } from "../../../../generateSlug";
@@ -80,8 +79,8 @@ const PopularFood = () => {
       >
         {products.map((product) => (
           <SwiperSlide key={product.productId} className={styles.slide}>
-            <Link
-              to={`/products/product-detail/${product.productId}/${generateSlug(product.productName)}`}
+            <a
+              href={`/products/product-detail/${product.productId}/${generateSlug(product.productName)}`}
               className="text-decoration-none text-black"
               onClick={() => {
                 saveProductToLocalStorage(product.productId); // Gọi hàm thay vì gán giá trị
@@ -116,16 +115,16 @@ const PopularFood = () => {
                     >
                       <AddShoppingCartSharpIcon />
                     </button>
-                    <Link
+                    <a
                       title="Chi tiết sản phẩm"
-                      to={`/products/product-detail/${product.productId}/${generateSlug(product.productName)}`}
+                      href={`/products/product-detail/${product.productId}/${generateSlug(product.productName)}`}
                       className={clsx(styles["link-popup"])}
                       onClick={() => {
                         saveProductToLocalStorage(product.productId); // Gọi hàm thay vì gán giá trị
                       }}
                     >
                       <CropFreeOutlinedIcon />
-                    </Link>
+                    </a>
                   </div>
                 </div>
                 <h3 className={styles.productName}>{product.productName}</h3>
@@ -152,7 +151,7 @@ const PopularFood = () => {
                   </span>
                 </div>
               </div>
-            </Link>
+            </a>
           </SwiperSlide>
         ))}
       </Swiper>
