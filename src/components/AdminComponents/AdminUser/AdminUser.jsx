@@ -314,7 +314,7 @@ const OpenModal = ({
                   type="checkbox"
                   value="ADMIN"
                   onChange={handleCheckboxChange}
-                  checked={userRoles.some((role) => role === "ADMIN")}
+                  checked={selectedRoles.some((role) => role === "ADMIN")}
                 />
                 ADMIN
               </label>
@@ -323,7 +323,7 @@ const OpenModal = ({
                   type="checkbox"
                   value="EMPLOYEE"
                   onChange={handleCheckboxChange}
-                  checked={userRoles.some((role) => role === "EMPLOYEE")}
+                  checked={selectedRoles.some((role) => role === "EMPLOYEE")}
                 />
                 EMPLOYEE
               </label>
@@ -332,7 +332,7 @@ const OpenModal = ({
                   type="checkbox"
                   value="DELIVER"
                   onChange={handleCheckboxChange}
-                  checked={userRoles.some((role) => role === "DELIVER")}
+                  checked={selectedRoles.some((role) => role === "DELIVER")}
                 />
                 DELIVER
               </label>
@@ -341,7 +341,7 @@ const OpenModal = ({
                   type="checkbox"
                   value="USER"
                   onChange={handleCheckboxChange}
-                  checked={userRoles.some((role) => role === "USER")}
+                  checked={selectedRoles.some((role) => role === "USER")}
                 />
                 USER
               </label>
