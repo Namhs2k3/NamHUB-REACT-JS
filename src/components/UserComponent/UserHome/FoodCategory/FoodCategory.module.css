@@ -84,3 +84,11 @@
 .categoryCard:hover .categoryName {
     color: #2ecc71;
 }
+
+@media (max-width: 1024px) {
+    .title {
+        font-size: 22px;
+        display: flex;
+        flex-direction: column;
+    }
+}

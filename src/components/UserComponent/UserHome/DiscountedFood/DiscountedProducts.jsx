@@ -58,17 +58,15 @@ const DiscountedProducts = () => {
 
       <Swiper
         modules={[Navigation]}
-        spaceBetween={0}
-        slidesPerView={5}
         navigation
         breakpoints={{
           640: {
-            slidesPerView: 2, // Hiển thị 2 slide khi màn hình ≥ 640px
-            spaceBetween: 20,
+            slidesPerView: 1, // Hiển thị 2 slide khi màn hình ≥ 640px
+            spaceBetween: 0,
           },
           768: {
             slidesPerView: 3, // Hiển thị 3 slide khi màn hình ≥ 768px
-            spaceBetween: 30,
+            spaceBetween: 0,
           },
           1024: {
             slidesPerView: 5, // Hiển thị 4 slide khi màn hình ≥ 1024px

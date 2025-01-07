@@ -294,6 +294,33 @@ const UserNavbar = () => {
                 <span className={styles.badge}>{cartCount}</span>
               </div>
             </div>
+            <div className={styles.smallScreen}>
+              <div className="d-flex align-items-end">
+                <Link to="/" className="text-decoration-none text-black">
+                  Trang Chủ
+                </Link>
+              </div>
+              <div className="d-flex align-items-end">
+                <Link
+                  to="/products"
+                  className="text-decoration-none text-black"
+                >
+                  Sản Phẩm
+                </Link>
+              </div>
+              <div
+                className={styles.icons2}
+                onClick={handleOpenCart}
+                onBlur={handleCartBlur}
+                tabIndex={0} // Cho phép <div> nhận focus và kích hoạt onBlur
+              >
+                <span>Giỏ Hàng</span>
+                <div className={styles.icon}>
+                  <ShoppingCartOutlinedIcon />
+                  <span className={styles.badge}>{cartCount}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </nav>
 
