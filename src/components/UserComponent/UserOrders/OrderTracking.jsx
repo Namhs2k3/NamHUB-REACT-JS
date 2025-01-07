@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const OrderTracking = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -141,14 +142,22 @@ const OrderTracking = () => {
               <p className={styles.orderTotal}>
                 Tổng cộng: {order.totalAmount.toLocaleString("vi-VN")}₫
               </p>
-              {order.status === "Pending" && (
-                <button
-                  className={styles.cancelButton}
-                  onClick={() => handleCancelOrder(order.orderId)}
+              <div className="d-flex justify-content-start align-items-center gap-2 w-25">
+                <Link
+                  to={`/my-orders/order-details/${order.orderId}`}
+                  className={styles.detailLink}
                 >
-                  Hủy Đơn Hàng
-                </button>
-              )}
+                  Chi Tiết
+                </Link>
+                {order.status === "Pending" && (
+                  <button
+                    className={styles.cancelButton}
+                    onClick={() => handleCancelOrder(order.orderId)}
+                  >
+                    Hủy Đơn Hàng
+                  </button>
+                )}
+              </div>
             </div>
           ))
         ) : (

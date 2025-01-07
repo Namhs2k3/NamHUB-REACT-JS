@@ -172,8 +172,26 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+.detailLink {
+    background-color: #fc4c00;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
 .cancelButton:hover {
     background-color: #d32f2f;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.detailLink:hover {
+    background-color: #e03e00;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
