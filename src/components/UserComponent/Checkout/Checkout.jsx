@@ -16,6 +16,7 @@ import Loading from "../../Loading/Loading";
 import { AddUserAddress, EditUserAddresses } from "../../Profile/Profile";
 import OrderSummary from "./OrderSummary/OrderSummary";
 import DiscountSelector from "./DiscountSelector/DiscountSelecrtor";
+import { Helmet } from "react-helmet";
 
 const Checkout = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -237,6 +238,14 @@ const Checkout = () => {
 
   return (
     <div className={styles.checkoutContainer}>
+      <Helmet>
+        <title>Đặt Hàng & Thanh Toán</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <h2 className={styles.title}>THANH TOÁN</h2>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.section}>

@@ -9,6 +9,7 @@ import { AddToCartContext } from "../../../../contexts/AddToCartContext";
 import ProductReview from "./ProductReview";
 import { generateSlug } from "../../../../generateSlug";
 import RelatedProduct from "./RelatedProduct";
+import { Helmet } from "react-helmet";
 
 const ProductDetail = () => {
   const { id, slug } = useParams();
@@ -95,6 +96,14 @@ const ProductDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Chi Tiết Sản Phẩm</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <div className={styles.productDetail}>
         {/* Image Section */}
         <div className={styles.imageSection}>

@@ -8,6 +8,7 @@ import styles from "./RSPwd.module.css";
 import Loading from "../Loading/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import { Helmet } from "react-helmet";
 
 const RSPwd = () => {
   const [userData, setUserData] = useState({
@@ -54,6 +55,14 @@ const RSPwd = () => {
 
   return (
     <div className={clsx(styles["dmain"])}>
+      <Helmet>
+        <title>Thay Đổi Mật Khẩu</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <div className={clsx(styles["dsubMain"])}>
         <div className={clsx(styles["div-header"])}>Thay Đổi Mật Khẩu</div>
         <form onSubmit={handleSubmit} className={clsx(styles["fmain"])}>

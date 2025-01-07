@@ -8,6 +8,7 @@ import { register } from "../../api";
 import Loading from "../Loading/Loading";
 import styles from "./Register.module.css";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -89,6 +90,14 @@ const Register = () => {
   };
   return (
     <div className={clsx(styles["main-register"])}>
+      <Helmet>
+        <title>Đăng Ký Tài Khoản</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <form className={clsx(styles.register)} onSubmit={handleSubmit}>
         <div className={clsx(styles["div-logo"])}>
           <p className={clsx(styles["register-welcome"])}>

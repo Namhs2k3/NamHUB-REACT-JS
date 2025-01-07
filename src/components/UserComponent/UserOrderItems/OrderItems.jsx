@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getOrderItemsForCus } from "../../../api";
 import { useParams } from "react-router-dom";
 import { formatCurrency } from "../../../formatCurrency";
+import { Helmet } from "react-helmet";
 
 const OrderItems = () => {
   const { id } = useParams();
@@ -31,6 +32,14 @@ const OrderItems = () => {
 
   return (
     <div className={clsx(styles["order-detail-container"])}>
+      <Helmet>
+        <title>Chi Tiết Đơn Hàng</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <h1 className={clsx(styles["order-title"])}>CHI TIẾT ĐƠN HÀNG</h1>
 
       <div className={clsx(styles["section"], styles["recipient-info"])}>

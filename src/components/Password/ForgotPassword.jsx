@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import clsx from "clsx";
 import styles from "./FGPwd.module.css";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -35,6 +36,14 @@ const Register = () => {
 
   return (
     <div className={clsx(styles["dmain"])}>
+      <Helmet>
+        <title>Quên Mật Khẩu</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <form onSubmit={handleSubmit} className={clsx(styles["fmain"])}>
         <div className={clsx(styles["div-header"])}>quên mật khẩu</div>
         <input

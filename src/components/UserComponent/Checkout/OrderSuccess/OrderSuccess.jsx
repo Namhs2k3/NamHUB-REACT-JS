@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import styles from "./OrderSuccess.module.css";
+import { Helmet } from "react-helmet";
 
 const OrderSuccess = () => {
   const location = useLocation();
@@ -8,6 +9,14 @@ const OrderSuccess = () => {
 
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>Đặt Hàng Thành Công</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <div className={styles.card}>
         <div className={styles.icon}>
           <span>&#10003;</span>

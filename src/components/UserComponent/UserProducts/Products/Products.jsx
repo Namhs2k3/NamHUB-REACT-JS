@@ -19,6 +19,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { Helmet } from "react-helmet";
 
 const Products = () => {
   const [results, setResults] = useState([]);
@@ -75,6 +76,14 @@ const Products = () => {
 
   return (
     <div className={clsx(styles["products"])}>
+      <Helmet>
+        <title>Trang Sản Phẩm</title>
+        <meta name="description" content="sản phẩm" />
+        <meta name="keywords" content="sản phẩm" />
+        <meta property="og:title" content="Trang sản phẩm" />
+        <meta property="og:description" content="sản phẩm" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <div className="row">
         {/* Categories Sidebar */}
         <div className="col-md-2 border-end">

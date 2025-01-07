@@ -7,6 +7,7 @@ import styles from "./Login.module.css";
 import { login } from "../../api";
 import { toast } from "react-toastify";
 import Loading from "../Loading/Loading";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   // State lưu thông tin đăng nhập và lỗi
@@ -82,6 +83,14 @@ const Login = () => {
 
   return (
     <div className={clsx(styles["main-login"])}>
+      <Helmet>
+        <title>Đăng Nhập</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <form className={clsx(styles.login)} onSubmit={handleSubmit}>
         <div className={clsx(styles["div-logo"])}>
           <p className={clsx(styles["login-welcome"])}>

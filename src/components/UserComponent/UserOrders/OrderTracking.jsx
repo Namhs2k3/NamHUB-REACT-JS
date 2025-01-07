@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const OrderTracking = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -54,6 +55,14 @@ const OrderTracking = () => {
 
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>Theo Dõi Đơn Hàng</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <h1 className={styles.title}>Các Đơn Hàng Của Tôi</h1>
 
       {/* Tabs */}
