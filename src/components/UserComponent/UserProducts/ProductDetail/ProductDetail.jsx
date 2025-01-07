@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { AddToCartContext } from "../../../../contexts/AddToCartContext";
 import ProductReview from "./ProductReview";
 import { generateSlug } from "../../../../generateSlug";
+import RelatedProduct from "./RelatedProduct";
 
 const ProductDetail = () => {
   const { id, slug } = useParams();
@@ -157,6 +158,7 @@ const ProductDetail = () => {
         existingReview={currentUserComment}
         setReload={setReload}
       ></ProductReview>
+      <RelatedProduct categoryId={product.categoryId}></RelatedProduct>
     </>
   );
 };
