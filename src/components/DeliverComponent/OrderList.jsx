@@ -16,6 +16,7 @@ import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCircleInfo, faTruckFast } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { Helmet } from "react-helmet";
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
@@ -135,6 +136,14 @@ const OrderList = () => {
 
   return (
     <div className={clsx(styles.container)}>
+      <Helmet>
+        <title>Danh Sách Đơn Hàng Đang Đợi</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <h1 className={clsx(styles.title)}>Danh Sách Đơn Hàng</h1>
       {isLoading ? (
         <Loading className={clsx(styles["loading"])} />
@@ -271,6 +280,14 @@ export const OrderDetail = () => {
 
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>Chi Tiết Đơn Hàng</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+      </Helmet>
       <h1 className={styles.title}>Chi Tiết Đơn Hàng #{orderId}</h1>
 
       {orderItems.length > 0 ? (
