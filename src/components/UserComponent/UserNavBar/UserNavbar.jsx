@@ -1,6 +1,6 @@
 import { CSSTransition } from "react-transition-group";
 import clsx from "clsx";
-import styles from "./UserNavbar.module.css";
+import styles from "./UserNavBar.module.css";
 import Logo from "../../Logo/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
